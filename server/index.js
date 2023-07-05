@@ -3,9 +3,11 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
