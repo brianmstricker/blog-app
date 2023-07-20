@@ -1,9 +1,10 @@
 import express from "express";
 import "dotenv/config";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
-import cookieParser from "cookie-parser";
+import postRoutes from "./routes/posts.js";
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,7 @@ const connect = async () => {
 };
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/posts", postRoutes);
 app.listen(process.env.PORT, () => {
   connect();
   console.log(`Server running on port ${process.env.PORT}`);

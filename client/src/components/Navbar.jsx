@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { TbMenu2 } from "react-icons/tb";
 
 const links = [
   { name: "Home", path: "/" },
@@ -7,13 +8,11 @@ const links = [
 ];
 const Navbar = () => {
   return (
-    <nav className="w-full p-4 py-6 lg:px-24 flex items-center justify-between">
-      <div>
-        <h1 className="logo text-5xl">
-          <Link to="/">blog</Link>
-        </h1>
-      </div>
-      <div className="flex gap-5 items-center text-lg">
+    <nav className="w-full p-4 py-6 flex items-center justify-between container mx-auto">
+      <h1 className="logo text-4xl md:text-5xl">
+        <Link to="/">blog</Link>
+      </h1>
+      <div className="hidden xs:flex gap-5 items-center md:text-lg">
         <ul className="flex gap-5 items-center">
           {links.map((link) => (
             <Link key={link.name} to={link.path}>
@@ -25,6 +24,7 @@ const Navbar = () => {
           Sign in
         </Link>
       </div>
+      <TbMenu2 className="block xs:hidden text-4xl" />
     </nav>
   );
 };
