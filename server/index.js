@@ -5,10 +5,12 @@ import cookieParser from "cookie-parser";
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
@@ -26,4 +28,7 @@ app.use("/api/posts", postRoutes);
 app.listen(process.env.PORT, () => {
   connect();
   console.log(`Server running on port ${process.env.PORT}`);
+});
+app.use((req, res, next) => {
+  next(new Error("404 Not Found"));
 });

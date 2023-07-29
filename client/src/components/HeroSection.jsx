@@ -9,7 +9,7 @@ const HeroSection = () => {
         <div className="flex flex-col md:flex-row items-center">
           <div className="h-[60%] xs:w-[75%] md:h-full flex flex-col">
             <h1 className="xs:text-4xl text-2xl font-medium">
-              Read a collection of different tech related articles.
+              Check our collection of different tech related articles.
             </h1>
             <p className="mt-8 max-w-[500px]">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum

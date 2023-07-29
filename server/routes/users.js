@@ -14,7 +14,7 @@ router.get("/search/:id", async (req, res, next) => {
     next(error);
   }
 });
-router.get("/search", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const users = await User.find();
     const newUsers = users.map((user) => {
