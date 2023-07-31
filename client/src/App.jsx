@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
+import Post from "./components/Post";
 
 const Root = () => {
   return (
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
+      },
+      {
+        path: "/post/:id",
+        element: <Post />,
       },
     ],
   },

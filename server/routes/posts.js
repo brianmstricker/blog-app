@@ -6,8 +6,21 @@ const router = express.Router();
 
 router.get("/", async (req, res, next) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate("author", "username");
     res.status(200).json(posts.reverse());
+  } catch (error) {
+    res.status(500);
+    next(error);
+  }
+});
+
+router.get("/:id", async (req, res, next) => {
+  try {
+    const post = await Post.findById(req.params.id).populate(
+      "author",
+      "username"
+    );
+    res.status(200).json(post);
   } catch (error) {
     res.status(500);
     next(error);

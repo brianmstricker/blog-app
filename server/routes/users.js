@@ -1,12 +1,16 @@
 import express from "express";
 import User from "../models/User.js";
 import { verifyToken } from "../verifyToken.js";
+import mongoose from "mongoose";
 
 const router = express.Router();
 
 router.get("/search/:id", async (req, res, next) => {
   try {
+    !mongoose.isValidObjectId(req.params.id) &&
+      res.status(404).json("User not found.");
     const user = await User.findById(req.params.id);
+    !user && res.status(404).json("User not found.");
     const { password, __v, createdAt, updatedAt, ...rest } = user._doc;
     res.status(200).json(rest);
   } catch (error) {
@@ -42,7 +46,6 @@ router.put("/update/:id", verifyToken, async (req, res, next) => {
       res.status(401).json("You can only update your account.");
     }
   } catch (error) {
-    res.status(500);
     next(error);
   }
 });

@@ -28,10 +28,15 @@ const HeroSection = () => {
           </div>
         </div>
       </section>
-      <section className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container mx-auto mt-16">
-        <Card />
-      </section>
+      <CardSection />
     </>
+  );
+};
+const CardSection = () => {
+  return (
+    <section className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container mx-auto mt-16">
+      <Card />
+    </section>
   );
 };
 export default HeroSection;

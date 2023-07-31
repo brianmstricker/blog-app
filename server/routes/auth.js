@@ -11,9 +11,13 @@ router.post("/register", async (req, res, next) => {
     if (!name || !username || !email || !password) {
       return res.status(400).send("Please fill out all the fields.");
     }
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
       return res.status(400).send("User with this email already exists.");
+    }
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername) {
+      return res.status(400).send("User with this username already exists.");
     }
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
