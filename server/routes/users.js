@@ -1,24 +1,24 @@
 import express from "express";
 import User from "../models/User.js";
-import { verifyToken } from "../verifyToken.js";
+import { verifyAdmin, verifyToken, verifyUser } from "../verifyToken.js";
 import mongoose from "mongoose";
 
 const router = express.Router();
 
-router.get("/search/:id", async (req, res, next) => {
+router.get("/search/:id", verifyToken, verifyUser, async (req, res, next) => {
   try {
     !mongoose.isValidObjectId(req.params.id) &&
       res.status(404).json("User not found.");
     const user = await User.findById(req.params.id);
     !user && res.status(404).json("User not found.");
-    const { password, __v, createdAt, updatedAt, ...rest } = user._doc;
+    const { password, __v, createdAt, updatedAt, role, ...rest } = user._doc;
     res.status(200).json(rest);
   } catch (error) {
     res.status(500);
     next(error);
   }
 });
-router.get("/", async (req, res, next) => {
+router.get("/", verifyToken, verifyAdmin, async (req, res, next) => {
   try {
     const users = await User.find();
     const newUsers = users.map((user) => {
@@ -31,7 +31,7 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
-router.put("/update/:id", verifyToken, async (req, res, next) => {
+router.put("/update/:id", verifyToken, verifyUser, async (req, res, next) => {
   try {
     if (req.params.id === req.user.id) {
       const updatedUser = await User.findByIdAndUpdate(
@@ -49,19 +49,24 @@ router.put("/update/:id", verifyToken, async (req, res, next) => {
     next(error);
   }
 });
-router.delete("/delete/:id", verifyToken, async (req, res, next) => {
-  try {
-    if (req.params.id === req.user.id) {
-      await User.findByIdAndDelete(req.params.id);
-      res.clearCookie("access_token");
-      res.status(200).json("User deleted successfully.");
-    } else {
-      res.status(401).json("You can only delete your account.");
+router.delete(
+  "/delete/:id",
+  verifyToken,
+  verifyUser,
+  async (req, res, next) => {
+    try {
+      if (req.params.id === req.user.id) {
+        await User.findByIdAndDelete(req.params.id);
+        res.clearCookie("access_token");
+        res.status(200).json("User deleted successfully.");
+      } else {
+        res.status(401).json("You can only delete your account.");
+      }
+    } catch (error) {
+      res.status(500);
+      next(error);
     }
-  } catch (error) {
-    res.status(500);
-    next(error);
   }
-});
+);
 
 export default router;

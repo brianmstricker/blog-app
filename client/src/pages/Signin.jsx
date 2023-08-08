@@ -1,17 +1,23 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { API_URL } from "../utils/config";
+import { setLogin } from "../state";
+import { useNavigate } from "react-router-dom";
 
 const Signin = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [user, setUser] = useState({ username: "", password: "" });
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        user
-      );
+      const res = await axios.post(API_URL + "/auth/login", user);
+      if (res.data.error) return alert(res.data.error);
       console.log(res.data);
+      dispatch(setLogin({ user: res.data.user, token: res.data.token }));
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

@@ -1,8 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { TbMenu2 } from "react-icons/tb";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const location = useLocation();
+  const user = useSelector((state) => state.user);
   return (
     <nav className="w-full px-4 py-6 flex items-center justify-between container mx-auto">
       <h1 className="logo text-4xl md:text-5xl">
@@ -16,13 +18,24 @@ const Navbar = () => {
           <li>
             <Link to="/about">About</Link>
           </li>
-          <li>
-            <Link to="/create">Creat Post</Link>
-          </li>
+          {!!user && (
+            <li>
+              <Link to="/create">Creat Post</Link>
+            </li>
+          )}
         </ul>
-        {location.pathname !== "/signin" && location.pathname !== "/signup" && (
-          <Link to="signin" className="px-4 py-2 bg-blue-400 rounded-xl">
-            Sign in
+      </div>
+      <div>
+        {location.pathname !== "/signin" &&
+          location.pathname !== "/signup" &&
+          !user && (
+            <Link to="signin" className="px-4 py-2 bg-blue-400 rounded-full">
+              Sign in
+            </Link>
+          )}
+        {!!user && (
+          <Link to="signin" className="px-4 py-2 bg-red-400 rounded-full">
+            Sign out
           </Link>
         )}
       </div>
