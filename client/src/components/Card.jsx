@@ -14,7 +14,7 @@ const Card = () => {
   const navigate = useNavigate();
   return (
     <>
-      {isLoading && <h4>Loading...</h4>}
+      {isLoading && <h4 className="text-center">Loading...</h4>}
       {error && <h4>{error}</h4>}
       {!isLoading &&
         !error &&

@@ -5,6 +5,7 @@ export default {
     extend: {
       screens: {
         xs: "500px",
+        nav: "600px",
       },
     },
   },

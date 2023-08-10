@@ -45,18 +45,17 @@ router.post("/register", async (req, res, next) => {
     );
     res.cookie("accessToken", token, {
       httpOnly: true,
-      expires: token.expiresIn,
+      maxAge: 1000 * 60 * 60 * 24 * 15,
     });
     const {
       password: userpass,
       __v,
       createdAt,
       updatedAt,
-      role,
       _id,
       ...rest
     } = newUser._doc;
-    res.status(200).json(rest);
+    res.status(200).json({ user: rest });
   } catch (error) {
     res.status(500);
     next(error);
@@ -66,23 +65,38 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ username });
-    !user && res.status(400).json("Incorrect credentials.");
-    const validPassword = await bcrypt.compare(password, user.password);
+    const userDoc = await User.findOne({ username });
+    !userDoc && res.status(400).json("Incorrect credentials.");
+    const validPassword = await bcrypt.compare(password, userDoc.password);
     !validPassword && res.status(400).json("Incorrect credentials.");
     const token = jwt.sign(
-      { id: user._id, role: user.role },
+      { id: userDoc._id, role: userDoc.role },
       process.env.JWT_SECRET,
       {
         expiresIn: "15d",
       }
     );
-    res.cookie("accessToken", token, { httpOnly: true });
-    res.status(200).json({ user, token });
+    res.cookie("accessToken", token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 15,
+    });
+    const {
+      password: userpass,
+      __v,
+      createdAt,
+      updatedAt,
+      ...user
+    } = userDoc._doc;
+    res.status(200).json({ user });
   } catch (error) {
     res.status(500);
     next(error);
   }
+});
+
+router.post("/logout", (req, res) => {
+  res.clearCookie("accessToken");
+  res.status(200).json("Logged out successfully.");
 });
 
 export default router;

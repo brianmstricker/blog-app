@@ -33,15 +33,23 @@ router.get("/", verifyToken, verifyAdmin, async (req, res, next) => {
 });
 router.put("/update/:id", verifyToken, verifyUser, async (req, res, next) => {
   try {
+    const { name, username, email } = req.body;
     if (req.params.id === req.user.id) {
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
         {
-          $set: req.body,
+          $set: { name, username, email },
         },
         { new: true }
       );
-      res.status(200).json(updatedUser);
+      res.status(200).json({
+        user: {
+          _id: updatedUser._id,
+          name: updatedUser.name,
+          username: updatedUser.username,
+          email: updatedUser.email,
+        },
+      });
     } else {
       res.status(401).json("You can only update your account.");
     }

@@ -5,10 +5,9 @@ import { API_URL } from "../utils/config";
 const Post = () => {
   const { id } = useParams();
   const { response, isLoading, error } = useFetch(API_URL + "/posts/" + id);
-  console.log(response);
   return (
     <>
-      {isLoading && <h4>Loading...</h4>}
+      {isLoading && <h4 className="text-center">Loading...</h4>}
       {error && <h4>{error}</h4>}
       {!isLoading && !error && (
         <div className="container mx-auto">

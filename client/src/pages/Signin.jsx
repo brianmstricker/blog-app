@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { API_URL } from "../utils/config";
-import { setLogin } from "../state";
+import { setLogin } from "../state/userSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Signin = () => {
   const dispatch = useDispatch();
@@ -13,13 +14,17 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(API_URL + "/auth/login", user);
+      const res = await axios.post(API_URL + "/auth/login", user, {
+        withCredentials: true,
+      });
       if (res.data.error) return alert(res.data.error);
-      console.log(res.data);
-      dispatch(setLogin({ user: res.data.user, token: res.data.token }));
+      dispatch(setLogin({ user: res.data.user }));
       navigate("/");
     } catch (error) {
-      console.log(error);
+      toast(error.response.data || error.message, {
+        type: "error",
+        position: "top-center",
+      });
     }
   };
   return (
