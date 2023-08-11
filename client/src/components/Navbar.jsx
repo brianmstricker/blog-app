@@ -28,7 +28,7 @@ const Navbar = () => {
   return (
     <nav className="w-full px-4 py-6 flex items-center justify-between container mx-auto">
       <h1 className="logo text-4xl md:text-5xl">
-        <Link to="/">blog</Link>
+        <Link to="/">TP</Link>
       </h1>
       <div className="hidden nav:flex gap-5 items-center md:text-lg">
         <ul className="flex gap-5 items-center">
@@ -39,7 +39,7 @@ const Navbar = () => {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/about">All Articles</Link>
+            <Link to="/posts">All Posts</Link>
           </li>
           {!!user && (
             <li>

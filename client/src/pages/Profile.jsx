@@ -61,6 +61,11 @@ const Profile = () => {
         className="container rounded-xl mx-auto bg-gray-200 mt-4 flex flex-col px-4 py-10"
       >
         <h1 className="text-center text-5xl mt-10 font-bold">Update Account</h1>
+        {getUser.role === "admin" && (
+          <div className=" text-center mt-4 text-lg">
+            Role - <span className="text-red-500">Admin</span>
+          </div>
+        )}
         <div className="px-4 py-2 mt-8 flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
           <label className="text-xl w-[100px]" htmlFor="name">
             Name

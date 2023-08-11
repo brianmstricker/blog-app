@@ -63,7 +63,7 @@ router.delete(
   verifyUser,
   async (req, res, next) => {
     try {
-      if (req.params.id === req.user.id) {
+      if (req.params.id === req.user.id || req.user.role === "admin") {
         await User.findByIdAndDelete(req.params.id);
         res.clearCookie("access_token");
         res.status(200).json("User deleted successfully.");

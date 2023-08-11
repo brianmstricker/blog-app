@@ -15,7 +15,7 @@ export const verifyToken = async (req, res, next) => {
 };
 
 export const verifyUser = (req, res, next) => {
-  if (req.user.id === req.params.id || req.user.role === "admin") {
+  if (req.user._id.toString() === req.params.id || req.user.role === "admin") {
     next();
   } else {
     return res.status(403).json("You are not allowed to do that.");
