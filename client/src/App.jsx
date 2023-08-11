@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CreatePost from "./pages/CreatePost";
 
 const Root = () => {
   return (
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
           {
             path: "/profile/:id",
             element: <Profile />,
+          },
+          {
+            path: "/create",
+            element: <CreatePost />,
           },
         ],
       },

@@ -39,11 +39,13 @@ const Navbar = () => {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/about">Articles</Link>
+            <Link to="/about">All Articles</Link>
           </li>
           {!!user && (
             <li>
-              <Link to="/create">Creat Post</Link>
+              <Link className="font-bold" to="/create">
+                Create Blog
+              </Link>
             </li>
           )}
         </ul>
