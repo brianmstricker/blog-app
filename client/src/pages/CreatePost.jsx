@@ -10,6 +10,7 @@ const CreatePost = () => {
     title: "",
     shortDescription: "",
     content: "",
+    image: "",
   });
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -24,6 +25,7 @@ const CreatePost = () => {
         title: "",
         shortDescription: "",
         content: "",
+        image: "",
       });
       navigate("/");
     } catch (error) {
@@ -74,6 +76,16 @@ const CreatePost = () => {
           required
         />
       </div>
+      <label className="text-xl font-bold mt-6" htmlFor="image">
+        Image
+      </label>
+      <Input
+        type="text"
+        placeholder="Image URL"
+        id="image"
+        value={post.image}
+        onChange={(e) => setPost({ ...post, image: e.target.value })}
+      />
       <button
         className="bg-blue-400 text-white font-bold rounded-xl px-4 py-2 mt-4"
         type="submit"

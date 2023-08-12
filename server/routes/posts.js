@@ -67,4 +67,29 @@ router.delete("/delete/:id", verifyToken, async (req, res, next) => {
   }
 });
 
+router.put("/update/:id", verifyToken, async (req, res, next) => {
+  try {
+    const { title, content, shortDescription } = req.body;
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json("No post found with this id.");
+    }
+    const id = req.user._id;
+    if (!id) return res.status(400).json({ msg: "Not authorized." });
+    const post = await Post.findById(req.params.id);
+    if (!post) return res.status(400).json("No post found with this id.");
+    if (id.toString() !== post.author.toString() && req.user.role !== "admin") {
+      return res.status(400).json("Not authorized.");
+    }
+    const updatedPost = await Post.findByIdAndUpdate(
+      req.params.id,
+      { title, content, shortDescription },
+      { new: true }
+    );
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    res.status(500);
+    next(error);
+  }
+});
+
 export default router;

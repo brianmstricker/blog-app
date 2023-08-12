@@ -4,7 +4,7 @@ const Searchbar = () => {
   const [input, setInput] = useState("");
   return (
     <div>
-      <div className="lg:mt-20 mt-8 border-2 border-blue-400 w-full rounded-full shadow-xl shadow-black/20 flex">
+      <div className="lg:mt-14 mt-6 border-2 border-blue-400 w-full rounded-full shadow-xl shadow-black/20 flex">
         <input
           placeholder="Search articles..."
           className="rounded-full p-3 px-6 outline-none w-full"

@@ -22,7 +22,7 @@ const Card = () => {
           if (card.image) {
             return (
               <div
-                className="bg-gray-300 max-w-[350px] h-[301px] rounded-xl mb-8 m-2 mx-auto xs:mx-2 hover:cursor-pointer overflow-hidden"
+                className="bg-gray-300 w-[90%] xs:w-auto max-w-[350px] rounded-xl mb-8 m-2 mx-auto xs:mx-2 hover:cursor-pointer overflow-hidden"
                 key={card._id}
                 onClick={() => navigate(`/post/${card._id}`)}
               >
@@ -51,7 +51,7 @@ const Card = () => {
           } else {
             return (
               <div
-                className="bg-gray-300 max-w-[350px] h-[301px] rounded-xl mb-8 m-2 mx-auto xs:mx-2 hover:cursor-pointer"
+                className="bg-gray-300 w-[90%] xs:w-auto max-w-[350px] rounded-xl mb-8 m-2 mx-auto xs:mx-2 hover:cursor-pointer"
                 key={card._id}
                 onClick={() => navigate(`/post/${card._id}`)}
               >
@@ -69,7 +69,7 @@ const Card = () => {
                       )}
                     </h1>
                   </div>
-                  <p className="mt-2 overflow-hidden hover:overflow-y-scroll">
+                  <p className="mt-2 overflow-hidden hover:overflow-y-scroll max-h-[173px]">
                     {card.content}
                   </p>
                 </div>

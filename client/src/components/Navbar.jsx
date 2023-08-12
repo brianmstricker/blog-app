@@ -28,7 +28,12 @@ const Navbar = () => {
   return (
     <nav className="w-full px-4 py-6 flex items-center justify-between container mx-auto">
       <h1 className="logo text-4xl md:text-5xl">
-        <Link to="/">TP</Link>
+        <Link className="block md:hidden" to="/">
+          TP
+        </Link>
+        <Link className="hidden md:block" to="/">
+          TechPunch
+        </Link>
       </h1>
       <div className="hidden nav:flex gap-5 items-center md:text-lg">
         <ul className="flex gap-5 items-center">

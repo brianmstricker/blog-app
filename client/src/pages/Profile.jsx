@@ -66,7 +66,7 @@ const Profile = () => {
             Role - <span className="text-red-500">Admin</span>
           </div>
         )}
-        <div className="px-4 py-2 mt-8 flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
+        <div className="px-4 py-2 mt-8 md:flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
           <label className="text-xl w-[100px]" htmlFor="name">
             Name
           </label>
@@ -79,7 +79,7 @@ const Profile = () => {
             id="name"
           />
         </div>
-        <div className="px-4 py-2 mt-4 flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
+        <div className="px-4 py-2 mt-4 md:flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
           <label className="text-xl w-[100px]" htmlFor="username">
             Username
           </label>
@@ -92,7 +92,7 @@ const Profile = () => {
             id="username"
           />
         </div>
-        <div className="px-4 py-2 mt-4 flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
+        <div className="px-4 py-2 mt-4 md:flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
           <label className="text-xl w-[100px]" htmlFor="email">
             Email
           </label>
@@ -105,7 +105,7 @@ const Profile = () => {
             id="email"
           />
         </div>
-        <div className="px-4 py-2 mt-4 flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
+        <div className="px-4 py-2 mt-4 md:flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
           <label className="text-xl w-[100px]" htmlFor="password">
             Password
           </label>
@@ -118,7 +118,7 @@ const Profile = () => {
             id="password"
           />
         </div>
-        <div className="px-4 py-2 mt-4 flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
+        <div className="px-4 py-2 mt-4 md:flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
           <label className="text-xl w-[100px]" htmlFor="confirm">
             Confirm Password
           </label>

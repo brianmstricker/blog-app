@@ -35,22 +35,26 @@ const Post = () => {
           <div className="max-w-4xl mx-auto p-3">
             {response.image && (
               <img
-                className="h-80 object-contain mx-auto rounded-xl"
+                className="mx-auto rounded-xl h-[400px] w-full object-cover"
                 src={response.image}
               />
             )}
             <div className="p-3">
-              <div className="flex justify-center items-end gap-8 mt-4 mb-12">
-                <h1 className="text-4xl">
-                  <span className="font-bold">{response.title}</span>
+              <div className="gap-8 mt-4 mb-8 md:mb-12">
+                <h1>
+                  <span className="font-bold text-2xl md:text-4xl capitalize">
+                    {response.title}
+                  </span>
                   {response.author && response.author.username && (
-                    <span className="text-gray-600 ml-4 text-base">
+                    <div className="text-gray-600 text-lg my-2">
                       by {response.author.username}
-                    </span>
+                    </div>
                   )}
                 </h1>
-                {((response.author && response.author._id === user._id) ||
-                  user.role === "admin") && (
+                {((response.author &&
+                  user &&
+                  response.author._id === user._id) ||
+                  (user && user.role === "admin")) && (
                   <div className="flex gap-3">
                     <TbEdit size={30} />
                     <MdOutlineDelete
