@@ -78,6 +78,7 @@ const Navbar = () => {
               <ul className="absolute hidden group-hover:block bg-blue-400 p-2 rounded-xl mt-2 text-white">
                 <li>{user.username}</li>
                 <li>{user.email}</li>
+                {user.role === "admin" && <li>role - Admin</li>}
               </ul>
             </div>
             <Link

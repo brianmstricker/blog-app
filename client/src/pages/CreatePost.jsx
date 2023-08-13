@@ -11,6 +11,7 @@ const CreatePost = () => {
     shortDescription: "",
     content: "",
     image: "",
+    tags: "",
   });
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -26,6 +27,7 @@ const CreatePost = () => {
         shortDescription: "",
         content: "",
         image: "",
+        tags: "",
       });
       navigate("/");
     } catch (error) {
@@ -62,6 +64,16 @@ const CreatePost = () => {
             setPost({ ...post, shortDescription: e.target.value })
           }
           required
+        />
+        <label className="text-xl font-bold mt-6" htmlFor="tags">
+          Tags
+        </label>
+        <Input
+          type="text"
+          placeholder="Enter some tags so that people can find your post"
+          id="tags"
+          value={post.tags}
+          onChange={(e) => setPost({ ...post, tags: e.target.value })}
         />
         <label className="text-xl font-bold mt-6" htmlFor="content">
           Content

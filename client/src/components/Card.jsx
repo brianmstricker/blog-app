@@ -32,7 +32,7 @@ const Card = () => {
                 />
                 <div className="p-4 overflow-hidden">
                   <h1 className="overflow-hidden">
-                    <span className="font-bold text-2xl capitalize overflow-hidden">
+                    <span className="font-bold text-xl xl:text-2xl capitalize overflow-hidden leading-6">
                       {card.title}
                     </span>
                     <br />
@@ -42,9 +42,9 @@ const Card = () => {
                       </span>
                     )}
                   </h1>
-                  {/* <p className="text-lg font-medium overflow-hidden">
-                    {card.shortDescription.substring(0, 30)}
-                  </p> */}
+                  <p className="font-medium overflow-hidden">
+                    {card.shortDescription}
+                  </p>
                 </div>
               </div>
             );
@@ -55,10 +55,10 @@ const Card = () => {
                 key={card._id}
                 onClick={() => navigate(`/post/${card._id}`)}
               >
-                <div className="p-4 h-full flex flex-col justify-between">
+                <div className="p-4 h-full flex flex-col">
                   <div>
                     <h1 className="overflow-hidden mt-2">
-                      <span className="font-bold text-2xl capitalize overflow-hidden">
+                      <span className="font-bold text-xl xl:text-2xl capitalize overflow-hidden leading-6">
                         {card.title}
                       </span>
                       <br />
@@ -69,8 +69,11 @@ const Card = () => {
                       )}
                     </h1>
                   </div>
-                  <p className="mt-2 overflow-hidden hover:overflow-y-scroll max-h-[173px]">
-                    {card.content}
+                  <p className="hidden xl:block mt-2 overflow-hidden max-h-[185px]">
+                    {card.content.substring(0, 250)}...
+                  </p>
+                  <p className="block xl:hidden mt-2 overflow-hidden max-h-[175px]">
+                    {card.content.substring(0, 155)}...
                   </p>
                 </div>
               </div>

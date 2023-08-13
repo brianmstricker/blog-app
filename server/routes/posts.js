@@ -30,9 +30,13 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/create", verifyToken, async (req, res, next) => {
   try {
+    if (req.body.tags.length > 250)
+      return res.status(400).json("Try condensing your tags.");
+    const splitTags = req.body.tags.split(",");
     const newPost = new Post({
       ...req.body,
       author: req.user.id,
+      tags: splitTags,
     });
     if (!newPost.title || !newPost.content || !newPost.shortDescription) {
       return res.status(400).json({ msg: "Not all fields have been entered." });
@@ -40,10 +44,14 @@ router.post("/create", verifyToken, async (req, res, next) => {
     if (!newPost.author) {
       return res.status(400).json({ msg: "Not authorized." });
     }
+    if (newPost.tags.length > 10) {
+      return res.status(400).json({ msg: "You can only add 10 tags." });
+    }
     const savedPost = await newPost.save();
     res.status(200).json(savedPost);
   } catch (error) {
     res.status(500);
+    console.log(error);
     next(error);
   }
 });
