@@ -23,7 +23,6 @@ const Post = () => {
       navigate("/");
     } catch (err) {
       toast.error(err.response.data.message || err.message);
-      console.log(err);
     }
   };
   return (
@@ -72,7 +71,7 @@ const Post = () => {
                   </div>
                 </div>
               </div>
-              {response.tags.length > 0 && (
+              {response.tags.length > 1 && !response.tags.includes(" ") && (
                 <>
                   <p className="font-bold mb-2">Tags</p>
                   <div className="grid grid-cols-2 md:grid-cols-4 lg:flex gap-3">

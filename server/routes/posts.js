@@ -30,9 +30,12 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/create", verifyToken, async (req, res, next) => {
   try {
+    if (req.body.tags.length === 1 && req.body.tags.includes(" ")) {
+      return res.status(400).json("Cannot send empty tags.");
+    }
     if (req.body.tags.length > 250)
       return res.status(400).json("Try condensing your tags.");
-    const splitTags = req.body.tags.split(",");
+    const splitTags = req.body.tags.split(",").map((tag) => tag.trim());
     const newPost = new Post({
       ...req.body,
       author: req.user.id,

@@ -31,7 +31,7 @@ const CreatePost = () => {
       });
       navigate("/");
     } catch (error) {
-      toast.error(error.response.data.error);
+      toast.error(error.response.data.error || error.response.data);
     }
   };
   return (
