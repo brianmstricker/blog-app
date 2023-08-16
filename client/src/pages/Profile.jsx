@@ -54,6 +54,17 @@ const Profile = () => {
       });
     }
   };
+  const buttonDisabled = () => {
+    if (
+      user.name === getUser.name &&
+      user.username === getUser.username &&
+      user.email === getUser.email &&
+      user.password === "" &&
+      user.confirmPassword === ""
+    )
+      return true;
+    return false;
+  };
   return (
     <>
       <form
@@ -134,8 +145,12 @@ const Profile = () => {
           />
         </div>
         <button
-          className="text-white px-6 py-3 bg-blue-400 w-fit mx-auto rounded-full mt-4"
+          className={
+            "text-white px-6 py-3 bg-blue-400 w-fit mx-auto rounded-full mt-4" +
+            (buttonDisabled() ? " opacity-40 cursor-not-allowed" : "")
+          }
           type="submit"
+          disabled={buttonDisabled()}
         >
           Update
         </button>

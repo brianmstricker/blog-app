@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CreatePost from "./pages/CreatePost";
 import About from "./pages/About";
 import Blogs from "./pages/Blogs";
+import Favorites from "./pages/Favorites";
 
 const Root = () => {
   return (
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
           {
             path: "/create",
             element: <CreatePost />,
+          },
+          {
+            path: "/favorites",
+            element: <Favorites />,
           },
         ],
       },

@@ -42,9 +42,9 @@ const Card = () => {
                       </span>
                     )}
                   </h1>
-                  <p className="font-medium overflow-hidden">
+                  {/* <p className="font-medium overflow-hidden">
                     {card.shortDescription}
-                  </p>
+                  </p> */}
                 </div>
               </div>
             );

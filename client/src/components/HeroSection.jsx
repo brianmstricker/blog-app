@@ -27,6 +27,10 @@ const HeroSection = () => {
             />
           </div>
         </div>
+        <div className="mt-16 mb-4 flex items-center gap-4">
+          <span className="text-3xl">Explore</span>{" "}
+          <div className="w-[91%] h-1 bg-gradient-to-r from-blue-400 to-slate-300" />
+        </div>
       </section>
       <CardSection />
     </>
@@ -34,7 +38,7 @@ const HeroSection = () => {
 };
 const CardSection = () => {
   return (
-    <section className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container mx-auto mt-16">
+    <section className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container mx-auto">
       <Card />
     </section>
   );

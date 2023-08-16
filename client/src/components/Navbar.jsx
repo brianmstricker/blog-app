@@ -26,7 +26,7 @@ const Navbar = () => {
     navigate(`/profile/${user._id}`);
   };
   return (
-    <nav className="w-full px-4 py-6 flex items-center justify-between container mx-auto">
+    <nav className="w-full px-4 py-6 flex items-center justify-between container mx-auto relative">
       <h1 className="logo text-4xl md:text-5xl">
         <Link className="block md:hidden" to="/">
           TP
@@ -35,8 +35,8 @@ const Navbar = () => {
           TechPunch
         </Link>
       </h1>
-      <div className="hidden nav:flex gap-5 items-center md:text-lg">
-        <ul className="flex gap-5 items-center">
+      <div className="hidden nav:flex gap-5 items-center lg:text-lg absolute w-fit left-[50%] right-[50%] translate-x-[-50%] xs:-ml-12 md:ml-8 lg:ml-0">
+        <ul className="flex gap-2 lg:gap-5 items-center">
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -44,10 +44,13 @@ const Navbar = () => {
             <Link to="/about">About</Link>
           </li>
           <li>
-            <Link to="/posts">All Posts</Link>
+            <Link to="/posts">Posts</Link>
+          </li>
+          <li>
+            <Link to="/favorites">Favorites</Link>
           </li>
           {!!user && (
-            <li>
+            <li className="w-max">
               <Link className="font-bold" to="/create">
                 Create Blog
               </Link>
@@ -59,14 +62,18 @@ const Navbar = () => {
         {location.pathname !== "/signin" &&
           location.pathname !== "/signup" &&
           !user && (
-            <Link
-              to="signin"
-              className="px-4 py-2 bg-blue-400 rounded-full text-white"
-            >
-              Sign in
-            </Link>
+            <div className="relative">
+              <Link
+                to="signin"
+                className="px-4 py-2 bg-blue-400 rounded-full text-white"
+              >
+                Sign in
+              </Link>
+              <span className="text-gray-600 block mt-4 w-[140px] sm:w-auto absolute">
+                (Sign in to create a blog post)
+              </span>
+            </div>
           )}
-
         {!!user && (
           <div className="flex items-center gap-3">
             <div className="group relative">

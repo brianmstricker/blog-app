@@ -34,6 +34,16 @@ const CreatePost = () => {
       toast.error(error.response.data.error || error.response.data);
     }
   };
+  const buttonDisabled = () => {
+    if (
+      post.title === "" ||
+      post.shortDescription === "" ||
+      post.content === ""
+    ) {
+      return true;
+    }
+    return false;
+  };
   return (
     <form
       className="container rounded-xl mx-auto bg-gray-200 flex flex-col p-4 mt-4"
@@ -99,8 +109,12 @@ const CreatePost = () => {
         onChange={(e) => setPost({ ...post, image: e.target.value })}
       />
       <button
-        className="bg-blue-400 text-white font-bold rounded-xl px-4 py-2 mt-4"
+        className={
+          "bg-blue-400 text-white font-bold rounded-xl px-4 py-2 mt-4" +
+          (buttonDisabled() ? " opacity-40 cursor-not-allowed" : "")
+        }
         type="submit"
+        disabled={buttonDisabled()}
       >
         Create
       </button>
