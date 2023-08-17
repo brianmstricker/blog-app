@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import heroimg from "../assets/images/heroimg.svg";
 import Card from "./Card";
 import Searchbar from "./Searchbar";
@@ -7,6 +7,7 @@ import SearchCard from "./SearchCard";
 const HeroSection = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [input, setInput] = useState("");
+  const scrollRef = useRef(null);
   useEffect(() => {
     if (searchResults.length !== 0 && input.length === 0) {
       setSearchResults([]);
@@ -42,12 +43,14 @@ const HeroSection = () => {
           </div>
         </div>
         <div className="mt-16 mb-4 flex items-center gap-4">
-          <span className="text-3xl">Explore</span>{" "}
+          <span ref={scrollRef} className="text-3xl">
+            Explore
+          </span>{" "}
           <div className="w-[91%] h-1 bg-gradient-to-r from-blue-400 to-slate-300" />
         </div>
       </section>
       <section className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container mx-auto relative mb-12">
-        {searchResults.length === 0 && <Card />}
+        {searchResults.length === 0 && <Card scrollRef={scrollRef} />}
         {searchResults.length > 0 &&
           searchResults.map((post) => (
             <SearchCard key={post._id} post={post} />

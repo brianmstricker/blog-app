@@ -4,7 +4,7 @@ import useFetch from "../hooks/useFetch";
 import { API_URL } from "../utils/config";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const Card = () => {
+const Card = ({ scrollRef }) => {
   const [cards, setCards] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -22,13 +22,23 @@ const Card = () => {
   const previousPage = () => {
     if (page > 1) {
       setPage(page - 1);
+      scrollToExplore();
     }
   };
   const nextPage = () => {
     if (page < totalPages) {
       setPage(page + 1);
+      scrollToExplore();
     }
   };
+  function scrollToExplore() {
+    setTimeout(() => {
+      scrollRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 150);
+  }
   return (
     <>
       {isLoading && <h4 className="text-center">Loading...</h4>}
@@ -105,7 +115,11 @@ const Card = () => {
         {pages.map((p) => (
           <button
             key={p}
-            onClick={() => setPage(p + 1)}
+            onClick={(e) => {
+              e.preventDefault();
+              setPage(p + 1);
+              scrollToExplore();
+            }}
             className={
               "mx-1 p-1 bg-blue-400 text-white hover:bg-blue-500 w-6" +
               (page === p + 1 ? " bg-blue-500" : "")
