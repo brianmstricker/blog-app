@@ -107,7 +107,7 @@ const Card = () => {
             key={p}
             onClick={() => setPage(p + 1)}
             className={
-              "mx-1 px-2 py-1 rounded-full bg-blue-400 text-white hover:bg-blue-500 w-8" +
+              "mx-1 p-1 bg-blue-400 text-white hover:bg-blue-500 w-6" +
               (page === p + 1 ? " bg-blue-500" : "")
             }
           >

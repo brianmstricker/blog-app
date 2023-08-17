@@ -1,10 +1,9 @@
--pagination
--text content when creating post
--edit post frontend
+-text content area (when creating post)
+-favorites
 -image file upload
 -update footer
--favorites
 -navbar mobile functionality
 -form validation
 -comments
 -caching
+-framer motion

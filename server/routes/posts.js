@@ -106,7 +106,13 @@ router.delete("/delete/:id", verifyToken, async (req, res, next) => {
 
 router.put("/update/:id", verifyToken, async (req, res, next) => {
   try {
-    const { title, content, shortDescription } = req.body;
+    const { title, content, shortDescription, tags } = req.body;
+    if (req.body.tags.length === 1 && req.body.tags.includes(" ")) {
+      return res.status(400).json("Cannot send empty tags.");
+    }
+    if (req.body.tags.length > 250)
+      return res.status(400).json("Try condensing your tags.");
+    const splitTags = req.body.tags.split(",").map((tag) => tag.trim());
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json("No post found with this id.");
     }
@@ -119,7 +125,7 @@ router.put("/update/:id", verifyToken, async (req, res, next) => {
     }
     const updatedPost = await Post.findByIdAndUpdate(
       req.params.id,
-      { title, content, shortDescription },
+      { title, content, shortDescription, tags: splitTags },
       { new: true }
     );
     res.status(200).json(updatedPost);
