@@ -5,6 +5,25 @@ import mongoose from "mongoose";
 
 const router = express.Router();
 
+router.get("/search", async (req, res, next) => {
+  const searchQuery = req.query.search;
+  if (!searchQuery) {
+    return res.status(400).json("No search query.");
+  }
+  try {
+    const posts = await Post.find({
+      $or: [
+        { title: { $regex: searchQuery, $options: "i" } },
+        { tags: { $regex: searchQuery, $options: "i" } },
+      ],
+    }).populate("author", "username");
+    res.status(200).json(posts.reverse());
+  } catch (error) {
+    res.status(500);
+    next(error);
+  }
+});
+
 router.get("/", async (req, res, next) => {
   try {
     const posts = await Post.find().populate("author", "username");

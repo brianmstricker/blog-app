@@ -1,7 +1,10 @@
 -search functionality
+-pagination
 -text content when creating post
--update footer
+-edit post frontend
 -image file upload
--edit post
+-update footer
 -favorites
 -navbar mobile functionality
+-form validation
+-comments

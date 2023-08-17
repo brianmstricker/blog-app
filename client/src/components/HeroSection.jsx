@@ -1,8 +1,17 @@
+import { useState, useEffect } from "react";
 import heroimg from "../assets/images/heroimg.svg";
 import Card from "./Card";
 import Searchbar from "./Searchbar";
+import SearchCard from "./SearchCard";
 
 const HeroSection = () => {
+  const [searchResults, setSearchResults] = useState([]);
+  const resetSearchResults = () => {
+    setSearchResults([]);
+  };
+  useEffect(() => {
+    resetSearchResults();
+  }, []);
   return (
     <>
       <section className="w-full pt-4 container mx-auto px-4">
@@ -17,7 +26,11 @@ const HeroSection = () => {
               explicabo molestias perspiciatis laborum dignissimos, facere
               officia possimus!
             </p>
-            <Searchbar />
+            <Searchbar
+              setSearchResults={setSearchResults}
+              searchResults={searchResults}
+              resetSearchResults={resetSearchResults}
+            />
           </div>
           <div className="w-full h-full mt-4 md:mt-0">
             <img
@@ -32,15 +45,14 @@ const HeroSection = () => {
           <div className="w-[91%] h-1 bg-gradient-to-r from-blue-400 to-slate-300" />
         </div>
       </section>
-      <CardSection />
+      <section className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container mx-auto">
+        {searchResults.length === 0 && <Card />}
+        {searchResults.length > 0 &&
+          searchResults.map((post) => (
+            <SearchCard key={post._id} post={post} />
+          ))}
+      </section>
     </>
-  );
-};
-const CardSection = () => {
-  return (
-    <section className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container mx-auto">
-      <Card />
-    </section>
   );
 };
 export default HeroSection;
