@@ -1,4 +1,3 @@
--search functionality
 -pagination
 -text content when creating post
 -edit post frontend
@@ -8,3 +7,4 @@
 -navbar mobile functionality
 -form validation
 -comments
+-caching

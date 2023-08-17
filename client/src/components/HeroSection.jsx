@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import heroimg from "../assets/images/heroimg.svg";
 import Card from "./Card";
 import Searchbar from "./Searchbar";
@@ -6,12 +6,12 @@ import SearchCard from "./SearchCard";
 
 const HeroSection = () => {
   const [searchResults, setSearchResults] = useState([]);
-  const resetSearchResults = () => {
-    setSearchResults([]);
-  };
+  const [input, setInput] = useState("");
   useEffect(() => {
-    resetSearchResults();
-  }, []);
+    if (searchResults.length !== 0 && input.length === 0) {
+      setSearchResults([]);
+    }
+  }, [input.length, searchResults.length]);
   return (
     <>
       <section className="w-full pt-4 container mx-auto px-4">
@@ -27,9 +27,10 @@ const HeroSection = () => {
               officia possimus!
             </p>
             <Searchbar
-              setSearchResults={setSearchResults}
               searchResults={searchResults}
-              resetSearchResults={resetSearchResults}
+              setSearchResults={setSearchResults}
+              input={input}
+              setInput={setInput}
             />
           </div>
           <div className="w-full h-full mt-4 md:mt-0">
