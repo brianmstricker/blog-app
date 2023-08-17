@@ -2,22 +2,40 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { API_URL } from "../utils/config";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Card = () => {
   const [cards, setCards] = useState([]);
-  const { response, isLoading, error } = useFetch(API_URL + "/posts");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const { response, isLoading, error } = useFetch(
+    API_URL + `/posts?page=${page}`
+  );
   useEffect(() => {
     if (response) {
-      setCards(response);
+      setCards(response.posts);
+      setTotalPages(response.totalPages);
     }
   }, [response]);
   const navigate = useNavigate();
+  const pages = [...Array(totalPages).keys()];
+  const previousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+  const nextPage = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
+  };
   return (
     <>
       {isLoading && <h4 className="text-center">Loading...</h4>}
       {error && <h4>{error.message}</h4>}
       {!isLoading &&
         !error &&
+        cards.length > 0 &&
         cards.map((card) => {
           if (card.image) {
             return (
@@ -80,6 +98,26 @@ const Card = () => {
             );
           }
         })}
+      <div className="absolute right-12 -bottom-6 flex items-center">
+        <button onClick={previousPage}>
+          <FaChevronLeft size={18} />
+        </button>
+        {pages.map((p) => (
+          <button
+            key={p}
+            onClick={() => setPage(p + 1)}
+            className={
+              "mx-1 px-2 py-1 rounded-full bg-blue-400 text-white hover:bg-blue-500 w-8" +
+              (page === p + 1 ? " bg-blue-500" : "")
+            }
+          >
+            {p + 1}
+          </button>
+        ))}
+        <button>
+          <FaChevronRight size={18} onClick={nextPage} />
+        </button>
+      </div>
     </>
   );
 };

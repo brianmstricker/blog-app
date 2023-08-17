@@ -26,8 +26,15 @@ router.get("/search", async (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   try {
-    const posts = await Post.find().populate("author", "username");
-    res.status(200).json(posts.reverse());
+    const page_size = 12;
+    const page = req.query.page || 1;
+    const total = await Post.countDocuments();
+    const posts = await Post.find()
+      .populate("author", "username")
+      .limit(12)
+      .skip(page_size * page - page_size)
+      .sort({ createdAt: -1 });
+    res.status(200).json({ totalPages: Math.ceil(total / page_size), posts });
   } catch (error) {
     res.status(500);
     next(error);

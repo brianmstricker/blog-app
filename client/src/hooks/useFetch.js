@@ -10,7 +10,7 @@ const useFetch = (url) => {
         const res = await fetch(url);
         if (!res.ok) setError(res.statusText);
         const json = await res.json();
-        setResponse(json);
+        setResponse(json || json.posts);
         setIsLoading(false);
       } catch (error) {
         setError(error);
