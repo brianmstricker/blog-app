@@ -1,6 +1,10 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SearchCard = ({ post }) => {
+const SearchCard = ({ post, scrollToExplore }) => {
+  useEffect(() => {
+    scrollToExplore();
+  }, [scrollToExplore]);
   const navigate = useNavigate();
   return (
     <>

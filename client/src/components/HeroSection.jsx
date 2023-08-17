@@ -13,6 +13,14 @@ const HeroSection = () => {
       setSearchResults([]);
     }
   }, [input.length, searchResults.length]);
+  function scrollToExplore() {
+    setTimeout(() => {
+      scrollRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 150);
+  }
   return (
     <>
       <section className="w-full pt-4 container mx-auto px-4">
@@ -50,10 +58,16 @@ const HeroSection = () => {
         </div>
       </section>
       <section className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 container mx-auto relative mb-12">
-        {searchResults.length === 0 && <Card scrollRef={scrollRef} />}
+        {searchResults.length === 0 && (
+          <Card scrollToExplore={scrollToExplore} />
+        )}
         {searchResults.length > 0 &&
           searchResults.map((post) => (
-            <SearchCard key={post._id} post={post} />
+            <SearchCard
+              key={post._id}
+              post={post}
+              scrollToExplore={scrollToExplore}
+            />
           ))}
       </section>
     </>

@@ -4,7 +4,7 @@ import useFetch from "../hooks/useFetch";
 import { API_URL } from "../utils/config";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const Card = ({ scrollRef }) => {
+const Card = ({ scrollToExplore }) => {
   const [cards, setCards] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -31,14 +31,6 @@ const Card = ({ scrollRef }) => {
       scrollToExplore();
     }
   };
-  function scrollToExplore() {
-    setTimeout(() => {
-      scrollRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 150);
-  }
   return (
     <>
       {isLoading && <h4 className="text-center">Loading...</h4>}
