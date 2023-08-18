@@ -42,62 +42,80 @@ const Card = ({ scrollToExplore }) => {
           if (card.image) {
             return (
               <div
-                className="bg-gray-300 w-[90%] xs:w-auto max-w-[350px] rounded-xl mb-8 m-2 mx-auto xs:mx-2 hover:cursor-pointer overflow-hidden"
+                className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden"
                 key={card._id}
                 onClick={() => navigate(`/post/${card._id}`)}
               >
                 <img
-                  className="h-48 w-full rounded-t-xl object-cover"
+                  className="h-32 lg:h-48 w-full rounded-t-xl object-cover"
                   src={card.image}
                 />
                 <div className="p-4 overflow-hidden">
-                  <h1 className="overflow-hidden text-xl">
-                    <span className="font-bold xl:text-2xl capitalize overflow-hidden leading-6">
+                  <h1 className="overflow-hidden text-xl flex flex-col">
+                    <span className="font-bold xl:text-2xl capitalize overflow-hidden leading-tight">
                       {card.title}
                     </span>
-                    <br />
                     {card.author && card.author.username && (
-                      <span className="text-gray-600 overflow-hidden text-sm">
+                      <span className="text-gray-500 overflow-hidden text-sm">
                         by {card.author.username}
                       </span>
                     )}
                   </h1>
+                  <div className="sm:hidden">{card.shortDescription}</div>
                 </div>
               </div>
             );
           } else {
             return (
               <div
-                className="bg-gray-300 w-[90%] xs:w-auto max-w-[350px] rounded-xl mb-8 m-2 mx-auto xs:mx-2 hover:cursor-pointer"
+                className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden"
                 key={card._id}
                 onClick={() => navigate(`/post/${card._id}`)}
               >
                 <div className="p-4 h-full flex flex-col">
                   <div>
-                    <h1 className="overflow-hidden mt-2 text-xl">
-                      <span className="font-bold xl:text-2xl capitalize overflow-hidden leading-6">
+                    <h1 className="overflow-hidden mt-2 text-xl flex flex-col">
+                      <span className="font-bold xl:text-2xl capitalize overflow-hidden leading-tight">
                         {card.title}
                       </span>
-                      <br />
                       {card.author && card.author.username && (
-                        <span className="text-gray-600 overflow-hidden text-sm">
+                        <span className="text-gray-500 overflow-hidden text-sm">
                           by {card.author.username}
                         </span>
                       )}
                     </h1>
                   </div>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: card.content.substring(0, 150),
-                    }}
-                    className="lg:hidden mt-2 overflow-hidden inline"
-                  />
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: card.content.substring(0, 200),
-                    }}
-                    className="hidden lg:block mt-2 overflow-hidden"
-                  />
+                  {card.content.length > 200 ? (
+                    <>
+                      <div
+                        className="block xs:hidden lg:block overflow-hidden mt-2 justify-self-end"
+                        dangerouslySetInnerHTML={{
+                          __html: card.content.substring(0, 200) + "...",
+                        }}
+                      />
+                      <div
+                        className="hidden xs:block lg:hidden overflow-hidden mt-2 justify-self-end"
+                        dangerouslySetInnerHTML={{
+                          __html: card.content.substring(0, 100) + "...",
+                        }}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        className="hidden lg:block overflow-hidden mt-2"
+                        dangerouslySetInnerHTML={{
+                          __html: card.content,
+                        }}
+                      />
+                      <div
+                        className="lg:hidden overflow-hidden mt-2"
+                        dangerouslySetInnerHTML={{
+                          __html: card.content.substring(0, 45),
+                        }}
+                      />
+                    </>
+                  )}
                 </div>
               </div>
             );

@@ -1,5 +1,6 @@
 -dompurify https://stackoverflow.com/questions/29044518/safe-alternative-to-dangerouslysetinnerhtml
 -date-fns package
+-maybe if statement check for card content rendering
 -favorites
 -image file upload
 -update footer

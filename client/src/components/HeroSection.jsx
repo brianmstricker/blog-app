@@ -57,7 +57,7 @@ const HeroSection = () => {
           <div className="w-[91%] h-1 bg-gradient-to-r from-blue-400 to-slate-300" />
         </div>
       </section>
-      <section className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 container mx-auto relative mb-12">
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 container mx-auto relative mb-12">
         {searchResults.length === 0 && (
           <Card scrollToExplore={scrollToExplore} />
         )}
