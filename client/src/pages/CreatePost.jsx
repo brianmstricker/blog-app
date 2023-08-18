@@ -4,6 +4,8 @@ import { useState } from "react";
 import { API_URL } from "../utils/config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const CreatePost = () => {
   const [post, setPost] = useState({
@@ -38,20 +40,47 @@ const CreatePost = () => {
     if (
       post.title === "" ||
       post.shortDescription === "" ||
-      post.content === ""
+      post.content === "" ||
+      post.content === "<p><br></p>"
     ) {
       return true;
     }
     return false;
   };
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link"],
+      ["clean"],
+    ],
+  };
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+  ];
   return (
     <form
-      className="container rounded-xl mx-auto bg-gray-200 flex flex-col p-4 mt-4"
+      className="container rounded-xl mx-auto bg-gray-200 flex flex-col p-4 mt-4 mb-8"
       onSubmit={handleSubmit}
     >
       <h1 className="text-center text-5xl font-bold ">Create A Blog</h1>
       <div className="flex flex-col mt-4">
-        <label className="text-xl font-bold mt-6" htmlFor="title">
+        <label className="text-xl font-bold mt-4" htmlFor="title">
           Title
         </label>
         <Input
@@ -62,7 +91,7 @@ const CreatePost = () => {
           onChange={(e) => setPost({ ...post, title: e.target.value })}
           required
         />
-        <label className="text-xl font-bold mt-6" htmlFor="description">
+        <label className="text-xl font-bold mt-4" htmlFor="description">
           Description
         </label>
         <Input
@@ -75,7 +104,7 @@ const CreatePost = () => {
           }
           required
         />
-        <label className="text-xl font-bold mt-6" htmlFor="tags">
+        <label className="text-xl font-bold mt-4" htmlFor="tags">
           Tags
         </label>
         <Input
@@ -85,20 +114,20 @@ const CreatePost = () => {
           value={post.tags}
           onChange={(e) => setPost({ ...post, tags: e.target.value })}
         />
-        <label className="text-xl font-bold mt-6" htmlFor="content">
+        <label className="text-xl font-bold mt-4" htmlFor="content">
           Content
         </label>
-        <textarea
-          className="rounded-xl px-4 py-2 border-gray-300 border-2 focus:border-blue-400 outline-0"
+        <ReactQuill
+          className="bg-white"
           id="content"
           placeholder="Write your post here"
-          rows={10}
           value={post.content}
-          onChange={(e) => setPost({ ...post, content: e.target.value })}
-          required
+          onChange={(e) => setPost({ ...post, content: e })}
+          modules={modules}
+          formats={formats}
         />
       </div>
-      <label className="text-xl font-bold mt-6" htmlFor="image">
+      <label className="text-xl font-bold mt-4" htmlFor="image">
         Image
       </label>
       <Input
@@ -116,7 +145,7 @@ const CreatePost = () => {
         type="submit"
         disabled={buttonDisabled()}
       >
-        Create
+        Create Post
       </button>
     </form>
   );

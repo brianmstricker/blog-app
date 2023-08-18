@@ -51,20 +51,17 @@ const Card = ({ scrollToExplore }) => {
                   src={card.image}
                 />
                 <div className="p-4 overflow-hidden">
-                  <h1 className="overflow-hidden">
-                    <span className="font-bold text-xl xl:text-2xl capitalize overflow-hidden leading-6">
+                  <h1 className="overflow-hidden text-xl">
+                    <span className="font-bold xl:text-2xl capitalize overflow-hidden leading-6">
                       {card.title}
                     </span>
                     <br />
                     {card.author && card.author.username && (
-                      <span className="text-gray-600 overflow-hidden">
+                      <span className="text-gray-600 overflow-hidden text-sm">
                         by {card.author.username}
                       </span>
                     )}
                   </h1>
-                  {/* <p className="font-medium overflow-hidden">
-                    {card.shortDescription}
-                  </p> */}
                 </div>
               </div>
             );
@@ -77,24 +74,30 @@ const Card = ({ scrollToExplore }) => {
               >
                 <div className="p-4 h-full flex flex-col">
                   <div>
-                    <h1 className="overflow-hidden mt-2">
-                      <span className="font-bold text-xl xl:text-2xl capitalize overflow-hidden leading-6">
+                    <h1 className="overflow-hidden mt-2 text-xl">
+                      <span className="font-bold xl:text-2xl capitalize overflow-hidden leading-6">
                         {card.title}
                       </span>
                       <br />
                       {card.author && card.author.username && (
-                        <span className="text-gray-600 overflow-hidden">
+                        <span className="text-gray-600 overflow-hidden text-sm">
                           by {card.author.username}
                         </span>
                       )}
                     </h1>
                   </div>
-                  <p className="hidden xl:block mt-2 overflow-hidden max-h-[185px]">
-                    {card.content.substring(0, 250)}...
-                  </p>
-                  <p className="block xl:hidden mt-2 overflow-hidden max-h-[175px]">
-                    {card.content.substring(0, 155)}...
-                  </p>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: card.content.substring(0, 150),
+                    }}
+                    className="lg:hidden mt-2 overflow-hidden inline"
+                  />
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: card.content.substring(0, 200),
+                    }}
+                    className="hidden lg:block mt-2 overflow-hidden"
+                  />
                 </div>
               </div>
             );

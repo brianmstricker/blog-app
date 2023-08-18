@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import Input from "./Input";
 import { FcCancel } from "react-icons/fc";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const Post = () => {
   const { id } = useParams();
@@ -26,7 +28,9 @@ const Post = () => {
         title: response.title,
         shortDescription: response.shortDescription,
         content: response.content,
-        tags: response.tags ? response.tags.join(", ") : "",
+        tags: response.tags
+          ? response.tags.join(", ") || response.tags.join("")
+          : "",
       });
     }
   }, [response]);
@@ -58,6 +62,32 @@ const Post = () => {
       toast.error(err.response.data.message || err.message);
     }
   };
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link"],
+      ["clean"],
+    ],
+  };
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+  ];
   return (
     <>
       {isLoading && <h4 className="text-center">Loading...</h4>}
@@ -68,7 +98,7 @@ const Post = () => {
             <div className="max-w-4xl mx-auto p-3">
               {response.image && (
                 <img
-                  className="mx-auto rounded-xl h-[400px] w-full object-cover mt-8"
+                  className="mx-auto rounded-xl md:h-[400px] w-full object-contain md:object-cover mt-8"
                   src={response.image}
                 />
               )}
@@ -109,19 +139,23 @@ const Post = () => {
                     </div>
                   </div>
                 </div>
-                {response.tags.length > 1 && !response.tags.includes(" ") && (
-                  <>
-                    <p className="font-bold mb-2">Tags</p>
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:flex gap-3">
-                      {response.tags.map((tag, i) => (
-                        <p key={i} className="text-indigo-500/80 lg:border-b">
-                          {tag}
-                        </p>
-                      ))}
-                    </div>
-                  </>
-                )}
-                <p className="text-lg py-8">{response.content}</p>
+                {response.tags.length > 1 ||
+                  (!response.tags.includes("") && (
+                    <>
+                      <p className="font-bold mb-2">Tags</p>
+                      <div className="grid grid-cols-2 md:grid-cols-4 lg:flex gap-3">
+                        {response.tags.map((tag, i) => (
+                          <p key={i} className="text-indigo-500/80 lg:border-b">
+                            {tag}
+                          </p>
+                        ))}
+                      </div>
+                    </>
+                  ))}
+                <div
+                  className="text-lg py-8"
+                  dangerouslySetInnerHTML={{ __html: response.content }}
+                />
               </div>
             </div>
           ) : (
@@ -132,7 +166,7 @@ const Post = () => {
                 </p>
                 {response.image && (
                   <img
-                    className="mx-auto rounded-xl h-[400px] w-full object-cover mt-8"
+                    className="mx-auto rounded-xl md:h-[400px] w-full object-contain md:object-cover mt-8"
                     src={response.image}
                   />
                 )}
@@ -189,19 +223,18 @@ const Post = () => {
                   {response.tags.length > 1 && !response.tags.includes(" ") ? (
                     <>
                       <p className="font-bold mb-2">Tags</p>
-                      <div className="grid grid-cols-2 md:grid-cols-4 lg:flex gap-3">
-                        <p className="text-indigo-500/80 lg:border-b">
-                          <Input
-                            value={editEntry.tags}
-                            onChange={(e) =>
-                              setEditEntry({
-                                ...editEntry,
-                                tags: e.target.value,
-                              })
-                            }
-                          />
-                        </p>
-                      </div>
+                      <p className="text-indigo-500/80 lg:border-b">
+                        <Input
+                          value={editEntry.tags}
+                          onChange={(e) =>
+                            setEditEntry({
+                              ...editEntry,
+                              tags: e.target.value,
+                            })
+                          }
+                          className="w-full"
+                        />
+                      </p>
                     </>
                   ) : (
                     <>
@@ -214,25 +247,23 @@ const Post = () => {
                             tags: e.target.value,
                           })
                         }
+                        className="w-full"
                       />
                     </>
                   )}
-                  <p className="text-lg py-8">
-                    <textarea
-                      className="w-full h-80 rounded-xl px-4 py-2 border-gray-300 border-2 focus:border-blue-400 outline-0"
-                      value={editEntry.content}
-                      onChange={(e) =>
-                        setEditEntry({
-                          ...editEntry,
-                          content: e.target.value,
-                        })
-                      }
-                    />
-                  </p>
+                  <ReactQuill
+                    className="bg-white mt-8"
+                    id="content"
+                    placeholder="Write your post here"
+                    value={editEntry.content}
+                    onChange={(e) => setEditEntry({ ...editEntry, content: e })}
+                    modules={modules}
+                    formats={formats}
+                  />
                 </div>
               </div>
               <button
-                className="px-4 py-3 bg-blue-400 text-white rounded-xl mx-auto flex"
+                className="px-4 py-3 bg-blue-400 text-white rounded-xl mx-auto flex mb-8"
                 type="submit"
               >
                 submit

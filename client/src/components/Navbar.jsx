@@ -28,14 +28,14 @@ const Navbar = () => {
   return (
     <nav className="w-full px-4 py-6 flex items-center justify-between container mx-auto relative">
       <h1 className="logo text-4xl md:text-5xl">
-        <Link className="block md:hidden" to="/">
+        <Link className="block lg:hidden" to="/">
           TP
         </Link>
-        <Link className="hidden md:block" to="/">
+        <Link className="hidden lg:block" to="/">
           TechPunch
         </Link>
       </h1>
-      <div className="hidden nav:flex gap-5 items-center lg:text-lg absolute w-fit left-[50%] right-[50%] translate-x-[-50%] xs:-ml-12 md:ml-8 lg:ml-0">
+      <div className="hidden nav:flex gap-5 items-center lg:text-lg absolute w-fit left-[50%] right-[50%] translate-x-[-50%] xs:-ml-12 md:mr-2 lg:ml-0">
         <ul className="flex gap-2 lg:gap-5 items-center">
           <li>
             <Link to="/">Home</Link>
@@ -43,12 +43,16 @@ const Navbar = () => {
           <li>
             <Link to="/about">About</Link>
           </li>
-          <li>
-            <Link to="/posts">Posts</Link>
-          </li>
-          <li>
-            <Link to="/favorites">Favorites</Link>
-          </li>
+          {!!user && (
+            <>
+              <li className="w-max">
+                <Link to="/posts">Your Posts</Link>
+              </li>
+              <li>
+                <Link to="/favorites">Favorites</Link>
+              </li>
+            </>
+          )}
           {!!user && (
             <li className="w-max">
               <Link className="font-bold" to="/create">
@@ -91,7 +95,7 @@ const Navbar = () => {
             <Link
               onClick={handleLogout}
               to="/"
-              className="px-4 py-2 bg-red-400 rounded-full text-white text-center"
+              className="px-4 py-2 bg-red-400 rounded-full text-white text-center text-sm md:text-lg"
             >
               Sign out
             </Link>

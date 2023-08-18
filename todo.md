@@ -1,9 +1,11 @@
--text content area (when creating post)
+-dompurify https://stackoverflow.com/questions/29044518/safe-alternative-to-dangerouslysetinnerhtml
+-date-fns package
 -favorites
 -image file upload
 -update footer
 -navbar mobile functionality
 -form validation
+-update pagination on frontend (display page in url)
 -comments
 -caching
 -framer motion

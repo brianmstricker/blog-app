@@ -19,13 +19,13 @@ const SearchCard = ({ post, scrollToExplore }) => {
             src={post.image}
           />
           <div className="p-4 overflow-hidden">
-            <h1 className="overflow-hidden">
+            <h1 className="overflow-hidden text-xl">
               <span className="font-bold text-xl xl:text-2xl capitalize overflow-hidden leading-6">
                 {post.title}
               </span>
               <br />
               {post.author && post.author.username && (
-                <span className="text-gray-600 overflow-hidden">
+                <span className="text-gray-600 overflow-hidden text-sm">
                   by {post.author.username}
                 </span>
               )}
@@ -40,24 +40,24 @@ const SearchCard = ({ post, scrollToExplore }) => {
         >
           <div className="p-4 h-full flex flex-col">
             <div>
-              <h1 className="overflow-hidden mt-2">
+              <h1 className="overflow-hidden mt-2 text-xl">
                 <span className="font-bold text-xl xl:text-2xl capitalize overflow-hidden leading-6">
                   {post.title}
                 </span>
                 <br />
                 {post.author && post.author.username && (
-                  <span className="text-gray-600 overflow-hidden">
+                  <span className="text-gray-600 overflow-hidden text-sm">
                     by {post.author.username}
                   </span>
                 )}
               </h1>
             </div>
-            <p className="hidden xl:block mt-2 overflow-hidden max-h-[185px]">
-              {post.content.substring(0, 250)}...
-            </p>
-            <p className="block xl:hidden mt-2 overflow-hidden max-h-[175px]">
-              {post.content.substring(0, 155)}...
-            </p>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: post.content,
+              }}
+              className="mt-2 h-[12em] overflow-hidden"
+            />
           </div>
         </div>
       )}
