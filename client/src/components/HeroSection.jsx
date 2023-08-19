@@ -14,6 +14,7 @@ const HeroSection = () => {
     }
   }, [input.length, searchResults.length]);
   function scrollToExplore() {
+    if (input === "") return;
     setTimeout(() => {
       scrollRef.current.scrollIntoView({
         behavior: "smooth",

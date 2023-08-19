@@ -13,7 +13,7 @@ const Searchbar = ({ setSearchResults, input, setInput }) => {
         toast.error("No results found");
       }
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.msg);
     }
   };
   return (
@@ -31,7 +31,7 @@ const Searchbar = ({ setSearchResults, input, setInput }) => {
         {input.length > 0 && (
           <button
             type="submit"
-            className="px-4 py-2 text-blue-400 rounded-full hover:text-blue-600 relative focus:outline-none outline-none focus:text-blue-600 hover:underline focus:underline transition-all"
+            className="px-4 py-2 text-blue-400 rounded-full hover:text-blue-600 relative focus:outline-none outline-none focus:text-blue-600 hover:underline focus:underline transition-all duration-300"
           >
             <div className="w-[2px] bg-blue-400 h-full absolute inset-0" />
             Search

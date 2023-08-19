@@ -1,6 +1,3 @@
--dompurify / dangerous html on backend
--sanitize on put method
--date-fns package
 -favorites
 -image file upload
 -update footer
@@ -11,3 +8,4 @@
 -caching
 -framer motion
 -rate limit
+-sanitize put method

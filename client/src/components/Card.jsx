@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { API_URL } from "../utils/config";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -19,7 +19,6 @@ const Card = ({ scrollToExplore }) => {
       setTotalPages(response.totalPages);
     }
   }, [response]);
-  const navigate = useNavigate();
   const pages = [...Array(totalPages).keys()];
   const previousPage = () => {
     if (page > 1) {
@@ -41,12 +40,15 @@ const Card = ({ scrollToExplore }) => {
         !error &&
         cards.length > 0 &&
         cards.map((card) => {
+          if (card.content.includes("<a")) {
+            card.content = card.content.replace(/<a/g, "<span");
+          }
           if (card.image) {
             return (
-              <div
-                className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden"
+              <Link
+                to={`/post/${card._id}`}
                 key={card._id}
-                onClick={() => navigate(`/post/${card._id}`)}
+                className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden"
               >
                 <img
                   className="h-32 lg:h-48 w-full rounded-t-xl object-cover"
@@ -65,14 +67,14 @@ const Card = ({ scrollToExplore }) => {
                   </h1>
                   <div className="sm:hidden">{card.shortDescription}</div>
                 </div>
-              </div>
+              </Link>
             );
           } else {
             return (
-              <div
-                className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden"
+              <Link
+                to={`/post/${card._id}`}
                 key={card._id}
-                onClick={() => navigate(`/post/${card._id}`)}
+                className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden"
               >
                 <div className="p-4 h-full flex flex-col">
                   <div>
@@ -87,11 +89,11 @@ const Card = ({ scrollToExplore }) => {
                       )}
                     </h1>
                   </div>
-                  {card.content.length > 200 ? (
+                  {card.content.length > 150 ? (
                     <>
                       <div className="block xs:hidden lg:block overflow-hidden mt-2 justify-self-end">
                         {parse(
-                          DOMpurify.sanitize(card.content.substring(0, 200)) +
+                          DOMpurify.sanitize(card.content.substring(0, 150)) +
                             "..."
                         )}
                       </div>
@@ -115,7 +117,7 @@ const Card = ({ scrollToExplore }) => {
                     </>
                   )}
                 </div>
-              </div>
+              </Link>
             );
           }
         })}

@@ -13,6 +13,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import parse from "html-react-parser";
 import DOMpurify from "dompurify";
+import { format } from "date-fns";
 
 const Post = () => {
   const { id } = useParams();
@@ -120,7 +121,10 @@ const Post = () => {
                         </p>
                       )}
                       <div className="h-2 w-2 bg-black/50 rounded-xl" />
-                      <p className="text-sm">Published 1 day ago</p>
+                      <p className="text-sm">
+                        Published{" "}
+                        {format(new Date(response.createdAt), "PP, p")}
+                      </p>
                       {((response.author &&
                         user &&
                         response.author._id === user._id) ||
