@@ -11,6 +11,8 @@ import Input from "./Input";
 import { FcCancel } from "react-icons/fc";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import parse from "html-react-parser";
+import DOMpurify from "dompurify";
 
 const Post = () => {
   const { id } = useParams();
@@ -152,10 +154,9 @@ const Post = () => {
                       </div>
                     </>
                   ))}
-                <div
-                  className="text-lg py-8"
-                  dangerouslySetInnerHTML={{ __html: response.content }}
-                />
+                <div className="text-lg py-8">
+                  {parse(DOMpurify.sanitize(response.content))}
+                </div>
               </div>
             </div>
           ) : (

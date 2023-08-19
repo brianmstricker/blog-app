@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { API_URL } from "../utils/config";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import parse from "html-react-parser";
+import DOMpurify from "dompurify";
 
 const Card = ({ scrollToExplore }) => {
   const [cards, setCards] = useState([]);
@@ -87,33 +89,29 @@ const Card = ({ scrollToExplore }) => {
                   </div>
                   {card.content.length > 200 ? (
                     <>
-                      <div
-                        className="block xs:hidden lg:block overflow-hidden mt-2 justify-self-end"
-                        dangerouslySetInnerHTML={{
-                          __html: card.content.substring(0, 200) + "...",
-                        }}
-                      />
-                      <div
-                        className="hidden xs:block lg:hidden overflow-hidden mt-2 justify-self-end"
-                        dangerouslySetInnerHTML={{
-                          __html: card.content.substring(0, 100) + "...",
-                        }}
-                      />
+                      <div className="block xs:hidden lg:block overflow-hidden mt-2 justify-self-end">
+                        {parse(
+                          DOMpurify.sanitize(card.content.substring(0, 200)) +
+                            "..."
+                        )}
+                      </div>
+                      <div className="hidden xs:block lg:hidden overflow-hidden mt-2 justify-self-end">
+                        {parse(
+                          DOMpurify.sanitize(card.content.substring(0, 100)) +
+                            "..."
+                        )}
+                      </div>
                     </>
                   ) : (
                     <>
-                      <div
-                        className="hidden lg:block overflow-hidden mt-2"
-                        dangerouslySetInnerHTML={{
-                          __html: card.content,
-                        }}
-                      />
-                      <div
-                        className="lg:hidden overflow-hidden mt-2"
-                        dangerouslySetInnerHTML={{
-                          __html: card.content.substring(0, 45),
-                        }}
-                      />
+                      <div className="hidden lg:block overflow-hidden mt-2">
+                        {parse(DOMpurify.sanitize(card.content))}
+                      </div>
+                      <div className="lg:hidden overflow-hidden mt-2">
+                        {parse(
+                          DOMpurify.sanitize(card.content.substring(0, 45))
+                        )}
+                      </div>
                     </>
                   )}
                 </div>
