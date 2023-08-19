@@ -62,11 +62,25 @@ router.post("/create", verifyToken, async (req, res, next) => {
     }
     if (req.body.tags.length > 250)
       return res.status(400).json("Try condensing your tags.");
-    const splitTags = req.body.tags.split(",").map((tag) => tag.trim());
+    const cleanTags = sanitizeHtml(req.body.tags, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+    const splitTags = cleanTags.split(",").map((tag) => tag.trim());
     const cleanContent = sanitizeHtml(req.body.content);
+    const cleanTitle = sanitizeHtml(req.body.title, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+    const cleanShortDescription = sanitizeHtml(req.body.shortDescription, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
     const newPost = new Post({
       ...req.body,
+      title: cleanTitle,
       content: cleanContent,
+      shortDescription: cleanShortDescription,
       author: req.user.id,
       tags: splitTags,
     });

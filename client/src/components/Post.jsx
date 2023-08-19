@@ -141,8 +141,21 @@ const Post = () => {
                     </div>
                   </div>
                 </div>
-                {response.tags.length > 1 ||
-                  (!response.tags.includes("") && (
+                {response.tags.length > 1 ? (
+                  <>
+                    <p className="font-bold mb-2">Tags</p>
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:flex gap-3">
+                      {response.tags.map((tag, i) => (
+                        <p key={i} className="text-indigo-500/80 lg:border-b">
+                          {tag}
+                        </p>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  response.tags.length === 1 &&
+                  !response.tags.includes(" ") &&
+                  !response.tags.includes("") && (
                     <>
                       <p className="font-bold mb-2">Tags</p>
                       <div className="grid grid-cols-2 md:grid-cols-4 lg:flex gap-3">
@@ -153,7 +166,8 @@ const Post = () => {
                         ))}
                       </div>
                     </>
-                  ))}
+                  )
+                )}
                 <div className="text-lg py-8">
                   {parse(DOMpurify.sanitize(response.content))}
                 </div>

@@ -1,4 +1,5 @@
 -dompurify / dangerous html on backend
+-sanitize on put method
 -date-fns package
 -favorites
 -image file upload
@@ -10,4 +11,3 @@
 -caching
 -framer motion
 -rate limit
--use xss package on posts/auth routes
