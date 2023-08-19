@@ -1,7 +1,7 @@
 -favorites
 -image file upload
 -update footer
--navbar mobile functionality
+-tablets look for onFirstClick/onSecondClick to display user info then navigate to user page
 -form validation
 -update pagination on frontend (display page in url)
 -comments

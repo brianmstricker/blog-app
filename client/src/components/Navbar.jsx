@@ -7,8 +7,13 @@ import axios from "axios";
 import { API_URL } from "../utils/config";
 import { PiUserCircleLight } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import { HiArrowUp } from "react-icons/hi";
 
 const Navbar = () => {
+  const [showMenu, setShowMenu] = useState(false);
+  const [offset, setOffset] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
@@ -25,85 +30,197 @@ const Navbar = () => {
   const profilePage = () => {
     navigate(`/profile/${user._id}`);
   };
+  useEffect(() => {
+    const onScroll = () => setOffset(window.scrollY);
+    window.removeEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
-    <nav className="w-full px-4 py-6 flex items-center justify-between container mx-auto relative">
-      <h1 className="logo text-4xl md:text-5xl mb-0">
-        <Link className="block lg:hidden" to="/">
-          TP
-        </Link>
-        <Link className="hidden lg:block" to="/">
-          TechPunch
-        </Link>
-      </h1>
-      <div className="hidden nav:flex gap-5 items-center lg:text-lg absolute w-fit left-[50%] right-[50%] translate-x-[-50%] xs:-ml-12 md:mr-2 lg:ml-0">
-        <ul className="flex gap-2 lg:gap-5 items-center">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          {!!user && (
-            <>
-              <li className="w-max">
-                <Link to="/posts">Your Posts</Link>
-              </li>
-              <li>
-                <Link to="/favorites">Favorites</Link>
-              </li>
-            </>
-          )}
-          {!!user && (
-            <li className="w-max">
-              <Link className="font-bold" to="/create">
-                Create Blog
-              </Link>
+    <>
+      <nav className="w-full px-4 py-6 flex items-center justify-between container mx-auto relative">
+        <h1 className="logo text-4xl md:text-5xl mb-0">
+          <Link className="block lg:hidden" to="/">
+            TP
+          </Link>
+          <Link className="hidden lg:block" to="/">
+            TechPunch
+          </Link>
+        </h1>
+        <div className="hidden nav:flex gap-5 items-center lg:text-lg absolute w-fit left-[50%] right-[50%] translate-x-[-50%] xs:-ml-12 md:mr-2 lg:ml-0">
+          <ul className="flex gap-2 lg:gap-5 items-center">
+            <li>
+              <Link to="/">Home</Link>
             </li>
-          )}
-        </ul>
-      </div>
-      <div>
-        {location.pathname !== "/signin" &&
-          location.pathname !== "/signup" &&
-          !user && (
-            <div className="relative">
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            {!!user && (
+              <>
+                <li className="w-max">
+                  <Link to="/posts">Your Posts</Link>
+                </li>
+                <li>
+                  <Link to="/favorites">Favorites</Link>
+                </li>
+                <li className="w-max">
+                  <Link className="font-bold" to="/create">
+                    Create Blog
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+        <div>
+          {location.pathname !== "/signin" &&
+            location.pathname !== "/signup" &&
+            !user && (
+              <div className="relative">
+                <Link
+                  to="signin"
+                  className="px-4 py-2 bg-blue-400 rounded-full text-white"
+                >
+                  Sign in
+                </Link>
+                <span className="text-gray-600 block mt-4 w-[140px] sm:w-auto absolute">
+                  (Sign in to create a blog post)
+                </span>
+              </div>
+            )}
+          {!!user && (
+            <div className="flex items-center gap-3">
+              <div className="group relative">
+                <PiUserCircleLight
+                  size={40}
+                  onClick={profilePage}
+                  className="cursor-pointer"
+                />
+                <ul className="absolute hidden group-hover:block bg-blue-400 p-2 rounded-xl mt-2 text-white">
+                  <li>{user.username}</li>
+                  <li>{user.email}</li>
+                  {user.role === "admin" && <li>role - Admin</li>}
+                </ul>
+              </div>
               <Link
-                to="signin"
-                className="px-4 py-2 bg-blue-400 rounded-full text-white"
+                onClick={handleLogout}
+                to="/"
+                className="px-4 py-2 bg-red-400 rounded-full text-white text-center text-sm md:text-lg"
               >
-                Sign in
+                Sign out
               </Link>
-              <span className="text-gray-600 block mt-4 w-[140px] sm:w-auto absolute">
-                (Sign in to create a blog post)
-              </span>
             </div>
           )}
-        {!!user && (
-          <div className="flex items-center gap-3">
-            <div className="group relative">
-              <PiUserCircleLight
-                size={40}
-                onClick={profilePage}
-                className="cursor-pointer"
-              />
-              <ul className="absolute hidden group-hover:block bg-blue-400 p-2 rounded-xl mt-2 text-white">
-                <li>{user.username}</li>
-                <li>{user.email}</li>
-                {user.role === "admin" && <li>role - Admin</li>}
-              </ul>
-            </div>
-            <Link
-              onClick={handleLogout}
-              to="/"
-              className="px-4 py-2 bg-red-400 rounded-full text-white text-center text-sm md:text-lg"
-            >
-              Sign out
-            </Link>
+        </div>
+        {!showMenu && (
+          <TbMenu2
+            className="block nav:hidden text-4xl z-10"
+            onClick={() => setShowMenu(true)}
+          />
+        )}
+        {!showMenu && offset > 200 && (
+          <div className="w-7 h-7 fixed right-2 top-2 xl:right-4 xl:top-4 z-10 cursor-pointer">
+            <HiArrowUp
+              className="text-4xl z-10 ring-2 ring-blue-400 rounded-full p-1 bg-white"
+              onClick={() =>
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                })
+              }
+              size={28}
+            />
           </div>
         )}
-      </div>
-      <TbMenu2 className="block nav:hidden text-4xl" />
-    </nav>
+      </nav>
+      {showMenu && (
+        <div className="fixed inset-0 w-screen min-h-screen bg-black/90 flex flex-col items-center justify-center nav:hidden z-10 text-white text-3xl">
+          <div className="absolute top-1 right-1 z-20">
+            <AiOutlineClose
+              className="text-4xl"
+              onClick={() => setShowMenu(false)}
+            />
+          </div>
+          <div className="flex flex-col items-center">
+            <ul className="flex flex-col gap-6 items-center">
+              <li>
+                <Link to="/" onClick={() => setShowMenu(false)}>
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" onClick={() => setShowMenu(false)}>
+                  About
+                </Link>
+              </li>
+              {!!user && (
+                <>
+                  <li className="w-max">
+                    <Link to="/posts" onClick={() => setShowMenu(false)}>
+                      Your Posts
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/favorites" onClick={() => setShowMenu(false)}>
+                      Favorites
+                    </Link>
+                  </li>
+                  <li className="w-max" onClick={() => setShowMenu(false)}>
+                    <Link className="font-bold" to="/create">
+                      Create Blog
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          </div>
+          <div>
+            {location.pathname !== "/signin" &&
+              location.pathname !== "/signup" &&
+              !user && (
+                <div className="flex flex-col mt-14 items-center gap-3">
+                  <Link
+                    to="signin"
+                    className="px-4 py-2 bg-blue-400 rounded-full text-white"
+                    onClick={() => setShowMenu(false)}
+                  >
+                    Sign in
+                  </Link>
+                </div>
+              )}
+            {!!user && (
+              <div className="flex flex-col mt-14 items-center gap-3">
+                <div className="flex items-center gap-4">
+                  <PiUserCircleLight
+                    size={40}
+                    onClick={() => {
+                      profilePage();
+                      setShowMenu(false);
+                    }}
+                    className="cursor-pointer"
+                  />
+                  <ul className="bg-blue-400 p-2 rounded-xl mt-2 text-white text-base">
+                    <li>{user.username}</li>
+                    <li>{user.email}</li>
+                    {user.role === "admin" && <li>role - Admin</li>}
+                  </ul>
+                </div>
+                <Link
+                  onClick={() => {
+                    handleLogout();
+                    setShowMenu(false);
+                  }}
+                  to="/"
+                  className="px-4 py-2 bg-red-400 rounded-full text-white text-center text-sm mt-4"
+                >
+                  Sign out
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 export default Navbar;
