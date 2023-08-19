@@ -53,7 +53,7 @@ const Card = ({ scrollToExplore }) => {
                   src={card.image}
                 />
                 <div className="p-4 overflow-hidden">
-                  <h1 className="overflow-hidden text-xl flex flex-col">
+                  <h1 className="overflow-hidden text-xl flex flex-col mb-0">
                     <span className="font-bold xl:text-2xl capitalize overflow-hidden leading-tight">
                       {card.title}
                     </span>
@@ -76,7 +76,7 @@ const Card = ({ scrollToExplore }) => {
               >
                 <div className="p-4 h-full flex flex-col">
                   <div>
-                    <h1 className="overflow-hidden mt-2 text-xl flex flex-col">
+                    <h1 className="overflow-hidden mt-2 text-xl flex flex-col mb-0">
                       <span className="font-bold xl:text-2xl capitalize overflow-hidden leading-tight">
                         {card.title}
                       </span>

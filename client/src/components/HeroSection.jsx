@@ -26,7 +26,7 @@ const HeroSection = () => {
       <section className="w-full pt-4 container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center">
           <div className="h-[60%] xs:w-[75%] md:h-full flex flex-col">
-            <h1 className="sm:text-4xl xs:text-3xl text-2xl font-medium mt-6">
+            <h1 className="sm:text-4xl xs:text-3xl text-2xl font-medium mt-6 mb-0">
               Check our collection of different tech related articles.
             </h1>
             <p className="mt-8 max-w-[500px]">

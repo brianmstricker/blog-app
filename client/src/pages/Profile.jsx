@@ -71,7 +71,9 @@ const Profile = () => {
         onSubmit={handleSubmit}
         className="container rounded-xl mx-auto bg-gray-200 mt-4 flex flex-col px-4 py-10"
       >
-        <h1 className="text-center text-5xl mt-10 font-bold">Update Account</h1>
+        <h1 className="text-center text-5xl mt-10 font-bold mb-0">
+          Update Account
+        </h1>
         {getUser.role === "admin" && (
           <div className=" text-center mt-4 text-lg">
             Role - <span className="text-red-500">Admin</span>

@@ -2,6 +2,7 @@ import express from "express";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import sanitizeHtml from "sanitize-html";
 
 const router = express.Router();
 
@@ -19,20 +20,38 @@ router.post("/register", async (req, res, next) => {
     if (existingUsername) {
       return res.status(400).send("User with this username already exists.");
     }
-    if (password.length < 6)
+    if (password.length < 6) {
       return res
         .status(400)
         .send("Password must be at least 6 characters long.");
-    if (password.length > 40)
+    }
+    if (password.length > 40) {
       return res
         .status(400)
         .send("Password must be at most 40 characters long.");
+    }
+    const cleanName = sanitizeHtml(name, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+    const cleanUsername = sanitizeHtml(username, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+    const cleanEmail = sanitizeHtml(email, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+    const cleanPassword = sanitizeHtml(password, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(cleanPassword, salt);
     const newUser = new User({
-      name,
-      username,
-      email,
+      name: cleanName,
+      username: cleanUsername,
+      email: cleanEmail,
       password: hashedPassword,
     });
     await newUser.save();

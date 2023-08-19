@@ -107,7 +107,7 @@ const Post = () => {
               <div className="p-3">
                 <div className="gap-8 my-4">
                   <div>
-                    <h1 className="font-bold text-2xl md:text-5xl capitalize">
+                    <h1 className="font-bold text-2xl md:text-5xl capitalize mb-0">
                       {response.title}
                     </h1>
                     <p className="text-xl font-medium mt-4 mb-8 text-gray-500">
@@ -174,7 +174,7 @@ const Post = () => {
                 <div className="p-3">
                   <div className="gap-8 my-4">
                     <div>
-                      <h1 className="font-bold text-2xl md:text-5xl capitalize">
+                      <h1 className="font-bold text-2xl md:text-5xl capitalize mb-0">
                         <Input
                           className="w-full"
                           value={editEntry.title}

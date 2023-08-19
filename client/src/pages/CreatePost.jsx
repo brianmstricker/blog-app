@@ -78,7 +78,7 @@ const CreatePost = () => {
       className="container rounded-xl mx-auto bg-gray-200 flex flex-col p-4 mt-4 mb-8"
       onSubmit={handleSubmit}
     >
-      <h1 className="text-center text-5xl font-bold ">Create A Blog</h1>
+      <h1 className="text-center text-5xl font-bold mb-0">Create A Blog</h1>
       <div className="flex flex-col mt-4">
         <label className="text-xl font-bold mt-4" htmlFor="title">
           Title

@@ -9,3 +9,5 @@
 -comments
 -caching
 -framer motion
+-rate limit
+-use xss package on posts/auth routes

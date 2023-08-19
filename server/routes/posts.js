@@ -2,6 +2,7 @@ import express from "express";
 import Post from "../models/Post.js";
 import { verifyToken } from "../verifyToken.js";
 import mongoose from "mongoose";
+import sanitizeHtml from "sanitize-html";
 
 const router = express.Router();
 
@@ -62,8 +63,10 @@ router.post("/create", verifyToken, async (req, res, next) => {
     if (req.body.tags.length > 250)
       return res.status(400).json("Try condensing your tags.");
     const splitTags = req.body.tags.split(",").map((tag) => tag.trim());
+    const cleanContent = sanitizeHtml(req.body.content);
     const newPost = new Post({
       ...req.body,
+      content: cleanContent,
       author: req.user.id,
       tags: splitTags,
     });
