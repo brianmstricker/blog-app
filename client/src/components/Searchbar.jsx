@@ -49,7 +49,7 @@ const Searchbar = ({ setSearchResults, input, setInput }) => {
             Search
           </button>
         )}
-        <div className="ml-4 mt-6 absolute top-12">
+        <div className="ml-4 mt-6 my-8 absolute top-12 md:w-max">
           <div className="flex flex-row flex-wrap gap-2 mt-2 items-center">
             <span className="italic text-gray-400">Popular Searches</span>
             <Button

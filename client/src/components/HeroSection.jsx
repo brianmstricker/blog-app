@@ -23,13 +23,13 @@ const HeroSection = () => {
   }
   return (
     <>
-      <section className="w-full pt-4 container mx-auto px-4">
+      <section className="w-full pt-2 container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center">
-          <div className="h-[60%] xs:w-[75%] md:h-full flex flex-col">
-            <h1 className="sm:text-4xl xs:text-3xl text-2xl font-medium mt-6 mb-0">
+          <div className="h-[60%] xs:w-[85%] md:h-full flex flex-col">
+            <h1 className="sm:text-4xl xs:text-3xl text-2xl font-medium mt-4 mb-0">
               Check our collection of different tech related articles.
             </h1>
-            <p className="mt-8 max-w-[500px]">
+            <p className="mt-8 text-sm md:text-base max-w-[500px]">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum
               nesciunt dolores dolor asperiores sit expedita consectetur quos
               explicabo molestias perspiciatis laborum dignissimos, facere
@@ -44,7 +44,7 @@ const HeroSection = () => {
           </div>
           <div className="w-full h-full mt-4 md:mt-0">
             <img
-              className="h-full w-full max-h-[400px] object-contain]"
+              className="h-full w-full max-h-[400px] object-contain mt-32 xs:mt-20 sm:mt-4 md:mt-0"
               src={heroimg}
               alt="People with laptops"
             />
