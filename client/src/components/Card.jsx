@@ -35,7 +35,7 @@ const Card = ({ scrollToExplore }) => {
   return (
     <>
       {isLoading && <h4 className="text-center">Loading...</h4>}
-      {error && <h4>{error.message}</h4>}
+      {error && <h4>{error.message || "Something went wrong."}</h4>}
       {!isLoading &&
         !error &&
         cards.length > 0 &&
@@ -48,7 +48,9 @@ const Card = ({ scrollToExplore }) => {
               <Link
                 to={`/post/${card._id}`}
                 key={card._id}
-                className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden"
+                className={
+                  "bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden"
+                }
               >
                 <img
                   className="h-32 lg:h-48 w-full rounded-t-xl object-cover"
@@ -74,7 +76,9 @@ const Card = ({ scrollToExplore }) => {
               <Link
                 to={`/post/${card._id}`}
                 key={card._id}
-                className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden"
+                className={
+                  "bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden"
+                }
               >
                 <div className="p-4 h-full flex flex-col">
                   <div>

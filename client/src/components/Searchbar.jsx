@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { MdClear } from "react-icons/md";
 
 const Searchbar = ({ setSearchResults, input, setInput }) => {
   const handleSearch = async (e) => {
@@ -20,11 +21,22 @@ const Searchbar = ({ setSearchResults, input, setInput }) => {
     <div>
       <form
         onSubmit={handleSearch}
-        className="lg:mt-14 mt-6 border-2 border-blue-400 w-full rounded-full shadow-xl shadow-black/20 flex"
+        className="lg:mt-14 mt-6 border-2 border-blue-400 w-full rounded-full shadow-xl shadow-black/20 flex relative"
       >
+        {input.length >= 1 && (
+          <div
+            className="absolute top-1/2 translate-y-[-50%] ml-2"
+            onClick={() => {
+              setInput("");
+              setSearchResults([]);
+            }}
+          >
+            <MdClear className="fill-red-600" size={26} />
+          </div>
+        )}
         <input
           placeholder="Search articles (by title or tag)"
-          className="rounded-full py-4 px-6 outline-none w-full"
+          className="rounded-full py-4 px-6 outline-none w-full ml-3"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
@@ -37,11 +49,50 @@ const Searchbar = ({ setSearchResults, input, setInput }) => {
             Search
           </button>
         )}
+        <div className="ml-4 mt-6 absolute top-12">
+          <div className="flex flex-row flex-wrap gap-2 mt-2 items-center">
+            <span className="italic text-gray-400">Popular Searches</span>
+            <Button
+              onClick={() => {
+                setInput("javascript");
+              }}
+            >
+              <div className="absolute inset-0" />
+              Javascript
+            </Button>
+            <Button
+              onClick={() => {
+                setInput("react");
+              }}
+            >
+              <div className="absolute inset-0" />
+              React
+            </Button>
+            <Button
+              onClick={() => {
+                setInput("nodejs");
+              }}
+            >
+              <div className="absolute inset-0" />
+              Nodejs
+            </Button>
+          </div>
+        </div>
       </form>
-      <div className="ml-5 mt-2">
-        <span className="italic text-gray-400">Popular Searches</span>
-      </div>
     </div>
   );
 };
+
+function Button({ onClick, children }) {
+  return (
+    <button
+      onClick={onClick}
+      type="submit"
+      className="px-4 py-2 rounded-full relative focus:outline-none outline-none focus:text-blue-600 hover:underline focus:underline transition-all duration-300 bg-blue-400 text-white"
+    >
+      {children}
+    </button>
+  );
+}
+
 export default Searchbar;

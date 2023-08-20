@@ -1,11 +1,13 @@
+-update popular searches styling?
 -favorites
+-loading spinner
 -image file upload
--update footer
--tablets look for onFirstClick/onSecondClick to display user info then navigate to user page
+-update footer (social links)
 -form validation
 -update pagination on frontend (display page in url)
 -comments
+-rate limit
 -caching
 -framer motion
--rate limit
+-tablets look for onFirstClick/onSecondClick to display user info then navigate to user page
 -sanitize put method
