@@ -6,6 +6,7 @@ import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
 import commentRoutes from "./routes/comments.js";
+import favoriteRoutes from "./routes/favorites.js";
 import cors from "cors";
 import createHttpError, { isHttpError } from "http-errors";
 import morgan from "morgan";
@@ -31,6 +32,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/favorites", favoriteRoutes);
 app.listen(process.env.PORT, () => {
   connect();
   console.log(`Server running on port ${process.env.PORT}`);
