@@ -121,14 +121,14 @@ const Navbar = () => {
         {!showMenu && offset > 200 && (
           <div className="w-7 h-7 fixed right-2 top-2 xl:right-4 xl:top-4 z-10 cursor-pointer">
             <HiArrowUp
-              className="text-4xl z-10 ring-2 ring-blue-400 rounded-full p-1 bg-white"
+              className="z-10 ring-2 ring-blue-400 rounded-full p-1 bg-white"
+              size={28}
               onClick={() =>
                 window.scrollTo({
                   top: 0,
                   behavior: "smooth",
                 })
               }
-              size={28}
             />
           </div>
         )}
