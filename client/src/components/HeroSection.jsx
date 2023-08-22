@@ -3,11 +3,25 @@ import heroimg from "../assets/images/heroimg.svg";
 import Card from "./Card";
 import Searchbar from "./Searchbar";
 import SearchCard from "./SearchCard";
+import useFetch from "../hooks/useFetch";
+import { API_URL } from "../utils/config";
 
 const HeroSection = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [input, setInput] = useState("");
+  const [cards, setCards] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const scrollRef = useRef(null);
+  const { response, isLoading, error } = useFetch(
+    API_URL + `/posts?page=${page}`
+  );
+  useEffect(() => {
+    if (response) {
+      setCards(response.posts);
+      setTotalPages(response.totalPages);
+    }
+  }, [response]);
   useEffect(() => {
     if (searchResults.length !== 0 && input.length === 0) {
       setSearchResults([]);
@@ -21,6 +35,19 @@ const HeroSection = () => {
       });
     }, 150);
   }
+  const pages = [...Array(totalPages).keys()];
+  const previousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+      scrollToExplore();
+    }
+  };
+  const nextPage = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
+      scrollToExplore();
+    }
+  };
   return (
     <>
       <section className="w-full pt-2 container mx-auto px-4">
@@ -67,7 +94,17 @@ const HeroSection = () => {
             />
           ))
         ) : (
-          <Card scrollToExplore={scrollToExplore} />
+          <Card
+            scrollToExplore={scrollToExplore}
+            cards={cards}
+            isLoading={isLoading}
+            error={error}
+            pages={pages}
+            previousPage={previousPage}
+            nextPage={nextPage}
+            setPage={setPage}
+            page={page}
+          />
         )}
       </section>
     </>

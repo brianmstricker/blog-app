@@ -1,37 +1,19 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
-import { API_URL } from "../utils/config";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import parse from "html-react-parser";
 import DOMpurify from "dompurify";
 
-const Card = ({ scrollToExplore }) => {
-  const [cards, setCards] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const { response, isLoading, error } = useFetch(
-    API_URL + `/posts?page=${page}`
-  );
-  useEffect(() => {
-    if (response) {
-      setCards(response.posts);
-      setTotalPages(response.totalPages);
-    }
-  }, [response]);
-  const pages = [...Array(totalPages).keys()];
-  const previousPage = () => {
-    if (page > 1) {
-      setPage(page - 1);
-      scrollToExplore();
-    }
-  };
-  const nextPage = () => {
-    if (page < totalPages) {
-      setPage(page + 1);
-      scrollToExplore();
-    }
-  };
+const Card = ({
+  scrollToExplore,
+  isLoading,
+  error,
+  cards,
+  pages,
+  previousPage,
+  nextPage,
+  setPage,
+  page,
+}) => {
   return (
     <>
       {isLoading && <h4 className="text-center">Loading...</h4>}
