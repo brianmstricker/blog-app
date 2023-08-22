@@ -57,10 +57,14 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/create", verifyToken, async (req, res, next) => {
   try {
-    if (req.body.tags.length === 1 && req.body.tags.includes(" ")) {
+    if (
+      req.body.tags &&
+      req.body.tags.length === 1 &&
+      req.body.tags.includes(" ")
+    ) {
       return res.status(400).json("Cannot send empty tags.");
     }
-    if (req.body.tags.length > 250)
+    if (req.body.tags && req.body.tags.length > 250)
       return res.status(400).json("Try condensing your tags.");
     const cleanTags = sanitizeHtml(req.body.tags, {
       allowedTags: [],

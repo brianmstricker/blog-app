@@ -22,7 +22,6 @@ router.post("", verifyToken, async (req, res, next) => {
       return res.status(400).json("Wrong account.");
     }
     const post = await Post.findById(req.body.postId);
-    console.log(post.author);
     if (post.author.toString() === req.body.userId.toString()) {
       return res.status(400).json("You cannot favorite your own post");
     }

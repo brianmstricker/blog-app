@@ -106,7 +106,7 @@ router.post("/login", async (req, res, next) => {
       updatedAt,
       ...user
     } = userDoc._doc;
-    res.status(200).json({ user });
+    res.status(200).json({ user, token });
   } catch (error) {
     res.status(500);
     next(error);
