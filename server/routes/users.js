@@ -33,12 +33,12 @@ router.get("/", verifyToken, verifyAdmin, async (req, res, next) => {
 });
 router.put("/update/:id", verifyToken, verifyUser, async (req, res, next) => {
   try {
-    const { name, username, email } = req.body;
+    const { name, username, email, image } = req.body;
     if (req.params.id === req.user.id) {
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
         {
-          $set: { name, username, email },
+          $set: { name, username, email, profilePic: image },
         },
         { new: true }
       );
@@ -48,6 +48,8 @@ router.put("/update/:id", verifyToken, verifyUser, async (req, res, next) => {
           name: updatedUser.name,
           username: updatedUser.username,
           email: updatedUser.email,
+          role: updatedUser.role,
+          profilePic: updatedUser.profilePic,
         },
       });
     } else {

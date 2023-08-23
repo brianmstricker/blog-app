@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema(
       maxLength: 40,
     },
     password: { type: String, required: true },
-    profilePic: { type: String },
+    profilePic: { type: String, default: "" },
     role: { type: String, default: "user" },
   },
   {

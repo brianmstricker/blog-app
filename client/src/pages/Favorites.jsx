@@ -43,7 +43,7 @@ const Favorites = () => {
             >
               <div className="group">
                 <GoTrash
-                  className="fill-red-800"
+                  className="fill-red-800 cursor-pointer"
                   size={20}
                   onClick={() => {
                     handleRemoveFavorite(item._id);

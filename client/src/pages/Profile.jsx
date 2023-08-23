@@ -1,10 +1,14 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "../utils/config";
 import { setLogin } from "../state/userSlice";
 import { toast } from "react-toastify";
 import Input from "../components/Input";
+import { PiUserCircleLight } from "react-icons/pi";
+import { storage } from "../utils/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -14,13 +18,16 @@ const Profile = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    image: "",
   });
   const getUser = useSelector((state) => state.user);
+  const [image, setImage] = useState(null);
   useEffect(() => {
     setUser({
       name: getUser.name,
       username: getUser.username,
       email: getUser.email,
+      image: getUser.profilePic,
       password: "",
       confirmPassword: "",
     });
@@ -33,6 +40,15 @@ const Profile = () => {
         position: "top-center",
       });
     try {
+      if (image) {
+        const storageRef = ref(
+          storage,
+          `users/${image.name.split(".")[0]}_${v4()}`
+        );
+        const uploadTask = await uploadBytes(storageRef, image);
+        const downloadURL = await getDownloadURL(uploadTask.ref);
+        user.image = downloadURL;
+      }
       const res = await axios.put(
         API_URL + `/users/update/${getUser._id}`,
         user,
@@ -60,10 +76,22 @@ const Profile = () => {
       user.username === getUser.username &&
       user.email === getUser.email &&
       user.password === "" &&
-      user.confirmPassword === ""
+      user.confirmPassword === "" &&
+      !image
     )
       return true;
     return false;
+  };
+  const imgInputRef = useRef(null);
+  const imageChange = (e) => {
+    if (e.target.files[0].type.includes("image")) {
+      setImage(e.target.files[0]);
+      setUser({ ...user, image: e.target.files[0] });
+    } else
+      toast("Please select an image", {
+        type: "error",
+        position: "top-center",
+      });
   };
   return (
     <>
@@ -71,11 +99,42 @@ const Profile = () => {
         onSubmit={handleSubmit}
         className="container rounded-xl mx-auto bg-gray-200 mt-4 flex flex-col px-4 py-10"
       >
-        <h1 className="text-center text-5xl mt-10 font-bold mb-0">
+        <h1 className="text-center text-5xl mt-4 font-bold mb-0">
           Update Account
         </h1>
+        <div className="flex items-center justify-center mt-2">
+          {!image && !user.image && (
+            <label htmlFor="image">
+              <PiUserCircleLight size={144} />
+            </label>
+          )}
+          {image && (
+            <img
+              src={URL.createObjectURL(image)}
+              alt="profile"
+              className="rounded-full h-36 w-36 object-cover cursor-pointer"
+              onClick={() => imgInputRef.current.click()}
+            />
+          )}
+          {user.image && !image && (
+            <img
+              src={user.image}
+              alt="profile"
+              className="rounded-full h-36 w-36 object-cover cursor-pointer"
+              onClick={() => imgInputRef.current.click() && setUser.image("")}
+            />
+          )}
+          <input
+            type="file"
+            ref={imgInputRef}
+            className="hidden"
+            id="image"
+            name="image"
+            onChange={imageChange}
+          />
+        </div>
         {getUser.role === "admin" && (
-          <div className=" text-center mt-4 text-lg">
+          <div className=" text-center mt-2 text-lg">
             Role - <span className="text-red-500">Admin</span>
           </div>
         )}

@@ -91,11 +91,20 @@ const Navbar = () => {
           {!!user && (
             <div className="flex items-center gap-3">
               <div className="group relative">
-                <PiUserCircleLight
-                  size={40}
-                  onClick={profilePage}
-                  className="cursor-pointer"
-                />
+                {!user.profilePic ? (
+                  <PiUserCircleLight
+                    size={40}
+                    onClick={profilePage}
+                    className="cursor-pointer"
+                  />
+                ) : (
+                  <img
+                    src={user.profilePic}
+                    alt="profile image"
+                    className="rounded-full h-10 w-10 object-cover cursor-pointer"
+                    onClick={profilePage}
+                  />
+                )}
                 <ul className="absolute hidden group-hover:block bg-blue-400 p-2 rounded-xl mt-2 text-white">
                   <li>{user.username}</li>
                   <li>{user.email}</li>
