@@ -14,11 +14,11 @@
 }
 
 .ql-editor {
-  min-height: 14rem;
+  min-height: 24rem;
   font-size: 1.25rem;
   resize: vertical;
   overflow-y: scroll;
-  max-height: 32rem;
+  max-height: 42rem;
 }
 
 h1 {

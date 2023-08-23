@@ -155,7 +155,7 @@ const Post = () => {
             <div className="max-w-4xl mx-auto p-3">
               {response.image && (
                 <img
-                  className="mx-auto rounded-xl md:h-[400px] w-full object-contain md:object-cover mt-8"
+                  className="mx-auto rounded-xl md:h-[400px] object-contain md:object-cover mt-8 ring-2 ring-black"
                   src={response.image}
                 />
               )}
@@ -262,7 +262,7 @@ const Post = () => {
                 </p>
                 {response.image && (
                   <img
-                    className="mx-auto rounded-xl md:h-[400px] w-full object-contain md:object-cover mt-8"
+                    className="mx-auto rounded-xl md:h-[400px] object-contain md:object-cover mt-8 ring-2 ring-black"
                     src={response.image}
                   />
                 )}

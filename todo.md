@@ -1,4 +1,4 @@
--image file upload
+-image crop for profile?
 -footer user page/all posts page
 -form validation
 -loading spinner

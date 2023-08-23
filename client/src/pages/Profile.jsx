@@ -84,6 +84,7 @@ const Profile = () => {
   };
   const imgInputRef = useRef(null);
   const imageChange = (e) => {
+    if (e.target.files.length === 0) return;
     if (e.target.files[0].type.includes("image")) {
       setImage(e.target.files[0]);
       setUser({ ...user, image: e.target.files[0] });
