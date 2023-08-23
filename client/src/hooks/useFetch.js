@@ -7,7 +7,10 @@ const useFetch = (url) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(url);
+        const res = await fetch(url, {
+          method: "GET",
+          credentials: "include",
+        });
         if (!res.ok) setError(res.statusText);
         const json = await res.json();
         setResponse(json || json.posts);

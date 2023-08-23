@@ -1,13 +1,13 @@
--update popular searches styling?
--favorites
--loading spinner
 -image file upload
 -update footer (social links)
 -form validation
+-loading spinner
 -update pagination on frontend (display page in url)
--comments
+-your posts page
+-comments frontend/testing
 -rate limit
 -caching
 -framer motion
 -tablets look for onFirstClick/onSecondClick to display user info then navigate to user page
 -sanitize put method
+-update popular searches styling?

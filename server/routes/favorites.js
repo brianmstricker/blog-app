@@ -76,8 +76,38 @@ router.get("/:userId", verifyToken, async (req, res, next) => {
     if (req.user._id.toString() !== req.params.userId.toString()) {
       return res.status(400).json("You can only get your own favorites");
     }
-    const favorites = await Favorite.find({ userId: req.params.userId });
-    res.status(200).json(favorites);
+    const favorites = await Favorite.find({
+      userId: req.params.userId,
+    }).populate({
+      path: "postId",
+      populate: {
+        path: "author",
+        select: "username",
+      },
+    });
+    if (!favorites) {
+      return res.status(400).json("Favorites not found");
+    }
+    res.status(200).json(favorites.reverse());
+  } catch (error) {
+    res.status(500);
+    next(error);
+  }
+});
+
+router.get("/post/:postId", verifyToken, async (req, res, next) => {
+  try {
+    const favorite = await Favorite.find({
+      postId: req.params.postId,
+      userId: req.user._id,
+    }).populate("postId");
+    if (!favorite) {
+      return res.status(400).json("Favorite not found");
+    }
+    if (favorite && favorite.length === 0) {
+      return res.status(200).json(false);
+    }
+    res.status(200).json(favorite);
   } catch (error) {
     res.status(500);
     next(error);

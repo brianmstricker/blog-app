@@ -14,6 +14,7 @@ import "react-quill/dist/quill.snow.css";
 import parse from "html-react-parser";
 import DOMpurify from "dompurify";
 import { format } from "date-fns";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 const Post = () => {
   const { id } = useParams();
@@ -25,6 +26,21 @@ const Post = () => {
     content: "",
     tags: "",
   });
+  const [favorite, setFavorite] = useState({ response: null });
+  const user = useSelector((state) => state.user);
+  useEffect(() => {
+    const getFavorite = async () => {
+      try {
+        const res = await axios.get(API_URL + "/favorites/post/" + id, {
+          withCredentials: true,
+        });
+        setFavorite({ response: res.data });
+      } catch (error) {
+        toast.error(error.response.data.message || error.message);
+      }
+    };
+    getFavorite();
+  }, [id]);
   useEffect(() => {
     if (response) {
       setEditEntry({
@@ -38,7 +54,41 @@ const Post = () => {
     }
   }, [response]);
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const updateFavorite = async () => {
+    if (
+      favorite.response !== null &&
+      favorite.response !== false &&
+      favorite.response !== undefined
+    ) {
+      try {
+        await axios.delete(
+          API_URL + "/favorites/" + (favorite.response[0]._id || favorite._id),
+          {
+            withCredentials: true,
+          }
+        );
+        setFavorite({ response: null });
+      } catch (error) {
+        toast.error(error.response.data.message || error.message);
+      }
+    } else {
+      try {
+        const fav = await axios.post(
+          API_URL + "/favorites",
+          {
+            postId: id,
+            userId: user._id,
+          },
+          {
+            withCredentials: true,
+          }
+        );
+        setFavorite({ response: [fav.data] });
+      } catch (error) {
+        toast.error(error.response.data.message || error.message);
+      }
+    }
+  };
   const handleDelete = async () => {
     try {
       await axios.delete(API_URL + "/posts/delete/" + id, {
@@ -94,7 +144,11 @@ const Post = () => {
   return (
     <>
       {isLoading && <h4 className="text-center">Loading...</h4>}
-      {error && <h4 className="text-center">{error.message}</h4>}
+      {error && (
+        <h4 className="text-center">
+          {error.message || "Something went wrong."}
+        </h4>
+      )}
       {!isLoading && !error && (
         <div className="container mx-auto">
           {!isEditing ? (
@@ -107,20 +161,43 @@ const Post = () => {
               )}
               <div className="p-3">
                 <div className="gap-8 my-4">
-                  <div>
+                  <div className="relative">
                     <h1 className="font-bold text-2xl md:text-5xl capitalize mb-0">
                       {response.title}
                     </h1>
+                    {response.author &&
+                      user._id !== response.author._id &&
+                      (favorite.response === false ||
+                        favorite.response !== undefined) && (
+                        <div className="absolute top-[.6rem] right-0">
+                          <AiOutlineHeart size={32} onClick={updateFavorite} />
+                        </div>
+                      )}
+                    {response.author &&
+                      user._id !== response.author._id &&
+                      favorite &&
+                      favorite.response !== null &&
+                      favorite.response !== false && (
+                        <div className="absolute top-[.6rem] right-0">
+                          <AiFillHeart
+                            size={32}
+                            className="fill-red-500"
+                            onClick={updateFavorite}
+                          />
+                        </div>
+                      )}
                     <p className="text-xl font-medium mt-4 mb-8 text-gray-500">
                       {response.shortDescription}
                     </p>
-                    <div className="flex items-center justify-center gap-4">
+                    <div className="flex items-center justify-center gap-2 xs:gap-4">
                       {response.author && response.author.username && (
-                        <p className="text-gray-600 text-lg">
+                        <p className="text-gray-600 text-sm xs:text-lg">
                           by {response.author.username}
                         </p>
                       )}
-                      <div className="h-2 w-2 bg-black/50 rounded-xl" />
+                      <div>
+                        <div className="block h-2 w-2 bg-black/50 rounded-xl" />
+                      </div>
                       <p className="text-sm">
                         Published{" "}
                         {format(new Date(response.createdAt), "PP, p")}
@@ -216,14 +293,13 @@ const Post = () => {
                           }
                         />
                       </p>
-                      <div className="flex items-center justify-center gap-4">
+                      <div className="flex items-center justify-center gap-2 xs:gap-4">
                         {response.author && response.author.username && (
                           <p className="text-gray-600 text-lg">
                             by {response.author.username}
                           </p>
                         )}
                         <div className="h-2 w-2 bg-black/50 rounded-xl" />
-                        <p className="text-sm">Published 1 day ago</p>
                         {((response.author &&
                           user &&
                           response.author._id === user._id) ||
@@ -285,7 +361,7 @@ const Post = () => {
                 className="px-4 py-3 bg-blue-400 text-white rounded-xl mx-auto flex mb-8"
                 type="submit"
               >
-                submit
+                Update
               </button>
             </form>
           )}
