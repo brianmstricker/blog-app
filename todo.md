@@ -1,5 +1,5 @@
 -image file upload
--update footer (social links)
+-footer user page/all posts page
 -form validation
 -loading spinner
 -update pagination on frontend (display page in url)

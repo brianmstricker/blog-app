@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { BsTwitter, BsGithub } from "react-icons/bs";
+import { ImFacebook2 } from "react-icons/im";
 
 const Footer = () => {
   return (
@@ -8,14 +10,24 @@ const Footer = () => {
           <Link to="/about">
             <h6 className="font-bold text-lg">About</h6>
           </Link>
-          <div>
+          {/* <div>
             <h6 className="font-bold text-lg w-max">View All Posts</h6>
-          </div>
+          </div> */}
           <div>
             <h6 className="font-bold text-lg">Users</h6>
           </div>
         </div>
-        <div className="mt-8 nav:mt-0">social links</div>
+        <div className="mt-8 nav:mt-0 flex gap-3">
+          <Link to="https://www.twitter.com" target="_blank">
+            <BsTwitter className="text-2xl fill-blue-400" />
+          </Link>
+          <Link to="https://www.facebook.com" target="_blank">
+            <ImFacebook2 className="text-2xl fill-blue-600" />
+          </Link>
+          <Link to="https://www.github.com/brianmstricker" target="_blank">
+            <BsGithub className="text-2xl fill-slate-700" />
+          </Link>
+        </div>
       </div>
     </footer>
   );
