@@ -27,7 +27,9 @@ const UsersPosts = () => {
             </h1>
           )}
           {posts && posts.length === 0 && (
-            <h1 className="text-center mt-6">No posts found.</h1>
+            <h1 className="text-center mt-6 text-3xl text-gray-500">
+              No posts found.
+            </h1>
           )}
           <div className="max-w-7xl mx-auto p-4 grid xs:grid-cols-2 gap-2">
             {posts &&

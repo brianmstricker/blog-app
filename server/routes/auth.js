@@ -71,7 +71,6 @@ router.post("/register", async (req, res, next) => {
       __v,
       createdAt,
       updatedAt,
-      _id,
       ...rest
     } = newUser._doc;
     res.status(200).json({ user: rest });

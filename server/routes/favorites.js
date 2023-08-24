@@ -85,8 +85,8 @@ router.get("/:userId", verifyToken, async (req, res, next) => {
         select: "username",
       },
     });
-    if (!favorites) {
-      return res.status(400).json("Favorites not found");
+    if (!favorites || favorites.length === 0) {
+      return res.status(200).json([]);
     }
     res.status(200).json(favorites.reverse());
   } catch (error) {

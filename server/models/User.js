@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
       minLength: 3,
-      maxLength: 40,
+      maxLength: 50,
     },
     username: {
       type: String,
@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema(
       unique: true,
       required: true,
       minLength: 3,
-      maxLength: 40,
+      maxLength: 60,
     },
     password: { type: String, required: true },
     profilePic: { type: String, default: "" },

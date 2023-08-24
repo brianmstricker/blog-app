@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../utils/config";
 import { setLogin } from "../state/userSlice";
 import { toast } from "react-toastify";
+import { userValidation } from "../validations/userValidation";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -16,13 +17,22 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
   });
+  const [formErrors, setFormErrors] = useState(null);
+  const [prevUserState, setPrevUserState] = useState({ ...user });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (user.password !== user.confirmPassword)
-      return toast("Passwords do not match", {
-        type: "error",
-        position: "top-center",
+    setPrevUserState({ ...user });
+    const validate = await userValidation
+      .validate(user, { abortEarly: false })
+      .catch((err) => {
+        const fieldErrors = {};
+        err.inner.forEach((error) => {
+          fieldErrors[error.path] = error.message;
+        });
+        setFormErrors(fieldErrors);
+        return false;
       });
+    if (!validate) return;
     try {
       const res = await axios.post(API_URL + "/auth/register", user, {
         withCredentials: true,
@@ -36,6 +46,19 @@ const Signup = () => {
         position: "top-center",
       });
     }
+  };
+  const buttonDisabled = () => {
+    if (
+      user.name === "" ||
+      user.username === "" ||
+      user.email === "" ||
+      user.password === "" ||
+      user.confirmPassword === ""
+    ) {
+      return true;
+    }
+    if (JSON.stringify(prevUserState) === JSON.stringify(user)) return true;
+    return false;
   };
   return (
     <>
@@ -54,6 +77,11 @@ const Signup = () => {
           onChange={(e) => setUser({ ...user, name: e.target.value })}
           required
         />
+        {formErrors?.name && (
+          <p className="text-red-500 ml-4 mt-1 text-center">
+            {formErrors.name}
+          </p>
+        )}
         <input
           className="rounded-xl px-4 py-2 md:w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
           type="text"
@@ -62,6 +90,11 @@ const Signup = () => {
           onChange={(e) => setUser({ ...user, username: e.target.value })}
           required
         />
+        {formErrors?.username && (
+          <p className="text-red-500 ml-4 mt-1 text-center">
+            {formErrors.username}
+          </p>
+        )}
         <input
           className="rounded-xl px-4 py-2 md:w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
           type="email"
@@ -70,6 +103,11 @@ const Signup = () => {
           onChange={(e) => setUser({ ...user, email: e.target.value })}
           required
         />
+        {formErrors?.email && (
+          <p className="text-red-500 ml-4 mt-1 text-center">
+            {formErrors.email}
+          </p>
+        )}
         <input
           className="rounded-xl px-4 py-2 md:w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
           type="password"
@@ -78,6 +116,11 @@ const Signup = () => {
           onChange={(e) => setUser({ ...user, password: e.target.value })}
           required
         />
+        {formErrors?.password && (
+          <p className="text-red-500 ml-4 mt-1 text-center">
+            {formErrors.password}
+          </p>
+        )}
         <input
           className="rounded-xl px-4 py-2 md:w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
           type="password"
@@ -88,9 +131,18 @@ const Signup = () => {
           }
           required
         />
+        {formErrors?.confirmPassword && (
+          <p className="text-red-500 ml-4 mt-1 text-center">
+            {formErrors.confirmPassword}
+          </p>
+        )}
         <button
-          className="text-white px-6 py-3 bg-blue-400 w-fit mx-auto rounded-full mt-4"
+          className={
+            "text-white px-6 py-3 bg-blue-400 w-fit mx-auto rounded-full mt-4" +
+            (buttonDisabled() ? " opacity-40 cursor-not-allowed" : "")
+          }
           type="submit"
+          disabled={buttonDisabled()}
         >
           Create account
         </button>
