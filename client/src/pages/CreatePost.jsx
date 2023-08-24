@@ -10,6 +10,7 @@ import { AiOutlineFileImage } from "react-icons/ai";
 import { storage } from "../utils/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
+import { postValidation } from "../validations/postValidation";
 
 const CreatePost = () => {
   const [post, setPost] = useState({
@@ -19,10 +20,24 @@ const CreatePost = () => {
     image: "",
     tags: "",
   });
+  const [prevPostState, setPrevPostState] = useState({ ...post });
   const [image, setImage] = useState(null);
+  const [formErrors, setFormErrors] = useState(null);
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setPrevPostState({ ...post });
+    const validate = await postValidation
+      .validate(post, { abortEarly: false })
+      .catch((err) => {
+        const fieldErrors = {};
+        err.inner.forEach((error) => {
+          fieldErrors[error.path] = error.message;
+        });
+        setFormErrors(fieldErrors);
+        return false;
+      });
+    if (!validate) return;
     try {
       if (image) {
         const storageRef = ref(
@@ -60,6 +75,7 @@ const CreatePost = () => {
     ) {
       return true;
     }
+    if (JSON.stringify(prevPostState) === JSON.stringify(post)) return true;
     return false;
   };
   const imageChange = (e) => {
@@ -115,6 +131,9 @@ const CreatePost = () => {
           onChange={(e) => setPost({ ...post, title: e.target.value })}
           required
         />
+        {formErrors?.title && (
+          <p className="text-red-500 ml-4 mt-1">{formErrors.title}</p>
+        )}
         <label className="text-xl font-bold mt-4 w-max" htmlFor="description">
           Description
         </label>
@@ -128,6 +147,11 @@ const CreatePost = () => {
           }
           required
         />
+        {formErrors?.shortDescription && (
+          <p className="text-red-500 ml-4 mt-1">
+            {formErrors.shortDescription}
+          </p>
+        )}
         <label className="text-xl font-bold mt-4 w-max" htmlFor="tags">
           Tags
         </label>
@@ -150,6 +174,9 @@ const CreatePost = () => {
           modules={modules}
           formats={formats}
         />
+        {formErrors?.content && (
+          <p className="text-red-500 ml-4 mt-1">{formErrors.content}</p>
+        )}
       </div>
       <label className="text-xl font-bold mt-4 max-w-[400px]" htmlFor="image">
         Image

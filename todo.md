@@ -1,5 +1,5 @@
 -user posts page styling - maybe
--form validation
+-form validation \*\*
 -update pagination on frontend (display page in url)
 -limit # of results per search
 -loading spinner
