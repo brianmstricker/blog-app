@@ -1,5 +1,8 @@
--image crop for profile?
--footer user page/all posts page
+-image crop for profile? https://www.npmjs.com/package/react-easy-crop
+-implement update image functionality in post component
+-limit # of results per search
+-add image option when editing post w/o image
+all posts page \*\*\*
 -form validation
 -loading spinner
 -update pagination on frontend (display page in url)

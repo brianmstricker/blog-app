@@ -18,11 +18,21 @@ router.get("/search/:id", verifyToken, verifyUser, async (req, res, next) => {
     next(error);
   }
 });
-router.get("/", verifyToken, verifyAdmin, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const users = await User.find();
     const newUsers = users.map((user) => {
-      const { password, __v, createdAt, updatedAt, ...rest } = user._doc;
+      const {
+        password,
+        __v,
+        createdAt,
+        updatedAt,
+        _id,
+        email,
+        role,
+        name,
+        ...rest
+      } = user._doc;
       return rest;
     });
     res.status(200).json(newUsers);

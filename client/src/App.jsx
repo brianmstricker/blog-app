@@ -12,6 +12,7 @@ import CreatePost from "./pages/CreatePost";
 import About from "./pages/About";
 import Blogs from "./pages/Blogs";
 import Favorites from "./pages/Favorites";
+import Users from "./pages/Users";
 
 const Root = () => {
   return (
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/posts",
         element: <Blogs />,
+      },
+      {
+        path: "/users",
+        element: <Users />,
       },
       {
         path: "",

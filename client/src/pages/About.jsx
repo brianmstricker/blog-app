@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto mb-8">
       <h1 className="text-4xl font-bold text-center mt-8">About</h1>
       <p className="text-lg max-w-4xl mx-auto p-3">
         This blog website was made with the intended purpose to display my
@@ -13,6 +13,15 @@ const About = () => {
         and Mongoose are employed to handle operations, complemented by JWT for
         authentication and bcrypt for password hashing. I hope you enjoy!
       </p>
+      <div className="max-w-4xl mx-auto p-3 text-lg">
+        <h3 className="text-4xl font-bold text-center mt-4">Features</h3>
+        <ul className="list-disc list-inside mt-4 font-medium leading-loose">
+          <li>CRUD operations for posts/users/favorites</li>
+          <li>Search functionality for posts</li>
+          <li>Authentication and authorization</li>
+          <li>Responsive design</li>
+        </ul>
+      </div>
     </div>
   );
 };

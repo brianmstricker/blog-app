@@ -35,7 +35,7 @@ const Favorites = () => {
       {isLoading && <div>Loading...</div>}
       {error && <div>{error.message || "Something went wrong."}</div>}
       {favorites && favorites.length !== 0 && (
-        <div className="flex flex-col gap-2 px-4 max-w-4xl mx-auto w-[90%] xl:w-auto">
+        <div className="flex flex-col gap-2 px-4 max-w-4xl mx-auto w-[90%] xl:w-auto mb-6">
           {favorites.map((item) => (
             <div
               key={item._id}

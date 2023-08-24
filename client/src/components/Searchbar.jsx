@@ -95,6 +95,7 @@ const Searchbar = ({ setSearchResults, input, setInput }) => {
             size={28}
             className="z-10 ring-2 ring-blue-400 rounded-full p-1 bg-white"
             onClick={() => setShowSearchbar(!showSearchbar)}
+            title={!showSearchbar && "Click to search"}
           />
           {showSearchbar && (
             <form

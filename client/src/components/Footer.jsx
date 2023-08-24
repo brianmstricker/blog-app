@@ -14,7 +14,9 @@ const Footer = () => {
             <h6 className="font-bold text-lg w-max">View All Posts</h6>
           </div> */}
           <div>
-            <h6 className="font-bold text-lg">Users</h6>
+            <Link to="/users">
+              <h6 className="font-bold text-lg">Users</h6>
+            </Link>
           </div>
         </div>
         <div className="mt-8 nav:mt-0 flex gap-3">

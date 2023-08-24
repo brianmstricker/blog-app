@@ -196,7 +196,7 @@ const Post = () => {
                         </p>
                       )}
                       <div>
-                        <div className="block h-2 w-2 bg-black/50 rounded-xl" />
+                        <div className="h-2 w-2 bg-black/50 rounded-xl hidden xs:block" />
                       </div>
                       <p className="text-sm">
                         Published{" "}
@@ -299,7 +299,6 @@ const Post = () => {
                             by {response.author.username}
                           </p>
                         )}
-                        <div className="h-2 w-2 bg-black/50 rounded-xl" />
                         {((response.author &&
                           user &&
                           response.author._id === user._id) ||
