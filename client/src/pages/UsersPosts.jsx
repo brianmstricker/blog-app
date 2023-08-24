@@ -34,7 +34,9 @@ const UsersPosts = () => {
               posts.map((post) => (
                 <Link to={`/post/${post._id}`} key={post._id}>
                   <div className="border border-black p-2 h-full flex flex-col justify-between">
-                    <h1 className="text-2xl font-medium">{post.title}</h1>
+                    <h1 className="text-2xl font-medium capitalize">
+                      {post.title}
+                    </h1>
                     <p className="text-sm text-gray-400">
                       {post.shortDescription}
                     </p>

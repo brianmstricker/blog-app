@@ -16,10 +16,15 @@ const About = () => {
       <div className="max-w-4xl mx-auto p-3 text-lg">
         <h3 className="text-4xl font-bold text-center mt-4">Features</h3>
         <ul className="list-disc list-inside mt-4 font-medium leading-loose">
-          <li>CRUD operations for posts/users/favorites</li>
-          <li>Search functionality for posts</li>
-          <li>Authentication and authorization</li>
+          <li>CRUD operations for posts/users</li>
+          <li>Redux toolkit for state management</li>
+          <li>Search functionality (search posts by title/tag)</li>
+          <li>Favorite feature for posts</li>
+          <li>Authentication and authorization (JWT/cookies)</li>
           <li>Responsive design</li>
+          <li>Pagination</li>
+          <li>Form Validation</li>
+          <li>Image Upload with Firebase</li>
         </ul>
       </div>
     </div>

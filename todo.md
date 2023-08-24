@@ -1,11 +1,13 @@
--your posts page styling
+-user posts page styling - maybe
 -form validation
 -update pagination on frontend (display page in url)
 -limit # of results per search
+-loading spinner
+-image optimization
+-page not found handling
 -image crop for profile? https://www.npmjs.com/package/react-easy-crop
 -add image option when editing post w/o image
 -implement update image functionality in post component
--loading spinner
 -comments frontend/testing
 -rate limit
 -caching
