@@ -1,12 +1,11 @@
--image crop for profile? https://www.npmjs.com/package/react-easy-crop
--implement update image functionality in post component
--limit # of results per search
--add image option when editing post w/o image
-all posts page \*\*\*
+-your posts page styling
 -form validation
--loading spinner
 -update pagination on frontend (display page in url)
--your posts page
+-limit # of results per search
+-image crop for profile? https://www.npmjs.com/package/react-easy-crop
+-add image option when editing post w/o image
+-implement update image functionality in post component
+-loading spinner
 -comments frontend/testing
 -rate limit
 -caching

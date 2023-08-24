@@ -48,7 +48,30 @@ router.get("/:id", async (req, res, next) => {
       "author",
       "username"
     );
+    if (!post) return res.status(400).json("Post not found.");
     res.status(200).json(post);
+  } catch (error) {
+    res.status(500);
+    next(error);
+  }
+});
+
+router.get("/user/:id", verifyToken, async (req, res, next) => {
+  try {
+    console.log(req.params.id);
+    console.log(req.user._id.toString());
+    if (
+      req.user._id.toString() !== req.params.id &&
+      req.user.role !== "admin"
+    ) {
+      return res.status(400).json("Not authorized.");
+    }
+    const posts = await Post.find({ author: req.params.id }).populate(
+      "author",
+      "username"
+    );
+    if (!posts) return res.status(400).json("No posts found.");
+    res.status(200).json(posts);
   } catch (error) {
     res.status(500);
     next(error);

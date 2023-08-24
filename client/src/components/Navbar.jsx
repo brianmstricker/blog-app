@@ -58,7 +58,7 @@ const Navbar = () => {
             {!!user && (
               <>
                 <li className="w-max">
-                  <Link to="/posts">Your Posts</Link>
+                  <Link to={`/posts/${user._id}`}>Your Posts</Link>
                 </li>
                 <li>
                   <Link to="/favorites">Favorites</Link>

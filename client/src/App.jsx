@@ -10,9 +10,9 @@ import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreatePost from "./pages/CreatePost";
 import About from "./pages/About";
-import Blogs from "./pages/Blogs";
 import Favorites from "./pages/Favorites";
 import Users from "./pages/Users";
+import UsersPosts from "./pages/UsersPosts";
 
 const Root = () => {
   return (
@@ -48,10 +48,6 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/posts",
-        element: <Blogs />,
-      },
-      {
         path: "/users",
         element: <Users />,
       },
@@ -70,6 +66,10 @@ const router = createBrowserRouter([
           {
             path: "/favorites",
             element: <Favorites />,
+          },
+          {
+            path: "/posts/:id",
+            element: <UsersPosts />,
           },
         ],
       },
