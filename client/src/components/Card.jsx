@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 import DOMpurify from "dompurify";
+import LazyLoad from "react-lazy-load";
 
 const Card = ({ isLoading, error, cards }) => {
   return (
@@ -20,13 +21,22 @@ const Card = ({ isLoading, error, cards }) => {
                 to={`/post/${card._id}`}
                 key={card._id}
                 className={
-                  "bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden shadow-md shadow-black/50"
+                  "bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer shadow-md shadow-black/50"
                 }
               >
-                <img
+                <LazyLoad
+                  debounce={false}
+                  threshold={0.9}
                   className="h-32 lg:h-48 w-full rounded-t-xl object-cover"
-                  src={card.image}
-                />
+                  // offsetVertical={50}
+                >
+                  <img
+                    alt={card.title}
+                    className="h-32 lg:h-48 w-full rounded-t-xl object-cover"
+                    src={card.image}
+                    loading="lazy"
+                  />
+                </LazyLoad>
                 <div className="p-4 overflow-hidden">
                   <h1 className="overflow-hidden text-xl flex flex-col mb-0">
                     <span className="font-bold xl:text-2xl capitalize overflow-hidden leading-tight">

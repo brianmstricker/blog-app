@@ -107,7 +107,6 @@ const HeroSection = () => {
         )}
         <div className="absolute right-12 -bottom-6 flex items-center">
           <Link
-            // to={page === 2 ? `/` : `/posts?page=${page - 1}`}
             to={
               parseInt(location.search.split("=")[1]) === 2
                 ? "/"

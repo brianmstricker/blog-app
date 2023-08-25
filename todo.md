@@ -1,4 +1,4 @@
--homepage loading content before images\*\*\*
+-fix search clear on nav to homepage/displaying button
 -loading spinner
 -page not found handling
 -limit # of results per search

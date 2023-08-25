@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import parse from "html-react-parser";
 import DOMpurify from "dompurify";
 import { Link } from "react-router-dom";
+import LazyLoad from "react-lazy-load";
 
 const SearchCard = ({ post, scrollToExplore }) => {
   useEffect(() => {
@@ -18,10 +19,17 @@ const SearchCard = ({ post, scrollToExplore }) => {
           key={post._id}
           to={`/post/${post._id}`}
         >
-          <img
+          <LazyLoad
+            debounce={false}
+            threshold={0.9}
             className="h-32 lg:h-48 w-full rounded-t-xl object-cover"
-            src={post.image}
-          />
+            // offsetVertical={50}
+          >
+            <img
+              className="h-32 lg:h-48 w-full rounded-t-xl object-cover"
+              src={post.image}
+            />
+          </LazyLoad>
           <div className="p-4 overflow-hidden">
             <h1 className="overflow-hidden text-xl flex flex-col mb-0">
               <span className="font-bold xl:text-2xl capitalize overflow-hidden leading-tight">
