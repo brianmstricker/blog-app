@@ -1,10 +1,7 @@
--user posts page styling - maybe
--form validation \*\*
--update pagination on frontend (display page in url)
--limit # of results per search
--loading spinner
 -image optimization
+-loading spinner
 -page not found handling
+-limit # of results per search
 -image crop for profile? https://www.npmjs.com/package/react-easy-crop
 -add image option when editing post w/o image
 -implement update image functionality in post component
@@ -14,4 +11,5 @@
 -framer motion
 -tablets look for onFirstClick/onSecondClick to display user info then navigate to user page
 -sanitize put method
--update popular searches styling?
+-update popular searches styling - maybe
+-user posts page styling - maybe

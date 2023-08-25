@@ -1,19 +1,8 @@
 import { Link } from "react-router-dom";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import parse from "html-react-parser";
 import DOMpurify from "dompurify";
 
-const Card = ({
-  scrollToExplore,
-  isLoading,
-  error,
-  cards,
-  pages,
-  previousPage,
-  nextPage,
-  setPage,
-  page,
-}) => {
+const Card = ({ isLoading, error, cards }) => {
   return (
     <>
       {isLoading && <h4 className="text-center">Loading...</h4>}
@@ -31,7 +20,7 @@ const Card = ({
                 to={`/post/${card._id}`}
                 key={card._id}
                 className={
-                  "bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden shadow-lg shadow-black/50"
+                  "bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden shadow-md shadow-black/50"
                 }
               >
                 <img
@@ -59,7 +48,7 @@ const Card = ({
                 to={`/post/${card._id}`}
                 key={card._id}
                 className={
-                  "bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden shadow-lg shadow-black/50"
+                  "bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden shadow-md shadow-black/50"
                 }
               >
                 <div className="p-4 h-full flex flex-col">
@@ -107,30 +96,6 @@ const Card = ({
             );
           }
         })}
-      <div className="absolute right-12 -bottom-6 flex items-center">
-        <button onClick={previousPage}>
-          <FaChevronLeft size={18} />
-        </button>
-        {pages.map((p) => (
-          <button
-            key={p}
-            onClick={(e) => {
-              e.preventDefault();
-              setPage(p + 1);
-              scrollToExplore();
-            }}
-            className={
-              "mx-1 p-1 bg-blue-400 text-white hover:bg-blue-500 w-6" +
-              (page === p + 1 ? " bg-blue-500" : "")
-            }
-          >
-            {p + 1}
-          </button>
-        ))}
-        <button>
-          <FaChevronRight size={18} onClick={nextPage} />
-        </button>
-      </div>
     </>
   );
 };

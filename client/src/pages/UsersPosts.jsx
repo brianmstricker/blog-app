@@ -12,7 +12,7 @@ const UsersPosts = () => {
     error,
   } = useFetch(API_URL + `/posts/user/${id}`);
   return (
-    <div>
+    <div className="mb-8">
       {user && user._id !== id ? (
         <h1 className="text-center mt-6">
           You cannot view someone else&apos;s posts

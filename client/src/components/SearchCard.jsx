@@ -14,7 +14,7 @@ const SearchCard = ({ post, scrollToExplore }) => {
     <>
       {post.image ? (
         <Link
-          className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden shadow-lg shadow-black/50"
+          className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden shadow-md shadow-black/50"
           key={post._id}
           to={`/post/${post._id}`}
         >
@@ -38,7 +38,7 @@ const SearchCard = ({ post, scrollToExplore }) => {
         </Link>
       ) : (
         <Link
-          className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden shadow-lg shadow-black/50"
+          className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-max rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden shadow-md shadow-black/50"
           key={post._id}
           to={`/post/${post._id}`}
         >

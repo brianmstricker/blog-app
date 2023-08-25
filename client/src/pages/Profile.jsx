@@ -105,15 +105,20 @@ const Profile = () => {
         </h1>
         <div className="flex items-center justify-center mt-2">
           {!image && !user.image && (
-            <label htmlFor="image">
-              <PiUserCircleLight size={144} />
-            </label>
+            <div className="relative flex items-center justify-center">
+              <label htmlFor="image">
+                <PiUserCircleLight size={144} className="cursor-pointer" />
+              </label>
+              <p className="absolute text-sm xs:text-base -right-[3.5rem] xs:-right-[9rem] w-min xs:w-auto text-gray-400">
+                click to change pic
+              </p>
+            </div>
           )}
           {image && (
             <img
               src={URL.createObjectURL(image)}
               alt="profile"
-              className="rounded-full h-36 w-36 object-cover cursor-pointer"
+              className="rounded-full h-36 w-36 object-cover cursor-pointer ring ring-black"
               onClick={() => imgInputRef.current.click()}
             />
           )}
@@ -121,7 +126,7 @@ const Profile = () => {
             <img
               src={user.image}
               alt="profile"
-              className="rounded-full h-36 w-36 object-cover cursor-pointer"
+              className="rounded-full h-36 w-36 object-cover cursor-pointer ring ring-black"
               onClick={() => imgInputRef.current.click() && setUser.image("")}
             />
           )}
@@ -178,7 +183,7 @@ const Profile = () => {
             id="email"
           />
         </div>
-        <div className="px-4 py-2 mt-4 md:flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
+        {/* <div className="px-4 py-2 mt-4 md:flex items-center justify-center gap-4 w-full md:w-2/3 mx-auto">
           <label className="text-xl w-[100px]" htmlFor="password">
             Password
           </label>
@@ -205,7 +210,7 @@ const Profile = () => {
             account="true"
             id="confirm"
           />
-        </div>
+        </div> */}
         <button
           className={
             "text-white px-6 py-3 bg-blue-400 w-fit mx-auto rounded-full mt-4" +

@@ -58,7 +58,7 @@ const Navbar = () => {
             {!!user && (
               <>
                 <li className="w-max">
-                  <Link to={`/posts/${user._id}`}>Your Posts</Link>
+                  <Link to={`/user/posts/${user._id}`}>Your Posts</Link>
                 </li>
                 <li>
                   <Link to="/favorites">Favorites</Link>
@@ -101,11 +101,11 @@ const Navbar = () => {
                   <img
                     src={user.profilePic}
                     alt="profile image"
-                    className="rounded-full h-10 w-10 object-cover cursor-pointer"
+                    className="rounded-full h-10 w-10 object-cover cursor-pointer ring-1 ring-black"
                     onClick={profilePage}
                   />
                 )}
-                <ul className="absolute hidden group-hover:block bg-blue-400 p-2 rounded-xl mt-2 text-white">
+                <ul className="absolute hidden group-hover:block bg-blue-400 p-2 rounded-xl mt-2 text-white -left-8">
                   <li>{user.username}</li>
                   <li>{user.email}</li>
                   {user.role === "admin" && <li>role - Admin</li>}
@@ -165,7 +165,10 @@ const Navbar = () => {
               {!!user && (
                 <>
                   <li className="w-max">
-                    <Link to="/posts" onClick={() => setShowMenu(false)}>
+                    <Link
+                      to={`/user/posts/${user._id}`}
+                      onClick={() => setShowMenu(false)}
+                    >
                       Your Posts
                     </Link>
                   </li>

@@ -30,6 +30,12 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        children: [
+          {
+            path: "/posts/:page?",
+            element: <Home />,
+          },
+        ],
       },
       {
         path: "/signin",
@@ -68,7 +74,7 @@ const router = createBrowserRouter([
             element: <Favorites />,
           },
           {
-            path: "/posts/:id",
+            path: "/user/posts/:id",
             element: <UsersPosts />,
           },
         ],

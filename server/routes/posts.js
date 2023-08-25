@@ -58,8 +58,6 @@ router.get("/:id", async (req, res, next) => {
 
 router.get("/user/:id", verifyToken, async (req, res, next) => {
   try {
-    console.log(req.params.id);
-    console.log(req.user._id.toString());
     if (
       req.user._id.toString() !== req.params.id &&
       req.user.role !== "admin"

@@ -5,16 +5,25 @@ import Searchbar from "./Searchbar";
 import SearchCard from "./SearchCard";
 import useFetch from "../hooks/useFetch";
 import { API_URL } from "../utils/config";
+import { useSearchParams, Link, useLocation } from "react-router-dom";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const HeroSection = () => {
+  const [searchParams] = useSearchParams();
   const [searchResults, setSearchResults] = useState([]);
   const [input, setInput] = useState("");
   const [cards, setCards] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(searchParams.get("page") || 1);
   const [totalPages, setTotalPages] = useState(1);
   const scrollRef = useRef(null);
+  const location = useLocation();
+  useEffect(() => {
+    if (searchParams.get("page") === null) {
+      setPage(1);
+    }
+  }, [searchParams]);
   const { response, isLoading, error } = useFetch(
-    API_URL + `/posts?page=${page}`
+    API_URL + `/posts?page=${searchParams.get("page") || page}`
   );
   useEffect(() => {
     if (response) {
@@ -94,18 +103,55 @@ const HeroSection = () => {
             />
           ))
         ) : (
-          <Card
-            scrollToExplore={scrollToExplore}
-            cards={cards}
-            isLoading={isLoading}
-            error={error}
-            pages={pages}
-            previousPage={previousPage}
-            nextPage={nextPage}
-            setPage={setPage}
-            page={page}
-          />
+          <Card cards={cards} isLoading={isLoading} error={error} />
         )}
+        <div className="absolute right-12 -bottom-6 flex items-center">
+          <Link
+            // to={page === 2 ? `/` : `/posts?page=${page - 1}`}
+            to={
+              parseInt(location.search.split("=")[1]) === 2
+                ? "/"
+                : `/posts?page=${parseInt(location.search.split("=")[1]) - 1}`
+            }
+            onClick={previousPage}
+            className={page === 1 ? "hidden" : ""}
+          >
+            <FaChevronLeft size={18} />
+          </Link>
+          {pages.map((p) => (
+            <Link
+              to={p === 0 ? "/" : `/posts?page=${p + 1}`}
+              key={p}
+              onClick={() => {
+                setPage(p + 1);
+                scrollToExplore();
+              }}
+              className={
+                "flex items-center justify-center mx-1 p-1 bg-blue-400 text-white hover:bg-blue-600 w-6 transition-all" +
+                (location.search.split("=")[1] == p + 1 || page === p + 1
+                  ? " bg-blue-600"
+                  : "")
+              }
+            >
+              {p + 1}
+            </Link>
+          ))}
+          <Link
+            to={
+              isNaN(parseInt(location.search.split("=")[1]))
+                ? `/posts?page=2`
+                : `/posts?page=${parseInt(location.search.split("=")[1]) + 1}`
+            }
+            onClick={nextPage}
+            className={
+              page === totalPages || location.search.split("=")[1] == totalPages
+                ? "hidden"
+                : ""
+            }
+          >
+            <FaChevronRight size={18} onClick={nextPage} />
+          </Link>
+        </div>
       </section>
     </>
   );

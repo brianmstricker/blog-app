@@ -11,9 +11,11 @@ const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setUser] = useState({ username: "", password: "" });
+  const [prevUserState, setPrevUserState] = useState({ ...user });
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setPrevUserState({ ...user });
       const res = await axios.post(API_URL + "/auth/login", user, {
         withCredentials: true,
       });
@@ -26,6 +28,11 @@ const Signin = () => {
         position: "top-center",
       });
     }
+  };
+  const buttonDisabled = () => {
+    if (user.username === "" || user.password === "") return true;
+    if (JSON.stringify(prevUserState) === JSON.stringify(user)) return true;
+    return false;
   };
   return (
     <>
@@ -51,8 +58,12 @@ const Signin = () => {
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
         <button
-          className="text-white px-6 py-3 bg-blue-400 w-fit mx-auto rounded-full mt-4"
+          className={
+            "text-white px-6 py-3 bg-blue-400 w-fit mx-auto rounded-full mt-4" +
+            (buttonDisabled() ? " opacity-40 cursor-not-allowed" : "")
+          }
           type="submit"
+          disabled={buttonDisabled()}
         >
           Sign in
         </button>
