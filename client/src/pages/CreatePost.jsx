@@ -11,6 +11,7 @@ import { storage } from "../utils/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 import { postValidation } from "../validations/postValidation";
+import imageCompression from "browser-image-compression";
 
 const CreatePost = () => {
   const [post, setPost] = useState({
@@ -40,11 +41,18 @@ const CreatePost = () => {
     if (!validate) return;
     try {
       if (image) {
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 375,
+          useWebWorker: true,
+          maxIteration: 15,
+        };
+        const compressedImage = await imageCompression(image, options);
         const storageRef = ref(
           storage,
-          `posts/${image.name.split(".")[0]}_${v4()}`
+          `posts/${compressedImage.name.split(".")[0]}_${v4()}`
         );
-        const uploadTask = await uploadBytes(storageRef, image);
+        const uploadTask = await uploadBytes(storageRef, compressedImage);
         const downloadURL = await getDownloadURL(uploadTask.ref);
         post.image = downloadURL;
       }

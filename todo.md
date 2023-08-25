@@ -1,4 +1,4 @@
--image optimization
+-homepage loading content before images\*\*\*
 -loading spinner
 -page not found handling
 -limit # of results per search
