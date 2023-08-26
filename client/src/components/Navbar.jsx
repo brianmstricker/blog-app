@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { HiArrowUp } from "react-icons/hi";
+import { clearSearchResults } from "../state/searchSlice";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -36,21 +37,26 @@ const Navbar = () => {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+  const clearSearch = () => {
+    dispatch(clearSearchResults());
+  };
   return (
     <>
       <nav className="w-full px-4 py-6 flex items-center justify-between container mx-auto relative">
         <h1 className="logo text-4xl md:text-5xl mb-0">
-          <Link className="block lg:hidden" to="/">
+          <Link className="block lg:hidden" to="/" onClick={clearSearch}>
             TP
           </Link>
-          <Link className="hidden lg:block" to="/">
+          <Link className="hidden lg:block" to="/" onClick={clearSearch}>
             TechPunch
           </Link>
         </h1>
         <div className="hidden nav:flex gap-5 items-center lg:text-lg absolute w-fit left-[50%] right-[50%] translate-x-[-50%] xs:-ml-12 md:mr-2 lg:ml-0">
           <ul className="flex gap-2 lg:gap-5 items-center">
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/" onClick={clearSearch}>
+                Home
+              </Link>
             </li>
             <li>
               <Link to="/about">About</Link>

@@ -7,11 +7,15 @@ import useFetch from "../hooks/useFetch";
 import { API_URL } from "../utils/config";
 import { useSearchParams, Link, useLocation } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { clearSearchResults } from "../state/searchSlice";
 
 const HeroSection = () => {
   const [searchParams] = useSearchParams();
-  const [searchResults, setSearchResults] = useState([]);
+  const searchResults = useSelector((state) => state.search.searchResults);
+  const dispatch = useDispatch();
   const [input, setInput] = useState("");
+  const [prevInput, setPrevInput] = useState("");
   const [cards, setCards] = useState([]);
   const [page, setPage] = useState(searchParams.get("page") || 1);
   const [totalPages, setTotalPages] = useState(1);
@@ -33,9 +37,9 @@ const HeroSection = () => {
   }, [response]);
   useEffect(() => {
     if (searchResults.length !== 0 && input.length === 0) {
-      setSearchResults([]);
+      dispatch(clearSearchResults());
     }
-  }, [input.length, searchResults.length]);
+  }, [input.length, searchResults.length, dispatch]);
   function scrollToExplore() {
     setTimeout(() => {
       scrollRef.current.scrollIntoView({
@@ -57,6 +61,7 @@ const HeroSection = () => {
       scrollToExplore();
     }
   };
+  const searchDisabled = prevInput === input;
   return (
     <>
       <section className="w-full pt-2 container mx-auto px-4">
@@ -72,10 +77,11 @@ const HeroSection = () => {
               officia possimus!
             </p>
             <Searchbar
-              searchResults={searchResults}
-              setSearchResults={setSearchResults}
               input={input}
               setInput={setInput}
+              setPrevInput={setPrevInput}
+              searchDisabled={searchDisabled}
+              scrollToExplore={scrollToExplore}
             />
           </div>
           <div className="w-full h-full mt-4 md:mt-0">
@@ -95,62 +101,59 @@ const HeroSection = () => {
       </section>
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 container mx-auto relative mb-6 xs:mb-12">
         {searchResults.length > 0 ? (
-          searchResults.map((post) => (
-            <SearchCard
-              key={post._id}
-              post={post}
-              scrollToExplore={scrollToExplore}
-            />
-          ))
+          searchResults.map((post) => <SearchCard key={post._id} post={post} />)
         ) : (
           <Card cards={cards} isLoading={isLoading} error={error} />
         )}
-        <div className="absolute right-12 -bottom-6 flex items-center">
-          <Link
-            to={
-              parseInt(location.search.split("=")[1]) === 2
-                ? "/"
-                : `/posts?page=${parseInt(location.search.split("=")[1]) - 1}`
-            }
-            onClick={previousPage}
-            className={page === 1 ? "hidden" : ""}
-          >
-            <FaChevronLeft size={18} />
-          </Link>
-          {pages.map((p) => (
+        {searchResults.length === 0 && (
+          <div className="absolute right-12 -bottom-6 flex items-center">
             <Link
-              to={p === 0 ? "/" : `/posts?page=${p + 1}`}
-              key={p}
-              onClick={() => {
-                setPage(p + 1);
-                scrollToExplore();
-              }}
+              to={
+                parseInt(location.search.split("=")[1]) === 2
+                  ? "/"
+                  : `/posts?page=${parseInt(location.search.split("=")[1]) - 1}`
+              }
+              onClick={previousPage}
+              className={page === 1 ? "hidden" : ""}
+            >
+              <FaChevronLeft size={18} />
+            </Link>
+            {pages.map((p) => (
+              <Link
+                to={p === 0 ? "/" : `/posts?page=${p + 1}`}
+                key={p}
+                onClick={() => {
+                  setPage(p + 1);
+                  scrollToExplore();
+                }}
+                className={
+                  "flex items-center justify-center mx-1 p-1 bg-blue-400 text-white hover:bg-blue-600 w-6 transition-all" +
+                  (location.search.split("=")[1] == p + 1 || page === p + 1
+                    ? " bg-blue-600"
+                    : "")
+                }
+              >
+                {p + 1}
+              </Link>
+            ))}
+            <Link
+              to={
+                isNaN(parseInt(location.search.split("=")[1]))
+                  ? `/posts?page=2`
+                  : `/posts?page=${parseInt(location.search.split("=")[1]) + 1}`
+              }
+              onClick={nextPage}
               className={
-                "flex items-center justify-center mx-1 p-1 bg-blue-400 text-white hover:bg-blue-600 w-6 transition-all" +
-                (location.search.split("=")[1] == p + 1 || page === p + 1
-                  ? " bg-blue-600"
-                  : "")
+                page === totalPages ||
+                location.search.split("=")[1] == totalPages
+                  ? "hidden"
+                  : ""
               }
             >
-              {p + 1}
+              <FaChevronRight size={18} onClick={nextPage} />
             </Link>
-          ))}
-          <Link
-            to={
-              isNaN(parseInt(location.search.split("=")[1]))
-                ? `/posts?page=2`
-                : `/posts?page=${parseInt(location.search.split("=")[1]) + 1}`
-            }
-            onClick={nextPage}
-            className={
-              page === totalPages || location.search.split("=")[1] == totalPages
-                ? "hidden"
-                : ""
-            }
-          >
-            <FaChevronRight size={18} onClick={nextPage} />
-          </Link>
-        </div>
+          </div>
+        )}
       </section>
     </>
   );

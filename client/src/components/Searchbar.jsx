@@ -3,10 +3,19 @@ import { toast } from "react-toastify";
 import { MdClear } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { setSearchResults, clearSearchResults } from "../state/searchSlice";
 
-const Searchbar = ({ setSearchResults, input, setInput }) => {
+const Searchbar = ({
+  input,
+  setInput,
+  setPrevInput,
+  searchDisabled,
+  scrollToExplore,
+}) => {
   const [offset, setOffset] = useState(0);
   const [showSearchbar, setShowSearchbar] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {
     const onScroll = () => setOffset(window.scrollY);
     window.removeEventListener("scroll", onScroll);
@@ -19,10 +28,14 @@ const Searchbar = ({ setSearchResults, input, setInput }) => {
       const res = await axios.get(
         `http://localhost:5000/api/posts/search?search=${input}`
       );
-      setSearchResults(res.data);
       if (res.data.length === 0) {
         toast.error("No results found");
+        setPrevInput(input);
+        return;
       }
+      dispatch(setSearchResults(res.data));
+      setPrevInput(input);
+      scrollToExplore();
     } catch (err) {
       toast.error(err.response.data.msg);
     }
@@ -38,7 +51,8 @@ const Searchbar = ({ setSearchResults, input, setInput }) => {
             className="absolute top-1/2 translate-y-[-50%] ml-2"
             onClick={() => {
               setInput("");
-              setSearchResults([]);
+              dispatch(clearSearchResults());
+              setPrevInput("");
             }}
           >
             <MdClear className="fill-red-600" size={26} />
@@ -53,7 +67,13 @@ const Searchbar = ({ setSearchResults, input, setInput }) => {
         {input.length > 0 && (
           <button
             type="submit"
-            className="px-4 py-2 text-blue-400 rounded-full hover:text-blue-600 relative focus:outline-none outline-none focus:text-blue-600 hover:underline focus:underline transition-all duration-300"
+            className={
+              "px-4 py-2 text-blue-400 rounded-full hover:text-blue-600 relative focus:outline-none outline-none focus:text-blue-600 hover:underline focus:underline transition-all duration-300" +
+              (searchDisabled
+                ? " opacity-40 cursor-not-allowed hover:no-underline hover:text-blue-400"
+                : "")
+            }
+            disabled={searchDisabled}
           >
             <div className="w-[2px] bg-blue-400 h-full absolute inset-0" />
             Search
@@ -107,7 +127,8 @@ const Searchbar = ({ setSearchResults, input, setInput }) => {
                   className="absolute top-1/2 translate-y-[-50%] ml-1"
                   onClick={() => {
                     setInput("");
-                    setSearchResults([]);
+                    dispatch(clearSearchResults());
+                    setPrevInput("");
                   }}
                 >
                   <MdClear className="fill-red-600" size={16} />
@@ -122,7 +143,13 @@ const Searchbar = ({ setSearchResults, input, setInput }) => {
               {input.length > 0 && (
                 <button
                   type="submit"
-                  className="text-blue-400 rounded-full hover:text-blue-600 relative focus:outline-none outline-none focus:text-blue-600 hover:underline focus:underline transition-all duration-300 px-1"
+                  className={
+                    "text-blue-400 rounded-full hover:text-blue-600 relative focus:outline-none outline-none focus:text-blue-600 hover:underline focus:underline transition-all duration-300 px-1" +
+                    (searchDisabled
+                      ? " opacity-40 cursor-not-allowed hover:no-underline hover:text-blue-400"
+                      : "")
+                  }
+                  disabled={searchDisabled}
                 >
                   <div className="w-[1px] bg-blue-400 h-full absolute inset-0" />
                   Search
