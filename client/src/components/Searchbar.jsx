@@ -15,6 +15,7 @@ const Searchbar = ({
 }) => {
   const [offset, setOffset] = useState(0);
   const [showSearchbar, setShowSearchbar] = useState(false);
+  const [buttonTimeout, setButtonTimeout] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     const onScroll = () => setOffset(window.scrollY);
@@ -22,11 +23,16 @@ const Searchbar = ({
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  const handleSearch = async (e) => {
+  const handleSearch = async (e, searchTerm) => {
     e.preventDefault();
+    if (input.length === 0 && !searchTerm) {
+      toast.error("Please enter a search query");
+      return;
+    }
+    input = input.trim();
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/posts/search?search=${input}`
+        `http://localhost:5000/api/posts/search?search=${input || searchTerm}`
       );
       if (res.data.length === 0) {
         toast.error("No results found");
@@ -40,6 +46,13 @@ const Searchbar = ({
       toast.error(err.response.data.msg);
     }
   };
+  useEffect(() => {
+    if (buttonTimeout) {
+      setTimeout(() => {
+        setButtonTimeout(false);
+      }, 5000);
+    }
+  }, [buttonTimeout]);
   return (
     <div>
       <form
@@ -83,25 +96,37 @@ const Searchbar = ({
           <div className="flex flex-row flex-wrap gap-2 mt-2 items-center">
             <span className="italic text-gray-400">Popular Searches</span>
             <Button
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 setInput("javascript");
+                handleSearch(e, "javascript");
+                setButtonTimeout(true);
               }}
+              disabled={buttonTimeout}
             >
               <div className="absolute inset-0" />
               Javascript
             </Button>
             <Button
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 setInput("react");
+                handleSearch(e, "react");
+                setButtonTimeout(true);
               }}
+              disabled={buttonTimeout}
             >
               <div className="absolute inset-0" />
               React
             </Button>
             <Button
-              onClick={() => {
-                setInput("nodejs");
+              onClick={(e) => {
+                e.preventDefault();
+                setInput("node");
+                handleSearch(e, "node");
+                setButtonTimeout(true);
               }}
+              disabled={buttonTimeout}
             >
               <div className="absolute inset-0" />
               Nodejs
@@ -163,12 +188,16 @@ const Searchbar = ({
   );
 };
 
-function Button({ onClick, children }) {
+function Button({ onClick, children, disabled }) {
   return (
     <button
       onClick={onClick}
-      type="submit"
-      className="px-4 py-2 rounded-full relative focus:outline-none outline-none focus:text-blue-600 hover:underline focus:underline transition-all duration-300 bg-blue-400 text-white"
+      disabled={disabled}
+      type="button"
+      className={
+        "px-4 py-2 rounded-full relative focus:outline-none outline-none focus:text-blue-600 hover:underline focus:underline transition-all duration-300 bg-blue-400 text-white" +
+        (disabled ? " opacity-40 cursor-not-allowed hover:no-underline" : "")
+      }
     >
       {children}
     </button>
