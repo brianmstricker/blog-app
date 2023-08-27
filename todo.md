@@ -1,4 +1,3 @@
--image optimization on PFP
 -loading spinner
 -page not found handling
 -limit # of results per search

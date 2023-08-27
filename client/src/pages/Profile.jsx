@@ -9,6 +9,7 @@ import { PiUserCircleLight } from "react-icons/pi";
 import { storage } from "../utils/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
+import imageCompression from "browser-image-compression";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -41,11 +42,18 @@ const Profile = () => {
       });
     try {
       if (image) {
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 230,
+          useWebWorker: true,
+          maxIteration: 15,
+        };
+        const compressedImage = await imageCompression(image, options);
         const storageRef = ref(
           storage,
-          `users/${image.name.split(".")[0]}_${v4()}`
+          `users/${compressedImage.name.split(".")[0]}_${v4()}`
         );
-        const uploadTask = await uploadBytes(storageRef, image);
+        const uploadTask = await uploadBytes(storageRef, compressedImage);
         const downloadURL = await getDownloadURL(uploadTask.ref);
         user.image = downloadURL;
       }
