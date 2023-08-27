@@ -13,6 +13,7 @@ import About from "./pages/About";
 import Favorites from "./pages/Favorites";
 import Users from "./pages/Users";
 import UsersPosts from "./pages/UsersPosts";
+import ErrorPage from "./pages/ErrorPage";
 
 const Root = () => {
   return (
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
