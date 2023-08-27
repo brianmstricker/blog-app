@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "../utils/config";
 import { setLogin } from "../state/userSlice";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,10 @@ const Signin = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({ username: "", password: "" });
   const [prevUserState, setPrevUserState] = useState({ ...user });
+  const alreadyLoggedIn = useSelector((state) => state.user.user);
+  useEffect(() => {
+    if (alreadyLoggedIn) navigate("/");
+  }, [alreadyLoggedIn, navigate]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

@@ -29,6 +29,7 @@ const Post = () => {
   const [favorite, setFavorite] = useState({ response: null });
   const user = useSelector((state) => state.user.user);
   useEffect(() => {
+    if (!user) return setFavorite({ response: false });
     const getFavorite = async () => {
       try {
         const res = await axios.get(API_URL + "/favorites/post/" + id, {
@@ -40,7 +41,7 @@ const Post = () => {
       }
     };
     getFavorite();
-  }, [id]);
+  }, [id, user]);
   useEffect(() => {
     if (response) {
       setEditEntry({
@@ -166,7 +167,8 @@ const Post = () => {
                       {response.title}
                     </h1>
                     {response.author &&
-                      user._id !== response.author._id &&
+                      !!user &&
+                      user?._id !== response.author._id &&
                       (favorite.response === false ||
                         favorite.response !== undefined) && (
                         <div className="absolute top-[.6rem] right-0">
@@ -174,7 +176,8 @@ const Post = () => {
                         </div>
                       )}
                     {response.author &&
-                      user._id !== response.author._id &&
+                      !!user &&
+                      user?._id !== response.author._id &&
                       favorite &&
                       favorite.response !== null &&
                       favorite.response !== false && (
@@ -203,8 +206,8 @@ const Post = () => {
                         {format(new Date(response.createdAt), "PP, p")}
                       </p>
                       {((response.author &&
-                        user &&
-                        response.author._id === user._id) ||
+                        !!user &&
+                        response.author._id === user?._id) ||
                         (user && user.role === "admin")) && (
                         <div className="flex gap-3">
                           <TbEdit
