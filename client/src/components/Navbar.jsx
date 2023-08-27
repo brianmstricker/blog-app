@@ -17,7 +17,7 @@ const Navbar = () => {
   const [offset, setOffset] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const handleLogout = async () => {
     try {

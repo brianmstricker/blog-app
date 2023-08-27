@@ -17,6 +17,7 @@ const persistConfig = {
   key: "root",
   storage,
   blacklist: ["search"],
+  whitelist: ["user"],
 };
 
 const rootReducer = combineReducers({

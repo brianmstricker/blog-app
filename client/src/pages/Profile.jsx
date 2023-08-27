@@ -20,7 +20,7 @@ const Profile = () => {
     confirmPassword: "",
     image: "",
   });
-  const getUser = useSelector((state) => state.user);
+  const getUser = useSelector((state) => state.user.user);
   const [image, setImage] = useState(null);
   useEffect(() => {
     setUser({
@@ -58,7 +58,7 @@ const Profile = () => {
       );
       if (res.data.error)
         return toast(res.data.error, { type: "error", position: "top-center" });
-      dispatch(setLogin({ ...getUser, ...res.data }));
+      dispatch(setLogin(res.data.user));
       toast("Account Updated", {
         type: "success",
         position: "top-center",

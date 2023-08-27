@@ -20,9 +20,10 @@ const Signin = () => {
         withCredentials: true,
       });
       if (res.data.error) return alert(res.data.error);
-      dispatch(setLogin({ user: res.data.user }));
+      dispatch(setLogin(res.data.user));
       navigate("/");
     } catch (error) {
+      console.log(error);
       toast(error.response.data || error.message, {
         type: "error",
         position: "top-center",

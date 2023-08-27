@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Favorites = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
   const [favorites, setFavorites] = useState([]);
   const { response, error, isLoading } = useFetch(
     `${API_URL}/favorites/${user._id}`

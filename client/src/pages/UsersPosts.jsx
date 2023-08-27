@@ -5,7 +5,7 @@ import { API_URL } from "../utils/config";
 
 const UsersPosts = () => {
   const { id } = useParams();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
   const {
     response: posts,
     isLoading,
@@ -23,7 +23,7 @@ const UsersPosts = () => {
           {isLoading && <h1 className="text-center mt-6">Loading...</h1>}
           {error && (
             <h1 className="text-center mt-6">
-              Error: {error || "Something went wrong."}
+              Error: {error.message || "Something went wrong."}
             </h1>
           )}
           {posts && posts.length === 0 && (

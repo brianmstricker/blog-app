@@ -27,7 +27,7 @@ const Post = () => {
     tags: "",
   });
   const [favorite, setFavorite] = useState({ response: null });
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
   useEffect(() => {
     const getFavorite = async () => {
       try {
