@@ -88,7 +88,12 @@ router.get("/:userId", verifyToken, async (req, res, next) => {
     if (!favorites || favorites.length === 0) {
       return res.status(200).json([]);
     }
-    res.status(200).json(favorites.reverse());
+    favorites.forEach(async (favorite) => {
+      if (favorite.postId === null || favorite.postId === undefined) {
+        await Favorite.findByIdAndDelete(favorite._id);
+      }
+    });
+    res.status(200).json(favorites.filter((f) => f.postId !== null).reverse());
   } catch (error) {
     res.status(500);
     next(error);
