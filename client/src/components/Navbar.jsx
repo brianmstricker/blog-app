@@ -89,7 +89,7 @@ const Navbar = () => {
                 >
                   Sign in
                 </Link>
-                <span className="text-gray-600 block mt-4 w-[140px] sm:w-auto absolute">
+                <span className="text-gray-500/95 block mt-4 w-[140px] sm:w-auto absolute text-sm">
                   (Sign in to create a blog post)
                 </span>
               </div>

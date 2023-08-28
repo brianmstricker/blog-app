@@ -18,12 +18,14 @@ const SearchCard = ({ post }) => {
         >
           <LazyLoad
             debounce={false}
-            threshold={0.9}
+            threshold={0.8}
             className="h-32 lg:h-48 w-full rounded-t-xl object-cover"
           >
             <img
-              className="h-32 lg:h-48 w-full rounded-t-xl object-cover"
+              className="h-32 lg:h-48 w-full rounded-t-xl object-cover ring-1 ring-black/30"
               src={post.image}
+              loading="lazy"
+              alt={post.title}
             />
           </LazyLoad>
           <div className="p-4 overflow-hidden">

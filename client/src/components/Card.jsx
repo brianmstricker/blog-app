@@ -26,13 +26,12 @@ const Card = ({ isLoading, error, cards }) => {
               >
                 <LazyLoad
                   debounce={false}
-                  threshold={0.9}
+                  threshold={0.8}
                   className="h-32 lg:h-48 w-full rounded-t-xl object-cover"
-                  // offsetVertical={50}
                 >
                   <img
                     alt={card.title}
-                    className="h-32 lg:h-48 w-full rounded-t-xl object-cover"
+                    className="h-32 lg:h-48 w-full rounded-t-xl object-cover ring-1 ring-black/30"
                     src={card.image}
                     loading="lazy"
                   />

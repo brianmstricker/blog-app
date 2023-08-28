@@ -11,7 +11,7 @@ const About = () => {
         Tailwind CSS, and React-Router-Dom is used to handle the routing. Redux
         toolkit manages user state on the frontend, and on the backend Express
         and Mongoose are employed to handle operations, complemented by JWT for
-        authentication and bcrypt for password hashing. I hope you enjoy!
+        authentication and bcrypt for password hashing.
       </p>
       <div className="max-w-4xl mx-auto p-3 text-lg">
         <h3 className="text-4xl font-bold text-center mt-4">Features</h3>
