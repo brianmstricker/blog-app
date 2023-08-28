@@ -36,6 +36,12 @@ const Card = ({ isLoading, error, cards }) => {
           if (card.content.includes("<a")) {
             card.content = card.content.replace(/<a/g, "<span");
           }
+          if (card.content.includes("<h1")) {
+            card.content = card.content.replace(/<h1/g, "<div");
+          }
+          if (card.content.includes("<h2")) {
+            card.content = card.content.replace(/<h2/g, "<div");
+          }
           if (card.image) {
             return (
               <Link
@@ -114,10 +120,8 @@ const Card = ({ isLoading, error, cards }) => {
                       <div className="hidden lg:block overflow-hidden mt-2">
                         {parse(DOMpurify.sanitize(card.content))}
                       </div>
-                      <div className="lg:hidden overflow-hidden mt-2">
-                        {parse(
-                          DOMpurify.sanitize(card.content.substring(0, 45))
-                        )}
+                      <div className="block lg:hidden overflow-hidden mt-2">
+                        {parse(DOMpurify.sanitize(card.content))}
                       </div>
                     </>
                   )}

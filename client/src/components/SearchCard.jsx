@@ -8,6 +8,12 @@ const SearchCard = ({ post }) => {
   if (postObj.content.includes("<a")) {
     postObj.content = postObj.content.replace(/<a/g, "<span");
   }
+  if (postObj.content.includes("<h1")) {
+    postObj.content = postObj.content.replace(/<h1/g, "<div");
+  }
+  if (postObj.content.includes("<h2")) {
+    postObj.content = postObj.content.replace(/<h2/g, "<div");
+  }
   return (
     <>
       {post.image ? (
@@ -84,10 +90,8 @@ const SearchCard = ({ post }) => {
                   <div className="hidden lg:block overflow-hidden mt-2">
                     {parse(DOMpurify.sanitize(postObj.content))}
                   </div>
-                  <div className="lg:hidden overflow-hidden mt-2">
-                    {parse(
-                      DOMpurify.sanitize(postObj.content.substring(0, 45))
-                    )}
+                  <div className="block lg:hidden overflow-hidden mt-2">
+                    {parse(DOMpurify.sanitize(postObj.content))}
                   </div>
                 </div>
               </>

@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import { API_URL } from "../utils/config";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const UsersPosts = () => {
   const { id } = useParams();
@@ -20,7 +22,16 @@ const UsersPosts = () => {
       ) : (
         <>
           <h1 className="text-center mt-6">Your Posts</h1>
-          {isLoading && <h1 className="text-center mt-6">Loading...</h1>}
+          {isLoading && (
+            <div className="max-w-7xl mx-auto grid xs:grid-cols-2 gap-6 p-4">
+              <Skeleton count={3} />
+              <Skeleton count={3} />
+              <Skeleton count={3} />
+              <Skeleton count={3} />
+              <Skeleton count={3} />
+              <Skeleton count={3} />
+            </div>
+          )}
           {error && (
             <h1 className="text-center mt-6">
               Error: {error.message || "Something went wrong."}
