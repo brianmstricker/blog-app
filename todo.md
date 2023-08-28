@@ -1,4 +1,3 @@
--loading spinner
 -limit # of results per search
 -image crop for profile? https://www.npmjs.com/package/react-easy-crop
 -add image option when editing post w/o image

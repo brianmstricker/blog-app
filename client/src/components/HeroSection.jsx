@@ -106,7 +106,7 @@ const HeroSection = () => {
           <Card cards={cards} isLoading={isLoading} error={error} />
         )}
         {searchResults.length === 0 && (
-          <div className="absolute right-12 -bottom-6 flex items-center">
+          <div className="absolute right-4 -bottom-12 flex items-center">
             <Link
               to={
                 parseInt(location.search.split("=")[1]) === 2

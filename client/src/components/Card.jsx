@@ -2,11 +2,32 @@ import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 import DOMpurify from "dompurify";
 import LazyLoad from "react-lazy-load";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
+const SkeletonCard = () => {
+  return (
+    <div className="flex flex-col h-[300px] p-4">
+      <div className="h-[200px]">
+        <Skeleton height={200} />
+      </div>
+      <div className="p-4">
+        <Skeleton count={3} />
+      </div>
+    </div>
+  );
+};
 const Card = ({ isLoading, error, cards }) => {
   return (
     <>
-      {isLoading && <h4 className="text-center">Loading...</h4>}
+      {isLoading && (
+        <>
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+        </>
+      )}
       {error && <h4>{error.message || "Something went wrong."}</h4>}
       {!isLoading &&
         !error &&

@@ -52,24 +52,33 @@ const Navbar = () => {
           </Link>
         </h1>
         <div className="hidden nav:flex gap-5 items-center lg:text-lg absolute w-fit left-[50%] right-[50%] translate-x-[-50%] xs:-ml-12 md:mr-2 lg:ml-0">
-          <ul className="flex gap-2 lg:gap-5 items-center">
-            <li>
+          <ul className="flex gap-3 lg:gap-5 items-center">
+            <li className="relative group">
+              <div className="w-2 h-2 bg-blue-400 absolute rounded-full  left-[50%] right-[50%] translate-x-[-50%] -top-[300px] group-hover:-top-[8px] transition-all duration-300" />
               <Link to="/" onClick={clearSearch}>
                 Home
               </Link>
             </li>
-            <li>
+            <li className="relative group">
+              <div className="w-[2px] h-6 bg-gray-300 -left-[8px] lg:-left-3 absolute" />
+              <div className="w-2 h-2 bg-blue-400 absolute rounded-full  left-[50%] right-[50%] translate-x-[-50%] -top-[300px] group-hover:-top-[8px] transition-all duration-300" />
               <Link to="/about">About</Link>
             </li>
             {!!user && (
               <>
-                <li className="w-max">
+                <li className="w-max relative group">
+                  <div className="w-2 h-2 bg-blue-400 absolute rounded-full  left-[50%] right-[50%] translate-x-[-50%] -top-[300px] group-hover:-top-[8px] transition-all duration-300" />
+                  <div className="w-[2px] h-6 bg-gray-300 -left-[8px] lg:-left-3 absolute" />
                   <Link to={`/user/posts/${user._id}`}>Your Posts</Link>
                 </li>
-                <li>
+                <li className="relative group">
+                  <div className="w-2 h-2 bg-blue-400 absolute rounded-full  left-[50%] right-[50%] translate-x-[-50%] -top-[300px] group-hover:-top-[8px] transition-all duration-300" />
+                  <div className="w-[2px] h-6 bg-gray-300 -left-[8px] lg:-left-3 absolute" />
                   <Link to="/favorites">Favorites</Link>
                 </li>
-                <li className="w-max">
+                <li className="w-max relative group">
+                  <div className="w-2 h-2 bg-blue-400 absolute rounded-full  left-[50%] right-[50%] translate-x-[-50%] -top-[300px] group-hover:-top-[8px] transition-all duration-300" />
+                  <div className="w-[2px] h-6 bg-gray-300 -left-[8px] lg:-left-3 absolute" />
                   <Link className="font-bold" to="/create">
                     Create Blog
                   </Link>
