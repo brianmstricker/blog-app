@@ -43,7 +43,7 @@ const CreatePost = () => {
       if (image) {
         const options = {
           maxSizeMB: 1,
-          maxWidthOrHeight: 375,
+          maxWidthOrHeight: 500,
           useWebWorker: true,
           maxIteration: 15,
         };
