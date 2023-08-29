@@ -5,7 +5,7 @@ export const postValidation = yup.object().shape({
     .string()
     .required("Title is required.")
     .min(3, "Title is too short.")
-    .max(50, "Title is too long."),
+    .max(70, "Title is too long."),
   shortDescription: yup
     .string()
     .required("Description is required.")
