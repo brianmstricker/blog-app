@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { API_URL } from "../utils/config";
 import { setLogin } from "../state/userSlice";
 import { toast } from "react-toastify";
 import Input from "../components/Input";
@@ -58,7 +57,7 @@ const Profile = () => {
         user.image = downloadURL;
       }
       const res = await axios.put(
-        API_URL + `/users/update/${getUser._id}`,
+        import.meta.env.VITE_API_URL + `/users/update/${getUser._id}`,
         user,
         {
           withCredentials: true,

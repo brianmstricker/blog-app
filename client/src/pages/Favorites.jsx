@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import useFetch from "../hooks/useFetch";
-import { API_URL } from "../utils/config";
 import { Link } from "react-router-dom";
 import { GoTrash } from "react-icons/go";
 import { useEffect, useState } from "react";
@@ -12,7 +11,7 @@ const Favorites = () => {
   const user = useSelector((state) => state.user.user);
   const [favorites, setFavorites] = useState([]);
   const { response, error, isLoading } = useFetch(
-    `${API_URL}/favorites/${user._id}`
+    `${import.meta.env.VITE_API_URL}/favorites/${user._id}`
   );
   useEffect(() => {
     if (response) {
@@ -21,9 +20,12 @@ const Favorites = () => {
   }, [response]);
   const handleRemoveFavorite = async (id) => {
     try {
-      const res = await axios.delete(`${API_URL}/favorites/${id}`, {
-        withCredentials: true,
-      });
+      const res = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/favorites/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
       if (res.data) {
         setFavorites((prev) => prev.filter((item) => item._id !== id));
       }

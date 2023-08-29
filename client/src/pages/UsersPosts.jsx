@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
-import { API_URL } from "../utils/config";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -12,7 +11,7 @@ const UsersPosts = () => {
     response: posts,
     isLoading,
     error,
-  } = useFetch(API_URL + `/posts/user/${id}`);
+  } = useFetch(import.meta.env.VITE_API_URL + `/posts/user/${id}`);
   return (
     <div className="mb-8">
       {user && user._id !== id ? (

@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { API_URL } from "../utils/config";
 import { setLogin } from "../state/userSlice";
 import { toast } from "react-toastify";
 import { userValidation } from "../validations/userValidation";
@@ -38,9 +37,13 @@ const Signup = () => {
       });
     if (!validate) return;
     try {
-      const res = await axios.post(API_URL + "/auth/register", user, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        import.meta.env.VITE_API_URL + "/auth/register",
+        user,
+        {
+          withCredentials: true,
+        }
+      );
       if (res.data.error) return alert(res.data.error);
       dispatch(setLogin({ user: res.data.user }));
       navigate("/");

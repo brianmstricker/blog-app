@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { setLogout } from "../state/userSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { API_URL } from "../utils/config";
 import { PiUserCircleLight } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -22,7 +21,11 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       if (!user) return;
-      await axios.post(API_URL + "/auth/logout", {}, { withCredentials: true });
+      await axios.post(
+        import.meta.env.VITE_API_URL + "/auth/logout",
+        {},
+        { withCredentials: true }
+      );
       dispatch(setLogout());
     } catch (error) {
       console.log(error);

@@ -1,7 +1,6 @@
 import Input from "../components/Input";
 import axios from "axios";
 import { useRef, useState } from "react";
-import { API_URL } from "../utils/config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
@@ -56,9 +55,13 @@ const CreatePost = () => {
         const downloadURL = await getDownloadURL(uploadTask.ref);
         post.image = downloadURL;
       }
-      const data = await axios.post(API_URL + "/posts/create", post, {
-        withCredentials: true,
-      });
+      const data = await axios.post(
+        import.meta.env.VITE_API_URL + "/posts/create",
+        post,
+        {
+          withCredentials: true,
+        }
+      );
       if (data.data.error) return alert(data.data.error);
       toast.success("Post created successfully");
       setPost({

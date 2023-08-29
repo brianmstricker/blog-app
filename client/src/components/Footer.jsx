@@ -13,7 +13,7 @@ const Footer = () => {
             <h6 className="font-bold text-lg">About</h6>
           </Link>
           {user && (
-            <Link to={`/posts/${user._id}`}>
+            <Link to={`/user/posts/${user._id}`}>
               <h6 className="font-bold text-lg w-max">Your Posts</h6>
             </Link>
           )}

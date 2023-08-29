@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
-import { API_URL } from "../utils/config";
 import { TbEdit } from "react-icons/tb";
 import { MdOutlineDelete } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -20,7 +19,9 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const Post = () => {
   const { id } = useParams();
-  const { response, isLoading, error } = useFetch(API_URL + "/posts/" + id);
+  const { response, isLoading, error } = useFetch(
+    import.meta.env.VITE_API_URL + "/posts/" + id
+  );
   const [isEditing, setIsEditing] = useState(false);
   const [editEntry, setEditEntry] = useState({
     title: "",
@@ -34,9 +35,12 @@ const Post = () => {
     if (!user) return setFavorite({ response: false });
     const getFavorite = async () => {
       try {
-        const res = await axios.get(API_URL + "/favorites/post/" + id, {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          import.meta.env.VITE_API_URL + "/favorites/post/" + id,
+          {
+            withCredentials: true,
+          }
+        );
         setFavorite({ response: res.data });
       } catch (error) {
         toast.error(error.response.data.message || error.message);
@@ -65,7 +69,9 @@ const Post = () => {
     ) {
       try {
         await axios.delete(
-          API_URL + "/favorites/" + (favorite.response[0]._id || favorite._id),
+          import.meta.env.VITE_API_URL +
+            "/favorites/" +
+            (favorite.response[0]._id || favorite._id),
           {
             withCredentials: true,
           }
@@ -77,7 +83,7 @@ const Post = () => {
     } else {
       try {
         const fav = await axios.post(
-          API_URL + "/favorites",
+          import.meta.env.VITE_API_URL + "/favorites",
           {
             postId: id,
             userId: user._id,
@@ -94,7 +100,7 @@ const Post = () => {
   };
   const handleDelete = async () => {
     try {
-      await axios.delete(API_URL + "/posts/delete/" + id, {
+      await axios.delete(import.meta.env.VITE_API_URL + "/posts/delete/" + id, {
         headers: {
           token: user._id,
         },
@@ -107,12 +113,16 @@ const Post = () => {
   };
   const handleEditSubmit = async () => {
     try {
-      await axios.put(API_URL + "/posts/update/" + id, editEntry, {
-        headers: {
-          token: user._id,
-        },
-        withCredentials: true,
-      });
+      await axios.put(
+        import.meta.env.VITE_API_URL + "/posts/update/" + id,
+        editEntry,
+        {
+          headers: {
+            token: user._id,
+          },
+          withCredentials: true,
+        }
+      );
       setIsEditing(false);
     } catch (err) {
       toast.error(err.response.data.message || err.message);

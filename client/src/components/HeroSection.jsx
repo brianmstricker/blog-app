@@ -4,7 +4,6 @@ import Card from "./Card";
 import Searchbar from "./Searchbar";
 import SearchCard from "./SearchCard";
 import useFetch from "../hooks/useFetch";
-import { API_URL } from "../utils/config";
 import { useSearchParams, Link, useLocation } from "react-router-dom";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,7 +26,8 @@ const HeroSection = () => {
     }
   }, [searchParams]);
   const { response, isLoading, error } = useFetch(
-    API_URL + `/posts?page=${searchParams.get("page") || page}`
+    import.meta.env.VITE_API_URL +
+      `/posts?page=${searchParams.get("page") || page}`
   );
   useEffect(() => {
     if (response) {

@@ -1,9 +1,10 @@
 import useFetch from "../hooks/useFetch";
-import { API_URL } from "../utils/config";
 import { PiUserCircleLight } from "react-icons/pi";
 
 const Users = () => {
-  const { response, error, isLoading } = useFetch(API_URL + "/users");
+  const { response, error, isLoading } = useFetch(
+    import.meta.env.VITE_API_URL + "/users"
+  );
   return (
     <div className="container mx-auto">
       <h1 className="text-center mt-8 font-bold">List of Users</h1>
