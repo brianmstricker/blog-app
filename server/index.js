@@ -17,8 +17,8 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
       "https://blog-app-frontend-kz1l.onrender.com",
+      "http://localhost:5173",
     ],
     credentials: true,
   })

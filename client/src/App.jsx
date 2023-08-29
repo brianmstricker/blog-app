@@ -14,6 +14,9 @@ import Favorites from "./pages/Favorites";
 import Users from "./pages/Users";
 import UsersPosts from "./pages/UsersPosts";
 // import ErrorPage from "./pages/ErrorPage";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 const Root = () => {
   return (
