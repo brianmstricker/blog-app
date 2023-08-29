@@ -9,8 +9,8 @@ export const postValidation = yup.object().shape({
   shortDescription: yup
     .string()
     .required("Description is required.")
-    .min(10, "Description is too short.")
-    .max(150, "Description is too long."),
+    .min(30, "Description is too short.")
+    .max(300, "Description is too long."),
   content: yup
     .string()
     .required("Content is required.")

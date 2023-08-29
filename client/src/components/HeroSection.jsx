@@ -99,7 +99,7 @@ const HeroSection = () => {
           <div className="w-[91%] h-1 bg-gradient-to-r from-blue-400 to-slate-300" />
         </div>
       </section>
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 container mx-auto relative mb-6 xs:mb-12">
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 container mx-auto relative mb-6 sm:pl-3 xl:pl-8">
         {searchResults.length > 0 ? (
           searchResults.map((post) => <SearchCard key={post._id} post={post} />)
         ) : (

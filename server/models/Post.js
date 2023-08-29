@@ -8,8 +8,8 @@ const PostSchema = new mongoose.Schema(
     shortDescription: {
       type: String,
       required: true,
-      minLength: 10,
-      maxLength: 150,
+      minLength: 30,
+      maxLength: 300,
     },
     image: { type: String, required: false },
     tags: [{ type: String, required: false }],

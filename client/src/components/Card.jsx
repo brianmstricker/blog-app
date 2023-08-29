@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-// import parse from "html-react-parser";
-// import DOMpurify from "dompurify";
 import LazyLoad from "react-lazy-load";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -33,22 +31,13 @@ const Card = ({ isLoading, error, cards }) => {
         !error &&
         cards.length > 0 &&
         cards.map((card) => {
-          // if (card.content.includes("<a")) {
-          //   card.content = card.content.replace(/<a/g, "<span");
-          // }
-          // if (card.content.includes("<h1")) {
-          //   card.content = card.content.replace(/<h1/g, "<div");
-          // }
-          // if (card.content.includes("<h2")) {
-          //   card.content = card.content.replace(/<h2/g, "<div");
-          // }
           if (card.image) {
             return (
               <Link
                 to={`/post/${card._id}`}
                 key={card._id}
                 className={
-                  "bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-[260px] rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer shadow-md shadow-black/50"
+                  "bg-gray-300 w-[90%] sm:w-auto max-w-[300px] rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer shadow-md shadow-black/50"
                 }
               >
                 <LazyLoad
@@ -63,18 +52,18 @@ const Card = ({ isLoading, error, cards }) => {
                     loading="lazy"
                   />
                 </LazyLoad>
-                <div className="py-2 px-4 overflow-hidden">
-                  <h1 className="text-xl flex flex-col mb-0">
-                    <span className="font-bold text-base xl:text-xl capitalize overflow-hidden">
+                <div className="py-2 px-4 tracking-tighter">
+                  <h3 className="flex flex-col mb-0">
+                    <span className="font-bold text-base xl:text-lg xl:leading-5 capitalize">
                       {card.title}
                     </span>
                     {card.author && card.author.username && (
-                      <span className="text-gray-500 overflow-hidden text-sm">
+                      <span className="text-gray-500 text-sm">
                         by {card.author.username}
                       </span>
                     )}
-                  </h1>
-                  <div className="sm:hidden">{card.shortDescription}</div>
+                  </h3>
+                  <div className="text-sm">{card.shortDescription}</div>
                 </div>
               </Link>
             );
@@ -84,48 +73,23 @@ const Card = ({ isLoading, error, cards }) => {
                 to={`/post/${card._id}`}
                 key={card._id}
                 className={
-                  "bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-[250px] rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer overflow-hidden shadow-md shadow-black/50"
+                  "bg-gray-300 w-[90%] sm:w-auto max-w-[300px] rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer shadow-md shadow-black/50"
                 }
               >
-                <div className="p-4 h-full flex flex-col">
+                <div className="px-4 py-2 h-full flex flex-col tracking-tighter">
                   <div>
-                    <h1 className="overflow-hidden mt-2 text-xl flex flex-col mb-0">
-                      <span className="font-bold xl:text-2xl capitalize overflow-hidden leading-tight">
+                    <h3 className="mt-2 flex flex-col mb-0">
+                      <span className="font-bold text-base xl:text-lg xl:leading-5 capitalize">
                         {card.title}
                       </span>
                       {card.author && card.author.username && (
-                        <span className="text-gray-500 overflow-hidden text-sm">
+                        <span className="text-gray-500 text-sm">
                           by {card.author.username}
                         </span>
                       )}
-                    </h1>
+                    </h3>
                   </div>
-                  {/* {card.content.length > 150 ? (
-                    <>
-                      <div className="block xs:hidden lg:block overflow-hidden mt-2 justify-self-end">
-                        {parse(
-                          DOMpurify.sanitize(card.content.substring(0, 150)) +
-                            "..."
-                        )}
-                      </div>
-                      <div className="hidden xs:block lg:hidden overflow-hidden mt-2 justify-self-end">
-                        {parse(
-                          DOMpurify.sanitize(card.content.substring(0, 100)) +
-                            "..."
-                        )}
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="hidden lg:block overflow-hidden mt-2">
-                        {parse(DOMpurify.sanitize(card.content))}
-                      </div>
-                      <div className="block lg:hidden overflow-hidden mt-2">
-                        {parse(DOMpurify.sanitize(card.content))}
-                      </div>
-                    </>
-                  )} */}
-                  <div className="mt-4">{card.shortDescription}</div>
+                  <div className="mt-4 text-sm">{card.shortDescription}</div>
                 </div>
               </Link>
             );

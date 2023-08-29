@@ -155,10 +155,12 @@ const Post = () => {
           {!isEditing ? (
             <div className="max-w-4xl mx-auto p-3">
               {response.image && (
-                <img
-                  className="mx-auto rounded-xl md:h-[400px] object-contain md:object-cover mt-8 ring-2 ring-black"
-                  src={response.image}
-                />
+                <div className="flex max-h-[400px] rounded-xl ring-2 ring-black overflow-hidden w-fit mx-auto">
+                  <img
+                    className="object-contain mx-auto"
+                    src={response.image}
+                  />
+                </div>
               )}
               <div className="p-3">
                 <div className="gap-8 my-4">
