@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const Footer = () => {
   const user = useSelector((state) => state.user.user);
   return (
-    <footer className="container mx-auto py-12 nav:px-8">
+    <footer className="container mx-auto py-12 nav:px-8 pt-16">
       <div className="flex flex-col nav:flex-row nav:justify-between mx-auto items-center">
         <div className="flex gap-4 xl:gap-6">
           <Link to="/about">

@@ -36,9 +36,7 @@ const Favorites = () => {
       <h1 className="text-4xl font-bold text-center mt-8">Favorites</h1>
       {isLoading && (
         <div className="flex flex-col gap-2 px-4 max-w-4xl mx-auto w-[90%] xl:w-auto mb-6">
-          <Skeleton count={1} height={90} />
-          <Skeleton count={1} height={90} />
-          <Skeleton count={1} height={90} />
+          <Skeleton count={3} height={90} />
         </div>
       )}
       {error && <div>{error.message || "Something went wrong."}</div>}

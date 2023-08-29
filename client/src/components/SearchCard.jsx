@@ -6,7 +6,7 @@ const SearchCard = ({ post }) => {
     <>
       {post.image ? (
         <Link
-          className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-[260px] rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer shadow-md shadow-black/50"
+          className="bg-gray-300 w-[90%] sm:w-auto max-w-[300px] rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer shadow-md shadow-black/50"
           key={post._id}
           to={`/post/${post._id}`}
         >
@@ -22,40 +22,40 @@ const SearchCard = ({ post }) => {
               alt={post.title}
             />
           </LazyLoad>
-          <div className="py-2 px-4 overflow-hidden">
-            <h3 className="text-xl flex flex-col mb-0">
-              <span className="font-bold text-base xl:text-xl capitalize overflow-hidden">
+          <div className="py-2 px-4 tracking-tighter">
+            <h3 className="flex flex-col mb-0">
+              <span className="font-bold text-base xl:text-lg xl:leading-5 capitalize">
                 {post.title}
               </span>
               {post.author && post.author.username && (
-                <span className="text-gray-500 overflow-hidden text-sm">
+                <span className="text-gray-500  text-sm">
                   by {post.author.username}
                 </span>
               )}
             </h3>
-            <div className="sm:hidden">{post.shortDescription}</div>
+            <div className="text-sm">{post.shortDescription}</div>
           </div>
         </Link>
       ) : (
         <Link
-          className="bg-gray-300 w-[90%] sm:w-auto max-w-[350px] sm:max-h-[275px] lg:max-h-[260px] rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer shadow-md shadow-black/50"
+          className="bg-gray-300 w-[90%] sm:w-auto max-w-[300px] rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer shadow-md shadow-black/50"
           key={post._id}
           to={`/post/${post._id}`}
         >
-          <div className="px-4 py-2 h-full flex flex-col">
+          <div className="px-4 py-2 h-full flex flex-col tracking-tight">
             <div>
-              <h3 className="overflow-hidden mt-2 text-xl flex flex-col mb-0">
-                <span className="font-bold xl:text-2xl capitalize overflow-hidden leading-tight">
+              <h3 className="mt-2 flex flex-col mb-0">
+                <span className="font-bold text-base xl:text-lg xl:leading-5 capitalize">
                   {post.title}
                 </span>
                 {post.author && post.author.username && (
-                  <span className="text-gray-500 overflow-hidden text-sm">
+                  <span className="text-gray-500 text-sm">
                     by {post.author.username}
                   </span>
                 )}
               </h3>
             </div>
-            <div className="mt-4">{post.shortDescription}</div>
+            <div className="mt-4 text-sm">{post.shortDescription}</div>
           </div>
         </Link>
       )}

@@ -158,7 +158,7 @@ const Navbar = () => {
         )}
       </nav>
       {showMenu && (
-        <div className="fixed inset-0 w-screen min-h-screen bg-black/90 flex flex-col items-center justify-center nav:hidden z-10 text-white text-3xl">
+        <div className="fixed inset-0 w-screen min-h-screen bg-black/90 flex flex-col items-center justify-center nav:hidden z-50 text-white text-3xl">
           <div className="absolute top-1 right-1 z-20">
             <AiOutlineClose
               className="text-4xl"

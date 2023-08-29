@@ -15,6 +15,8 @@ import parse from "html-react-parser";
 import DOMpurify from "dompurify";
 import { format } from "date-fns";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Post = () => {
   const { id } = useParams();
@@ -144,7 +146,11 @@ const Post = () => {
   ];
   return (
     <>
-      {isLoading && <h4 className="text-center">Loading...</h4>}
+      {isLoading && (
+        <div className="container mx-auto max-w-4xl mt-12 p-3">
+          <Skeleton height={50} count={10} />
+        </div>
+      )}
       {error && (
         <h4 className="text-center">
           {error.message || "Something went wrong."}

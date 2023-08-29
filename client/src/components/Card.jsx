@@ -76,7 +76,7 @@ const Card = ({ isLoading, error, cards }) => {
                   "bg-gray-300 w-[90%] sm:w-auto max-w-[300px] rounded-xl mb-6 sm:mb-8 m-2 mx-auto sm:mx-2 hover:cursor-pointer shadow-md shadow-black/50"
                 }
               >
-                <div className="px-4 py-2 h-full flex flex-col tracking-tighter">
+                <div className="px-4 py-2 h-full flex flex-col tracking-tight">
                   <div>
                     <h3 className="mt-2 flex flex-col mb-0">
                       <span className="font-bold text-base xl:text-lg xl:leading-5 capitalize">
