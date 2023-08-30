@@ -67,6 +67,15 @@ const Navbar = () => {
               <div className="w-2 h-2 bg-blue-400 absolute rounded-full  left-[50%] right-[50%] translate-x-[-50%] -top-[300px] group-hover:-top-[8px] transition-all duration-300" />
               <Link to="/about">About</Link>
             </li>
+            {!user && (
+              <li className="relative group w-max">
+                <div className="w-[2px] h-6 bg-gray-300 -left-[8px] lg:-left-3 absolute" />
+                <div className="w-2 h-2 bg-blue-400 absolute rounded-full  left-[50%] right-[50%] translate-x-[-50%] -top-[300px] group-hover:-top-[8px] transition-all duration-300" />
+                <Link className="font-bold" to="/create">
+                  Create Blog
+                </Link>
+              </li>
+            )}
             {!!user && (
               <>
                 <li className="w-max relative group">
@@ -101,9 +110,11 @@ const Navbar = () => {
                 >
                   Sign in
                 </Link>
-                <span className="text-gray-500/95 block mt-4 w-[140px] sm:w-auto absolute text-sm">
-                  (Sign in to create a blog post)
-                </span>
+                {location.pathname === "/" && (
+                  <span className="text-gray-500/95 block mt-4 w-[140px] sm:w-auto absolute text-sm">
+                    (Sign in to create a blog post)
+                  </span>
+                )}
               </div>
             )}
           {!!user && (
