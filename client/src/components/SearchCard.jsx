@@ -22,7 +22,7 @@ const SearchCard = ({ post }) => {
               alt={post.title}
             />
           </LazyLoad>
-          <div className="py-2 px-4 tracking-tighter">
+          <div className="py-2 px-4 tracking-tight">
             <h3 className="flex flex-col mb-0">
               <span className="font-bold text-base xl:text-lg xl:leading-5 capitalize">
                 {post.title}

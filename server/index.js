@@ -17,11 +17,12 @@ const app = express();
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV !== "production") {
+  console.log("CORS enabled");
   app.use(
     cors({
       credentials: true,
-      origin: ["http://localhost:5173"],
+      origin: "http://localhost:5173",
     })
   );
 }

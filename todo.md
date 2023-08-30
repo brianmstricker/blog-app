@@ -1,4 +1,4 @@
--update mobile site (production) \*change container
+-update mobile site (production)---change container styling, card text, not display profile tab on mobile devices, update icon
 -update mobile nav to show user image
 -limit # of results per search
 -image crop for profile? https://www.npmjs.com/package/react-easy-crop
