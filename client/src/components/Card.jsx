@@ -42,7 +42,7 @@ const Card = ({ isLoading, error, cards }) => {
               >
                 <LazyLoad
                   debounce={false}
-                  threshold={0.8}
+                  threshold={0.6}
                   className="h-36 w-full rounded-t-xl object-cover"
                 >
                   <img
