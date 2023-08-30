@@ -1,3 +1,5 @@
+-update mobile site (production) \*change container
+-update mobile nav to show user image
 -limit # of results per search
 -image crop for profile? https://www.npmjs.com/package/react-easy-crop
 -add image option when editing post w/o image
