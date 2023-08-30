@@ -47,6 +47,9 @@ app.use("/api/comments", commentRoutes);
 app.use("/api/favorites", favoriteRoutes);
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname, "./dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./dist/index.html"));
+});
 app.listen(process.env.PORT, () => {
   connect();
   console.log(`Server running on port ${process.env.PORT}`);
