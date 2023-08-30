@@ -14,6 +14,7 @@ import morgan from "morgan";
 const app = express();
 app.use(morgan("dev"));
 app.use(cookieParser());
+app.use(cors({ origin: true, credentials: true }));
 // app.use(
 //   cors({
 //     credentials: true,
