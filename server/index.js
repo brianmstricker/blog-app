@@ -14,15 +14,15 @@ import morgan from "morgan";
 const app = express();
 app.use(morgan("dev"));
 app.use(cookieParser());
-app.use(
-  cors({
-    credentials: true,
-    origin: [
-      "https://blog-app-frontend-kz1l.onrender.com",
-      "http://localhost:5173",
-    ],
-  })
-);
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: [
+//       "https://blog-app-frontend-kz1l.onrender.com",
+//       "http://localhost:5173",
+//     ],
+//   })
+// );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const connect = async () => {
