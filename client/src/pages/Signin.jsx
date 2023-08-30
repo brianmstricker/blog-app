@@ -52,14 +52,14 @@ const Signin = () => {
           Sign in to create a blog!
         </h1>
         <input
-          className="rounded-xl px-4 py-2 w-1/2 md:w-1/3 mx-auto mt-8 border-gray-300 border-2 focus:border-blue-400 outline-0"
+          className="rounded-xl px-4 py-2 w-1/3 mx-auto mt-8 border-gray-300 border-2 focus:border-blue-400 outline-0"
           type="text"
           placeholder="Username"
           value={user.username}
           onChange={(e) => setUser({ ...user, username: e.target.value })}
         />
         <input
-          className="rounded-xl px-4 py-2 w-1/2 md:w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
+          className="rounded-xl px-4 py-2 w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
           type="password"
           placeholder="Password"
           value={user.password}

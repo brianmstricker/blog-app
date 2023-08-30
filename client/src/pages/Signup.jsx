@@ -77,7 +77,7 @@ const Signup = () => {
           Create an account!
         </h1>
         <input
-          className="rounded-xl px-4 py-2 w-1/2 md:w-1/3 mx-auto mt-8 border-gray-300 border-2 focus:border-blue-400 outline-0"
+          className="rounded-xl px-4 py-2 w-1/3 mx-auto mt-8 border-gray-300 border-2 focus:border-blue-400 outline-0"
           type="text"
           placeholder="Name"
           value={user.name}
@@ -90,7 +90,7 @@ const Signup = () => {
           </p>
         )}
         <input
-          className="rounded-xl px-4 py-2 w-1/2 md:w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
+          className="rounded-xl px-4 py-2 w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
           type="text"
           placeholder="Username"
           value={user.username}
@@ -103,7 +103,7 @@ const Signup = () => {
           </p>
         )}
         <input
-          className="rounded-xl px-4 py-2 w-1/2 md:w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
+          className="rounded-xl px-4 py-2 w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
           type="email"
           placeholder="Email"
           value={user.email}
@@ -116,7 +116,7 @@ const Signup = () => {
           </p>
         )}
         <input
-          className="rounded-xl px-4 py-2 w-1/2 md:w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
+          className="rounded-xl px-4 py-2 w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
           type="password"
           placeholder="Password"
           value={user.password}
@@ -129,7 +129,7 @@ const Signup = () => {
           </p>
         )}
         <input
-          className="rounded-xl px-4 py-2 w-1/2 md:w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
+          className="rounded-xl px-4 py-2 w-1/3 mx-auto mt-4 border-gray-300 border-2 focus:border-blue-400 outline-0"
           type="password"
           placeholder="Confirm Password"
           value={user.confirmPassword}
