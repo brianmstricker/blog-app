@@ -67,7 +67,7 @@ router.post("/register", async (req, res, next) => {
       maxAge: 1000 * 60 * 60 * 24 * 15,
       sameSite: "none",
       secure: true,
-      domain: "https://blog-app-frontend-kz1l.onrender.com",
+      domain: "https://blog-app-backend-aw42.onrender.com/",
     });
     const {
       password: userpass,
@@ -102,7 +102,7 @@ router.post("/login", async (req, res, next) => {
       maxAge: 1000 * 60 * 60 * 24 * 15,
       sameSite: "none",
       secure: true,
-      domain: "https://blog-app-frontend-kz1l.onrender.com",
+      domain: "https://blog-app-backend-aw42.onrender.com/",
     });
     const {
       password: userpass,
