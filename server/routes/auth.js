@@ -62,6 +62,7 @@ router.post("/register", async (req, res, next) => {
         expiresIn: "15d",
       }
     );
+    res.setHeader("Access-Control-Allow-Credentials", true);
     res.cookie("accessToken", token, {
       httpOnly: true,
       // maxAge: 1000 * 60 * 60 * 24 * 15,
@@ -96,6 +97,7 @@ router.post("/login", async (req, res, next) => {
         expiresIn: "15d",
       }
     );
+    res.setHeader("Access-Control-Allow-Credentials", true);
     res.cookie("accessToken", token, {
       httpOnly: true,
       // maxAge: 1000 * 60 * 60 * 24 * 15,
@@ -117,6 +119,12 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.post("/logout", (req, res) => {
+  res.cookie("accessToken", "", {
+    httpOnly: true,
+    // maxAge: 0,
+    sameSite: "none",
+    secure: true,
+  });
   res.clearCookie("accessToken");
   res.status(200).json("Logged out successfully.");
 });
