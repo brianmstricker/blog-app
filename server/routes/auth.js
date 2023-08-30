@@ -62,12 +62,12 @@ router.post("/register", async (req, res, next) => {
         expiresIn: "15d",
       }
     );
-    res.setHeader("Access-Control-Allow-Credentials", true);
     res.cookie("accessToken", token, {
       httpOnly: true,
-      // maxAge: 1000 * 60 * 60 * 24 * 15,
+      maxAge: 1000 * 60 * 60 * 24 * 15,
       sameSite: "none",
       secure: true,
+      domain: "https://blog-app-frontend-kz1l.onrender.com",
     });
     const {
       password: userpass,
@@ -97,12 +97,12 @@ router.post("/login", async (req, res, next) => {
         expiresIn: "15d",
       }
     );
-    res.setHeader("Access-Control-Allow-Credentials", true);
     res.cookie("accessToken", token, {
       httpOnly: true,
-      // maxAge: 1000 * 60 * 60 * 24 * 15,
+      maxAge: 1000 * 60 * 60 * 24 * 15,
       sameSite: "none",
       secure: true,
+      domain: "https://blog-app-frontend-kz1l.onrender.com",
     });
     const {
       password: userpass,
@@ -121,7 +121,7 @@ router.post("/login", async (req, res, next) => {
 router.post("/logout", (req, res) => {
   res.cookie("accessToken", "", {
     httpOnly: true,
-    // maxAge: 0,
+    maxAge: 0,
     sameSite: "none",
     secure: true,
   });
