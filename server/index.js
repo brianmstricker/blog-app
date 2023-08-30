@@ -36,11 +36,11 @@ const connect = async () => {
     console.log(`Error: ${error.message}`);
   }
 };
-app.use("/api/users", userRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/posts", postRoutes);
-app.use("/api/comments", commentRoutes);
-app.use("/api/favorites", favoriteRoutes);
+app.use("/users", userRoutes);
+app.use("/auth", authRoutes);
+app.use("/posts", postRoutes);
+app.use("/comments", commentRoutes);
+app.use("/favorites", favoriteRoutes);
 app.listen(process.env.PORT, () => {
   connect();
   console.log(`Server running on port ${process.env.PORT}`);
