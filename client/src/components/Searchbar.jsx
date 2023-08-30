@@ -32,7 +32,9 @@ const Searchbar = ({
     input = input.trim();
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/posts/search?search=${input || searchTerm}`
+        `${import.meta.env.VITE_API_URL}/posts/search?search=${
+          input || searchTerm
+        }`
       );
       if (res.data.length === 0) {
         toast.error("No results found");

@@ -13,7 +13,7 @@ import About from "./pages/About";
 import Favorites from "./pages/Favorites";
 import Users from "./pages/Users";
 import UsersPosts from "./pages/UsersPosts";
-// import ErrorPage from "./pages/ErrorPage";
+import ErrorPage from "./pages/ErrorPage";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",

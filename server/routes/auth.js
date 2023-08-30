@@ -63,7 +63,7 @@ router.post("/register", async (req, res, next) => {
       }
     );
     res.cookie("accessToken", token, {
-      httpOnly: true,
+      httpOnly: false,
       maxAge: 1000 * 60 * 60 * 24 * 15,
       sameSite: "none",
       secure: true,
@@ -97,7 +97,7 @@ router.post("/login", async (req, res, next) => {
       }
     );
     res.cookie("accessToken", token, {
-      httpOnly: true,
+      httpOnly: false,
       maxAge: 1000 * 60 * 60 * 24 * 15,
       sameSite: "none",
       secure: true,
