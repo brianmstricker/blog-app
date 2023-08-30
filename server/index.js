@@ -17,8 +17,6 @@ const app = express();
 app.use(morgan("dev"));
 app.use(cookieParser());
 
-// app.use(cors({ origin: true, credentials: true }));
-// app.use(cors({origin: "*.brianstricker.com"}, credentials: true))
 if (process.env.NODE_ENV === "development") {
   app.use(
     cors({
